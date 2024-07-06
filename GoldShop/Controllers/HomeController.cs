@@ -9,6 +9,7 @@ using GoldShop.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Formatters.Xml;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace GoldShop.Controllers;
 
@@ -306,7 +307,7 @@ public class HomeController : Controller
         return gold + wagesGold + tax + profit;
     }
 
-    public async Task InsertUser(string number, string password, string email)
+    public async Task<IActionResult > InsertUser(string number, string password, string email)
     {
         if (!await _userManager.Users.AnyAsync(x => x.PhoneNumber == number))
         {
@@ -333,34 +334,63 @@ public class HomeController : Controller
             await _userManager.CreateAsync(user, password);
             await _userManager.AddToRoleAsync(user, "user");
             await _userManager.UpdateAsync(user);
-            RedirectToAction("Index");
+            return  RedirectToAction("Index");
         }
         else
         {
-            RedirectToAction("Index");
+            return  RedirectToAction("Index");
         }
        
     }
+    public async Task<IActionResult > AddToBasket(int id)
+    {
+        var basketlist = new List<int>();
 
-    public async Task UserLogin(string number, string password)
+        if (HttpContext.Session.GetString("basket") != null)
+        {
+            basketlist = JsonConvert.DeserializeObject<List<int>>(HttpContext.Session.GetString("basket")).ToList();
+        }
+
+        basketlist.Add(id);
+        HttpContext.Session.SetString("basket", JsonConvert.SerializeObject(basketlist));
+
+        return RedirectToAction("Index", "Home");
+    }
+    public async Task<IActionResult > Basket()
+    {
+        ViewBag.Cats = await _work.GenericRepository<Category>().TableNoTracking.ToListAsync();
+        var basketProducts = new List<Product>();
+        if (HttpContext.Session.GetString("basket") != null)
+        {
+            var basketList = JsonConvert.DeserializeObject<List<int>>(HttpContext.Session.GetString("basket")).ToList();
+            foreach (var id in basketList)
+            {
+                var prod = await _work.GenericRepository<Product>().TableNoTracking.Include(x => x.Category)
+                    .Include(x => x.GoldPrice).FirstOrDefaultAsync(x => x.Id == id);
+                basketProducts.Add(prod!);
+            }
+        }
+        ViewBag.BasketProd = basketProducts;
+        return View();
+    }
+    public async Task<IActionResult > UserLogin(string number, string password)
     {
         var user = await _userManager.FindByNameAsync(number);
         if (user != null)
         {
             var userRoles = await _userManager.GetRolesAsync(user);
             var result = await _signInManager.PasswordSignInAsync(user, password, true, false);
-            RedirectToAction("Profile");
+          return  RedirectToAction("Profile","Home");
         }
         else
         {
-            RedirectToAction("Index");
+            return  RedirectToAction("Index","Home");
         }
     }
 
-    public async Task<ActionResult> Profile()
+    public async Task<IActionResult > Profile()
     {
         ViewBag.Cats = await _work.GenericRepository<Category>().TableNoTracking.ToListAsync();
-
         return View();
     }
 }

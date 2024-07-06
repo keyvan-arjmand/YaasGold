@@ -194,59 +194,60 @@
                     @if (User.Identity.IsAuthenticated)
                     {
                         <div class="shopping-cart-wrap">
-                            <a href="#">
-                                <i class="icon-shopping-bag2 float-left"></i><span class="cart-total">2</span>
+                            <a href="@Url.Action("Basket","Home")">
+                                <i class="icon-shopping-bag2 float-left"></i>
+                                @* <span class="cart-total">2</span> *@
                             </a>
-                            <ul class="mini-cart">
-                                @* <li class="cart-item"> *@
-                                @*     <div class="cart-image"> *@
-                                @*         <a href="single-product.html"> *@
-                                @*             <img alt="" src="assets/images/product/product-01.jpg"> *@
-                                @*         </a> *@
-                                @*     </div> *@
-                                @*     <div class="cart-title"> *@
-                                @*         <a href="single-product.html"> *@
-                                @*             <h4>محصول 1</h4> *@
-                                @*         </a> *@
-                                @*         <div class="quanti-price-wrap"> *@
-                                @*             <span class="quantity">1 ×</span> *@
-                                @*             <div class="price-box"> *@
-                                @*                 <span class="new-price">130000 تومان</span> *@
-                                @*             </div> *@
-                                @*         </div> *@
-                                @*         <a class="remove_from_cart" href="#"> *@
-                                @*             <i class="icon-x"></i> *@
-                                @*         </a> *@
-                                @*     </div> *@
-                                @* </li> *@
-                                @* <li class="cart-item"> *@
-                                @*     <div class="cart-image"> *@
-                                @*         <a href="single-product.html"> *@
-                                @*             <img alt="" src="assets/images/product/product-02.jpg"> *@
-                                @*         </a> *@
-                                @*     </div> *@
-                                @*     <div class="cart-title"> *@
-                                @*         <a href="single-product.html"> *@
-                                @*             <h4>محصول 2</h4> *@
-                                @*         </a> *@
-                                @*         <div class="quanti-price-wrap"> *@
-                                @*             <span class="quantity">1 ×</span> *@
-                                @*             <div class="price-box"> *@
-                                @*                 <span class="new-price">150000 تومان</span> *@
-                                @*             </div> *@
-                                @*         </div> *@
-                                @*         <a class="remove_from_cart" href="#"> *@
-                                @*             <i class="icon-trash icons"></i> *@
-                                @*         </a> *@
-                                @*     </div> *@
-                                @* </li> *@
-                                @* <li class="subtotal-box"> *@
-                                @*     <div class="subtotal-title"> *@
-                                @*         <h3>جمع کل :</h3><span>260000 تومان</span> *@
-                                @*     </div> *@
-                                @* </li> *@
-                        
-                            </ul>
+                            @* <ul class="mini-cart"> *@
+                            @*     $1$ <li class="cart-item"> #1# *@
+                            @*     $1$     <div class="cart-image"> #1# *@
+                            @*     $1$         <a href="single-product.html"> #1# *@
+                            @*     $1$             <img alt="" src="assets/images/product/product-01.jpg"> #1# *@
+                            @*     $1$         </a> #1# *@
+                            @*     $1$     </div> #1# *@
+                            @*     $1$     <div class="cart-title"> #1# *@
+                            @*     $1$         <a href="single-product.html"> #1# *@
+                            @*     $1$             <h4>محصول 1</h4> #1# *@
+                            @*     $1$         </a> #1# *@
+                            @*     $1$         <div class="quanti-price-wrap"> #1# *@
+                            @*     $1$             <span class="quantity">1 ×</span> #1# *@
+                            @*     $1$             <div class="price-box"> #1# *@
+                            @*     $1$                 <span class="new-price">130000 تومان</span> #1# *@
+                            @*     $1$             </div> #1# *@
+                            @*     $1$         </div> #1# *@
+                            @*     $1$         <a class="remove_from_cart" href="#"> #1# *@
+                            @*     $1$             <i class="icon-x"></i> #1# *@
+                            @*     $1$         </a> #1# *@
+                            @*     $1$     </div> #1# *@
+                            @*     $1$ </li> #1# *@
+                            @*     $1$ <li class="cart-item"> #1# *@
+                            @*     $1$     <div class="cart-image"> #1# *@
+                            @*     $1$         <a href="single-product.html"> #1# *@
+                            @*     $1$             <img alt="" src="assets/images/product/product-02.jpg"> #1# *@
+                            @*     $1$         </a> #1# *@
+                            @*     $1$     </div> #1# *@
+                            @*     $1$     <div class="cart-title"> #1# *@
+                            @*     $1$         <a href="single-product.html"> #1# *@
+                            @*     $1$             <h4>محصول 2</h4> #1# *@
+                            @*     $1$         </a> #1# *@
+                            @*     $1$         <div class="quanti-price-wrap"> #1# *@
+                            @*     $1$             <span class="quantity">1 ×</span> #1# *@
+                            @*     $1$             <div class="price-box"> #1# *@
+                            @*     $1$                 <span class="new-price">150000 تومان</span> #1# *@
+                            @*     $1$             </div> #1# *@
+                            @*     $1$         </div> #1# *@
+                            @*     $1$         <a class="remove_from_cart" href="#"> #1# *@
+                            @*     $1$             <i class="icon-trash icons"></i> #1# *@
+                            @*     $1$         </a> #1# *@
+                            @*     $1$     </div> #1# *@
+                            @*     $1$ </li> #1# *@
+                            @*     $1$ <li class="subtotal-box"> #1# *@
+                            @*     $1$     <div class="subtotal-title"> #1# *@
+                            @*     $1$         <h3>جمع کل :</h3><span>260000 تومان</span> #1# *@
+                            @*     $1$     </div> #1# *@
+                            @*     $1$ </li> #1# *@
+                            @* *@
+                            @* </ul> *@
                         </div>
                     }
 
