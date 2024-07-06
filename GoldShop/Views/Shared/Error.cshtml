@@ -1,0 +1,63 @@
+﻿@using GoldShop.Domain.Entity.Product
+@model ErrorViewModel
+@{
+    ViewData["Title"] = "خطا";
+    Layout = "_Layout";
+    List<Category> cats = ViewBag.Cats;
+}
+@section selectBox
+{
+    <select id="catId" class="nice-select">
+        <optgroup label="organic food">
+            <option value="0">همه</option>
+            @{
+                foreach (var i in cats)
+                {
+                    <option value="@i.Id">@i.Name</option>
+                }
+            }
+        </optgroup>
+    </select>
+}
+
+@section menu
+{ 
+    @foreach (var i in cats)
+    {
+    <li>
+        <a href="@Url.Action("Category", "Home", new { id = i.Id })">@i.Name</a>
+    </li>
+    }
+
+}
+
+@section menu2
+{
+    @foreach (var i in cats)
+    {
+        <li>
+            <a href="@Url.Action("Category", "Home", new { id = i.Id })">@i.Name</a>
+        </li>
+    }
+}
+<div class="main-content-wrap section-ptb wishlist-page">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12  text-center">
+                    <div class="search-error-wrapper">
+                        <h1>404</h1>
+                        <h2>صفحه مورد نظر پیدا نشد</h2>
+                        <p class="home-link">ما صفحه ای که دنبال آن بودید را پیدا نکردیم.
+                            لطفا از جستجو استفاده کنید.</p>
+                        <form action="#" class="error-form">
+                            <div class="error-form-input">
+                                <input type="text" placeholder="جستجو..." class="error-input-text">
+                                <button type="submit" class="error-s-button"><i class="icon-search"></i></button>
+                            </div>
+                        </form>
+                        <a href="@Url.Action("Index","Home")" class="home-bacck-button">بازگشت به صفحه اصلی</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,314 @@
+﻿@using GoldShop.Domain.Entity.Product
+@using GoldShop.Comman
+@{
+    Layout = "_Layout";
+    List<Product> products = ViewBag.products;
+    SearchHistory searchHistory = ViewBag.searchHistory;
+    List<Category> cats = ViewBag.Cats;
+}
+
+@section selectBox
+{
+    <select id="catId" class="nice-select">
+        <optgroup label="organic food">
+            <option value="0">همه</option>
+            @{
+                foreach (var i in cats)
+                {
+                    <option value="@i.Id">@i.Name</option>
+                }
+            }
+        </optgroup>
+    </select>
+}
+
+@section menu
+{ 
+    @foreach (var i in cats)
+    {
+    <li>
+        <a href="@Url.Action("Category", "Home", new { id = i.Id })">@i.Name</a>
+    </li>
+    }
+
+}
+
+@section menu2
+{ 
+    @foreach (var i in cats)
+    {
+    <li>
+        <a href="@Url.Action("Category", "Home", new { id = i.Id })">@i.Name</a>
+    </li>
+    }
+
+}
+<input value="@searchHistory.Id" hidden="hidden" id="id"/>
+<input value="@searchHistory.Search" hidden="hidden" id="search"/>
+<div class="main-content-wrap shop-page section-ptb">
+<div class="container">
+<div class="row">
+<div class="col-lg-3 order-lg-1 order-2">
+    <!-- shop-sidebar-wrap start -->
+    <div class="shop-sidebar-wrap">
+        <div class="shop-box-area">
+
+            <!--sidebar-categores-box start  -->
+            <div class="sidebar-categores-box shop-sidebar mb-30">
+                <h4 class="title">دسته بندی محصولات</h4>
+                <!-- category-sub-menu start -->
+                <div class="category-sub-menu">
+                    <ul>
+                        @{
+                            foreach (var i in cats)
+                            {
+                                <li >
+                                    <a href="@Url.Action("Category", "Home", new { id = i.Id })">@i.Name</a>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+                <!-- category-sub-menu end -->
+            </div>
+            <!--sidebar-categores-box end  -->
+
+            <!-- shop-sidebar start -->
+            <div class="shop-sidebar mb-30">
+                <h4 class="title">جستجو بر اساس قیمت</h4>
+                <!-- filter-price-content start -->
+                <div class="filter-price-content">
+                    <form action="#" method="post">
+                        <div id="price-slider" class="price-slider"></div>
+                        <div class="filter-price-wapper">
+                            <a class="add-to-cart-button" type="button" onclick="filterByPrice()">
+                                <span>فیلتر جستجو</span>
+                            </a>
+                            <div class="filter-price-cont">
+                                <span>قیمت:</span>
+                                <div class="input-type">
+                                    <input type="text" id="min-price" readonly=""/>
+                                </div>
+                                <span>—</span>
+                                <div class="input-type">
+                                    <input type="text" id="max-price" readonly=""/>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- filter-price-content end -->
+            </div>
+        </div>
+    </div>
+    <!-- shop-sidebar-wrap end -->
+</div>
+<div class="col-lg-9 order-lg-2 order-1">
+
+    <div class="shop-banner mb-30">
+        <img src="/assets/images/bg/shop-catergorypage.jpg" alt="Shop banner">
+    </div>
+
+    <!-- shop-product-wrapper start -->
+    <div class="shop-product-wrapper">
+        <div class="row align-itmes-center">
+            <div class="col">
+                <!-- shop-top-bar start -->
+                <div class="shop-top-bar">
+                    <!-- product-view-mode start -->
+
+                    <div class="product-mode">
+                        <!--shop-item-filter-list-->
+                        <ul class="nav shop-item-filter-list" role="tablist">
+                            <li>
+                                <a class="active grid-view" data-bs-toggle="tab" href="#grid">
+                                    <i class="ion-ios-keypad-outline"></i>
+                                </a>
+                            </li>
+                            <li class="active">
+                                <a class=" list-view" data-bs-toggle="tab" href="#list">
+                                    <i class="ion-ios-list-outline"></i>
+                                </a>
+                            </li>
+                        </ul>
+                        <!-- shop-item-filter-list end -->
+                    </div>
+                    <!-- product-view-mode end -->
+                    <!-- product-short start -->
+                    <div class="product-short">
+                        <p>مرتب‌ سازی بر اساس :</p>
+                        <select class="nice-select" name="sortby">
+                            <option value="sales">جدیدترین</option>
+                            <option value="rating">ارزان‌ترین</option>
+                            <option value="date">گران‌ترین</option>
+                        </select>
+                    </div>
+                    <!-- product-short end -->
+                </div>
+                <!-- shop-top-bar end -->
+            </div>
+        </div>
+        <!-- shop-products-wrap start -->
+        <div class="shop-products-wrap">
+            <div class="tab-content">
+                <div class="tab-pane active" id="grid">
+                    <div class="shop-product-wrap">
+                        <div class="row row-8">
+                            @{
+                                foreach (var i in products)
+                                {
+                                    <div class="product-col col-lg-3 col-md-4 col-sm-6">
+                                        <!-- Single Product Start -->
+                                        <div class="single-product-wrap mt-10">
+                                            <div class="product-image">
+                                                <a href="@Url.Action("ProductDetail","Home",new{id=i.Id})">
+                                                    <img src="/Images/Product/@i.Image" class="image-size" alt="">
+                                                </a>
+                                            </div>
+                                            <div class="product-content">
+                                                <div class="price-box">
+                                                    <span class="new-price">@i.GoldPrice.PricePerGram.GetPrice(i.Weight, i.Wages).ToString("n0") تومان</span>
+                                                </div>
+                                                <h6 class="product-name">
+                                                    <a href="@Url.Action("ProductDetail","Home",new{id=i.Id})">@i.Name </a>
+                                                </h6>
+                                                <div class="product-button-action">
+                                                    <a href="#" class="add-to-cart" aria-readonly="true">افزودن به سبد</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Single Product End -->
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="list">
+                    @{
+                        foreach (var i in products)
+                        {
+                            <div class="shop-product-list-wrap">
+                                <div class="row product-layout-list">
+                                    <div class="col-lg-3 col-md-3">
+                                        <!-- single-product-wrap start -->
+                                        <div class="single-product">
+                                            <div class="product-image">
+                                                <a href="@Url.Action("ProductDetail","Home",new{id=i.Id})">
+                                                    <img src="/Images/Product/@i.Image" alt="Produce Images">
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <!-- single-product-wrap end -->
+                                    </div>
+
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="product-content-list text-end">
+                                            <div class="price-box">
+                                                <span class="new-price">@i.GoldPrice.PricePerGram.GetPrice(i.Weight, i.Wages).ToString("n0") تومان </span>
+                                            </div>
+                                            <p>
+                                                <a href="@Url.Action("ProductDetail","Home",new{id=i.Id})" class="product-name">@i.Name</a>
+                                            </p>
+
+                                            <div class="product-rating">
+                                                <ul class="d-flex">
+                                                    <li>
+                                                        <a href="#">
+                                                            <i class="icon-star"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">
+                                                            <i class="icon-star"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">
+                                                            <i class="icon-star"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">
+                                                            <i class="icon-star"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li class="bad-reting">
+                                                        <a href="#">
+                                                            <i class="icon-star"></i>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3 col-md-3">
+                                        <div class="block2">
+                                            <div class="product-button">
+                                                <div class="add-to-cart">
+                                                    <div class="product-button-action">
+                                                        <a href="#" class="add-to-cart" aria-readonly="true">افزودن به سبد</a>
+                                                    </div>
+                                                </div>
+                                                <ul class="actions">
+                                                    <li class="quickviewbtn">
+                                                        <a class="detail-link quickview" href="@Url.Action("ProductDetail","Home",new{id=i.Id})"> <i class="icon-eye2"></i> مشاهده کالا</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+        <!-- shop-products-wrap end -->
+
+        <!-- paginatoin-area start -->
+        <div class="paginatoin-area">
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    <ul class="pagination-box">
+                        <li class="active">
+                            <a href="#">1</a>
+                        </li>
+                        <li>
+                            <a href="#">2</a>
+                        </li>
+                        <li>
+                            <a href="#">3</a>
+                        </li>
+                        <li>
+                            <a class="Next" href="#">بعدی</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- paginatoin-area end -->
+    </div>
+    <!-- shop-product-wrapper end -->
+</div>
+</div>
+</div>
+</div>
+@section script
+{
+    <script>
+    function filterByPrice(){
+       window.location.href= "/home/FilterByPrice?search="
+        + document.getElementById("search").value
+        +"&id="+document.getElementById("id").value
+        +"&minPrice="+document.getElementById("min-price").value.match(/\d+/)[0]
+        +"&maxPrice="+document.getElementById("max-price").value.match(/\d+/)[0];
+
+    }
+ 
+
+    </script>
+}

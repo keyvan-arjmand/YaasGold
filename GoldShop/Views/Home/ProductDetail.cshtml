@@ -1,0 +1,189 @@
+﻿@using GoldShop.Domain.Entity.Product
+@using GoldShop.Comman
+@using Microsoft.AspNetCore.Mvc.Formatters.Xml
+@{
+    Layout = "_Layout";
+    Product prod = ViewBag.product;
+    List<Product> prods = ViewBag.products;
+    List<Category> cats = ViewBag.Cats;
+}
+
+@section selectBox
+{
+    <select id="catId" class="nice-select">
+        <optgroup label="organic food">
+            <option value="0">همه</option>
+            @{
+                foreach (var i in cats)
+                {
+                    <option value="@i.Id">@i.Name</option>
+                }
+            }
+        </optgroup>
+    </select>
+}
+
+@section menu
+{
+    @foreach (var i in cats)
+    {
+        <li>
+            <a href="@Url.Action("Category", "Home", new { id = i.Id })">@i.Name</a>
+        </li>
+    }
+
+}
+
+@section menu2
+{
+    @foreach (var i in cats)
+    {
+        <li>
+            <a href="@Url.Action("Category", "Home", new { id = i.Id })">@i.Name</a>
+        </li>
+    }
+
+}
+
+<div class="main-content-wrap shop-page section-ptb">
+<div class="container">
+<div class="row single-product-area product-details-inner">
+    <div class="col-lg-5 col-md-6">
+        <!-- Product Details Left -->
+        <div class="product-large-slider">
+            <div class="pro-large-img img-zoom">
+                <img src="/Images/Product/@prod.Image" alt="product-details"/>
+                <a href="/Images/Product/@prod.Image" data-fancybox="images">
+                    <i class="fa fa-search"></i>
+                </a>
+            </div>
+            <div class="pro-large-img img-zoom">
+                <img src="/Images/Product/@prod.ImageBanner" alt="product-details"/>
+                <a href="/Images/Product/@prod.ImageBanner" data-fancybox="images">
+                    <i class="fa fa-search"></i>
+                </a>
+            </div>
+            <div class="pro-large-img img-zoom">
+                <img src="/Images/Product/@prod.ImageThumb" alt="product-details"/>
+                <a href="/Images/Product/@prod.ImageThumb" data-fancybox="images">
+                    <i class="fa fa-search"></i>
+                </a>
+            </div>
+
+
+        </div>
+        <div class="product-nav ltr">
+            <div class="pro-nav-thumb">
+                <img src="/Images/Product/@prod.Image" alt="product-details"/>
+            </div>
+            <div class="pro-nav-thumb">
+                <img src="/Images/Product/@prod.ImageBanner" alt="product-details"/>
+            </div>
+            <div class="pro-nav-thumb">
+                <img src="/Images/Product/@prod.ImageThumb" alt="product-details"/>
+            </div>
+        </div>
+        <!--// Product Details Left -->
+    </div>
+
+    <div class="col-lg-7 col-md-6">
+        <div class="product-details-view-content">
+            <div class="product-info">
+                <h3>نام محصول</h3>
+                <div class="product-rating d-flex">
+                    <ul class="d-flex">
+                        <li>
+                            <a href="#">
+                                <i class="icon-star"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="icon-star"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="icon-star"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="icon-star"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="icon-star"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="price-box">
+                    <span class="new-price">@prod.GoldPrice.PricePerGram.GetPrice(prod.Weight, prod.Wages).ToString("n0") تومان</span>
+                </div>
+                <p>
+                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنو
+                </p>
+
+                <div class="single-add-to-cart">
+                    <form action="#" class="cart-quantity d-flex">
+
+                        <button class="add-to-cart" type="submit" aria-readonly="true"> افزودن به سبد</button>
+                    </form>
+                </div>
+
+                <ul class="stock-cont mt-2 pt-2">
+                    <li class="product-sku">وزن: <span>@prod.Weight</span></li>
+                    <li class="product-stock-status">دسته&zwnj;بندی : <a href="#">@prod.Category.Name</a></li>
+                    <li class="product-stock-status">برند : <a href="#">@prod.Brand</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="related-product-area section-pt ltr">
+<div class="row">
+    <div class="col-lg-12">
+        <div class="section-title">
+            <h3> محصولات مرتبط</h3>
+        </div>
+    </div>
+</div>
+<div class="row row-8 product-row-6-active">
+@{
+    foreach (var i in prods)
+    {
+        <div class="product-col">
+            <!-- Single Product Start -->
+            <div class="single-product-wrap mt-10">
+                <div class="product-image">
+                    <a href="@Url.Action("ProductDetail", "Home", new { id = i.Id })">
+                        <img src="/Images/Product/@i.Image" class="image-size" alt="">
+                    </a>
+                    <span class="onsale">فروش ویژه</span>
+                </div>
+     
+                <div class="product-content">
+                    <div class="price-box">
+                        <span class="new-price">@i.GoldPrice.PricePerGram.GetPrice(prod.Weight, prod.Wages).ToString("n0") تومان </span>
+                    </div>
+                    <h6 class="product-name">
+                        <a href="@Url.Action("ProductDetail", "Home", new { id = i.Id })">@i.Name</a>
+                    </h6>
+
+                    <div class="product-button-action">
+                        <a href="#" class="add-to-cart" aria-readonly="true">افزودن به سبد</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Single Product End -->
+        </div>
+
+    }
+}
+</div>
+</div>
+</div>
+</div>

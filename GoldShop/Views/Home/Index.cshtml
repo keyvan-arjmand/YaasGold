@@ -1,0 +1,555 @@
+﻿@using GoldShop.Domain.Entity.Product
+@using GoldShop.Comman
+@{
+    Layout = "_Layout";
+    List<Product> popProducts = ViewBag.PopProducts;
+    List<Product> specialProducts = ViewBag.SpecialProducts;
+    List<Product> newProducts = ViewBag.NewProducts;
+    List<Category> cats = ViewBag.Cats;
+}
+
+@section selectBox
+{
+    <select id="catId" class="nice-select">
+        <optgroup label="organic food">
+            <option value="0">همه</option>
+            @{
+                foreach (var i in cats)
+                {
+                    <option value="@i.Id">@i.Name</option>
+                }
+            }
+        </optgroup>
+    </select>
+}
+
+@section menu
+{
+    @foreach (var i in cats)
+    {
+        <li>
+            <a href="@Url.Action("Category", "Home", new { id = i.Id })">@i.Name</a>
+        </li>
+    }
+
+}
+
+@section menu2
+{
+    @foreach (var i in cats)
+    {
+        <li>
+            <a href="@Url.Action("Category", "Home", new { id = i.Id })">@i.Name</a>
+        </li>
+    }
+
+}
+
+<!-- Hero Section Start -->
+<div class="hero-slider-area" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="categories-menu-wrap mt-30">
+                    <div class="categories_menu">
+                        <div class="categories_title">
+                            <h5 class="categori_toggle">دسته بندی ها</h5>
+                        </div>
+                        <div class="categories_menu_toggle">
+                            <ul>
+                                @{
+                                    foreach (var i in cats)
+                                    {
+                                        <li class="menu_item_children categorie_list">
+                                            <a href="@Url.Action("Category", "Home", new { id = i.Id })">
+                                                @i.Name<i class="fa fa-angle-left"></i>
+                                            </a>
+                                        </li>
+                                    }
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="hero-slider-wrapper mt-30">
+                    <!-- Hero Slider Start -->
+                    <div class="hero-slider-area hero-slider-one">
+                        <div class="swiper-container gallery-top">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide" style="background-image:url(Images/Banner/JewelryBaaner.jpg);object-fit: cover;background-color: rgb(240, 240, 240,0.6)">
+                                    <div class="hero-content-one">
+                                        <div class="slider-content-text">
+                                            <h2>گالری یاس <br>تخفیف شگفت انگیز</h2>
+                                            <p>پیشنهاد منحصر به فرد -20٪ تخفیف در این هفته </p>
+                                            <div class="slider-btn">
+                                                <a href="#">خرید کن</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide" style="background-image:url(Images/Banner/Necklacebanner.jpg);object-fit: cover;background-color: rgb(240, 240, 240,0.6)">
+                                    <div class="hero-content-one">
+                                        <div class="slider-content-text">
+                                            <h2>گالری یاس <br>تخفیف شگفت انگیز</h2>
+                                            <p>پیشنهاد منحصر به فرد -20٪ تخفیف در این هفته </p>
+                                            <div class="slider-btn">
+                                                <a href="#">خرید کن</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="swiper-slide" style="background-image:url(Images/Banner/bannerBlack.jpg);object-fit: cover;background-color: rgb(240, 240, 240,0.6)">
+                                    <div class="hero-content-one">
+                                        <div class="slider-content-text">
+                                            <h2>گالری یاس <br>تخفیف شگفت انگیز</h2>
+                                            <p>پیشنهاد منحصر به فرد -20٪ تخفیف در این هفته </p>
+                                            <div class="slider-btn">
+                                                <a href="#">خرید کن</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="swiper-slide" style="background-image:url(Images/Banner/740d7c4c-18a0-4cea-93ef-5fb136c8c6f3.jpg);object-fit: cover;background-color: rgb(240, 240, 240,0.6)">
+                                    <div class="hero-content-one">
+                                        <div class="slider-content-text">
+                                            <h2>گالری یاس <br>تخفیف شگفت انگیز</h2>
+                                            <p>پیشنهاد منحصر به فرد -20٪ تخفیف در این هفته </p>
+                                            <div class="slider-btn">
+                                                <a href="#">خرید کن</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div class="swiper-pagination"></div>
+                        </div>
+                        <div class="swiper-container gallery-thumbs">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <div class="slider-thum-text">
+                                        <span>نیم ست</span>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="slider-thum-text">
+                                        <span>دستبند</span>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="slider-thum-text">
+                                        <span>انگشتر</span>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="slider-thum-text">
+                                        <span>گوشواره</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Hero Slider End -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Hero Section End -->
+
+
+<!-- Categories Item Warap Start -->
+<div class="categories-item-warap section-pt-30 section-pb">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-2 col-md-4 col-sm-4 col-6">
+                <!-- single-categories-item Start -->
+                <div class="single-categories-item mt-30">
+                    <div class="cat-item-image">
+                        <a href="#">
+                            <img src="/Images/Banner/jewel.png" alt="">
+                        </a>
+                    </div>
+                    <div class="categories-title">
+                        <h6>
+                            <a href="">گردنبد</a>
+                        </h6>
+                        <p>11 محصول</p>
+                    </div>
+                </div>
+                <!-- single-categories-item End -->
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-4 col-6">
+                <!-- single-categories-item Start -->
+                <div class="single-categories-item mt-30">
+                    <div class="cat-item-image">
+                        <a href="#">
+                            <img src="/Images/Banner/bracelet.png" alt="">
+                        </a>
+                    </div>
+                    <div class="categories-title">
+                        <h6>
+                            <a href="#">دستبند</a>
+                        </h6>
+                        <p>7 محصول</p>
+                    </div>
+                </div>
+                <!-- single-categories-item End -->
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-4 col-6">
+                <!-- single-categories-item Start -->
+                <div class="single-categories-item mt-30">
+                    <div class="cat-item-image">
+                        <a href="#">
+                            <img src="/Images/Banner/earrings.png" alt="">
+                        </a>
+                    </div>
+                    <div class="categories-title">
+                        <h6>
+                            <a href="#">گوشواره</a>
+                        </h6>
+                        <p>11 محصول</p>
+                    </div>
+                </div>
+                <!-- single-categories-item End -->
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-4 col-6">
+                <!-- single-categories-item Start -->
+                <div class="single-categories-item mt-30">
+                    <div class="cat-item-image">
+                        <a href="#">
+                            <img src="/Images/Banner/box.png" alt="">
+                        </a>
+                    </div>
+                    <div class="categories-title">
+                        <h6>
+                            <a href="#">نیم ست</a>
+                        </h6>
+                        <p>5 محصول</p>
+                    </div>
+                </div>
+                <!-- single-categories-item End -->
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-4 col-6">
+                <!-- single-categories-item Start -->
+                <div class="single-categories-item mt-30">
+                    <div class="cat-item-image">
+                        <a href="#">
+                            <img src="/Images/Banner/wedding-ring.png" alt="">
+                        </a>
+                    </div>
+                    <div class="categories-title">
+                        <h6>
+                            <a href="#">انگشتر</a>
+                        </h6>
+                        <p>8 محصول</p>
+                    </div>
+                </div>
+                <!-- single-categories-item End -->
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-4 col-6">
+                <!-- single-categories-item Start -->
+                <div class="single-categories-item mt-30">
+                    <div class="cat-item-image">
+                        <a href="#">
+                            <img src="/Images/Banner/chain.png" alt="">
+                        </a>
+                    </div>
+                    <div class="categories-title">
+                        <h6>
+                            <a href="#">زنجیر</a>
+                        </h6>
+                        <p>12 محصول</p>
+                    </div>
+                </div>
+                <!-- single-categories-item End -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Categories Item Warap End -->
+
+<!-- Banner Area Start -->
+<div class="banner-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6">
+                <div class="single-banner mb-30">
+                    <a href="#">
+                        <img src="/Images/Banner/home-left.jpg" alt="" style="max-height: 36rem">
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-6  col-md-6">
+                <div class="single-banner mb-30">
+                    <a href="#">
+                        <img src="/Images/Banner/ezgif-6-ab56919614.png" alt="" style="max-height: 36rem">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Banner Area End -->
+
+<!-- Product Area Start -->
+<div class="product-area section-pt-30">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6">
+                <!-- Section Title Start -->
+                <div class="section-title">
+                    <h3>کالاهای محبوب</h3>
+                </div>
+                <!-- Section Title End -->
+            </div>
+        </div>
+        <div class="row row-8 product-two-row-4">
+            @{
+                foreach (var i in popProducts)
+                {
+                    <div class="product-col">
+                        <!-- Single Product Start -->
+                        <div class="single-product-wrap mt-10">
+                            <div class="product-image">
+                                <a href="@Url.Action("ProductDetail", "Home", new { id = i.Id })">
+                                    <img src="/Images/Product/@i.Image" class="image-size" alt="">
+                                </a>
+                                <span class="onsale">فروش ویژه!</span>
+                            </div>
+                            <div class="product-content">
+                                <div class="price-box">
+                                    <span class="new-price">@i.GoldPrice.PricePerGram.GetPrice(i.Weight, i.Wages).ToString("N2") تومان</span>
+                                </div>
+                                <h6 class="product-name">
+                                    <a href="@Url.Action("ProductDetail", "Home", new { id = i.Id })">@i.Name</a>
+                                </h6>
+                                <div class="product-button-action">
+                                    <a href="@Url.Action("ProductDetail", "Home", new { id = i.Id })" class="add-to-cart" aria-readonly="true">افزودن به سبد</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Single Product End -->
+                    </div>
+                }
+            }
+        </div>
+
+    </div>
+</div>
+<!-- Product Area Start -->
+
+<!-- Deals Off Area Start -->
+<div class="deals-offer-area section-pt-100 section-pb-40 dealis-offer-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-2 col-lg-3 col-md-4">
+                <div class="deals-offer-title mb-20">
+                    <h2 class="text-white">کالا های خاص</h2>
+                    <p  class="text-white">تنوع محصول</p>
+                </div>
+            </div>
+            <div class="col-xl-10 col-lg-9 col-md-8">
+                <div class="row row-8 product-active-lg-4 ltr">
+                    @{
+                        foreach (var i in specialProducts)
+                        {
+                            <div class="product-col">
+                                <!-- Single Product Start -->
+                                <div class="single-product-wrap mt-30">
+                                    <div class="product-image">
+                                        <a href="@Url.Action("ProductDetail", "Home", new { id = i.Id })">
+                                            <img src="/Images/Product/@i.Image" class="image-size" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="product-content">
+                                        <div class="price-box">
+                                            <span class="new-price">@i.GoldPrice.PricePerGram.GetPrice(i.Weight, i.Wages).ToString("N2") تومان</span>
+                                        </div>
+                                        <h6 class="product-name">
+                                            <a href="@Url.Action("ProductDetail", "Home", new { id = i.Id })">@i.Name</a>
+                                        </h6>
+                                        <div class="product-rating">
+                                            <ul>
+                                                <li>
+                                                    <a href="#">
+                                                        <i class="icon-star"></i>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <i class="icon-star"></i>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <i class="icon-star"></i>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <i class="icon-star"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="bad-reting">
+                                                    <a href="#">
+                                                        <i class="icon-star"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="product-button-action">
+                                            <a href="#" class="add-to-cart" aria-readonly="true">افزودن به سبد</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Single Product End -->
+                            </div>
+                        }
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Deals Off Area End -->
+
+<!-- Product Area Start -->
+<div class="product-area section-pt">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6">
+                <!-- Section Title Start -->
+                <div class="section-title">
+                    <h3>جدید ترین ها</h3>
+                </div>
+                <!-- Section Title End -->
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="tabs-categorys-list">
+                    <ul class="nav menu-tabs" role="tablist">
+                        <li class="active">
+                            <a class="active" href="#earrings" role="tab" data-bs-toggle="tab">نیم ست</a>
+                        </li>
+                        <li>
+                            <a href="#necklaces" role="tab" data-bs-toggle="tab"> گردنبد </a>
+                        </li>
+                        <li>
+                            <a href="#bracelets" role="tab" data-bs-toggle="tab">دستبند</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="product-wrapper-four ltr">
+            <div class="tab-content">
+                <div class="tab-pane active" id="earrings">
+                    <div class="row row-8 product-row-6-active">
+                        @{
+                            foreach (var i in newProducts)
+                            {
+                                <div class="product-col">
+                                    <!-- Single Product Start -->
+                                    <div class="single-product-wrap mt-10">
+                                        <div class="product-image">
+                                            <a href="@Url.Action("ProductDetail", "Home", new { id = i.Id })">
+                                                <img src="/Images/Product/@i.Image" class="image-size" alt="">
+                                            </a>
+                                        </div>
+
+                                        <div class="product-content">
+                                            <div class="price-box">
+                                                <span class="new-price">@i.GoldPrice.PricePerGram.GetPrice(i.Weight, i.Wages).ToString("N2") تومان</span>
+                                            </div>
+                                            <h6 class="product-name">
+                                                <a href="@Url.Action("ProductDetail", "Home", new { id = i.Id })">@i.Name</a>
+                                            </h6>
+                                            <div class="product-button-action">
+                                                <a href="#" class="add-to-cart" aria-readonly="true">افزودن به سبد</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Single Product End -->
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="tab-pane" id="necklaces">
+                    <div class="row row-8 product-row-6-active">
+                        @{
+                            foreach (var i in newProducts)
+                            {
+                                <div class="product-col">
+                                    <!-- Single Product Start -->
+                                    <div class="single-product-wrap mt-10">
+                                        <div class="product-image">
+                                            <a href="@Url.Action("ProductDetail", "Home", new { id = i.Id })">
+                                                <img src="/Images/Product/@i.Image" class="image-size" alt="">
+                                            </a>
+                                        </div>
+
+                                        <div class="product-content">
+                                            <div class="price-box">
+                                                <span class="new-price">@i.GoldPrice.PricePerGram.GetPrice(i.Weight, i.Wages).ToString("N2") تومان</span>
+                                            </div>
+                                            <h6 class="product-name">
+                                                <a href="@Url.Action("ProductDetail", "Home", new { id = i.Id })">@i.Name</a>
+                                            </h6>
+                                            <div class="product-button-action">
+                                                <a href="#" class="add-to-cart" aria-readonly="true">افزودن به سبد</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Single Product End -->
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="tab-pane" id="bracelets">
+                    <div class="row row-8 product-row-6-active">
+                        @{
+                            foreach (var i in newProducts)
+                            {
+                                <div class="product-col">
+                                    <!-- Single Product Start -->
+                                    <div class="single-product-wrap mt-10">
+                                        <div class="product-image">
+                                            <a href="@Url.Action("ProductDetail", "Home", new { id = i.Id })">
+                                                <img src="/Images/Product/@i.Image" class="image-size" alt="">
+                                            </a>
+                                        </div>
+
+                                        <div class="product-content">
+                                            <div class="price-box">
+                                                <span class="new-price">@i.GoldPrice.PricePerGram.GetPrice(i.Weight, i.Wages).ToString("N2") تومان</span>
+                                            </div>
+                                            <h6 class="product-name">
+                                                <a href="@Url.Action("ProductDetail", "Home", new { id = i.Id })">@i.Name</a>
+                                            </h6>
+                                            <div class="product-button-action">
+                                                <a href="#" class="add-to-cart" aria-readonly="true">افزودن به سبد</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Single Product End -->
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

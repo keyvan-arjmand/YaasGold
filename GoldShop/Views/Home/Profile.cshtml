@@ -1,0 +1,222 @@
+﻿@using GoldShop.Domain.Entity.Product
+
+@{
+    Layout = "_Layout";
+    List<Category> cats = ViewBag.Cats;
+}
+
+@section selectBox
+{
+<select id="catId" class="nice-select">
+    <optgroup label="organic food">
+        <option value="0">همه</option>
+        @{
+        foreach (var i in cats)
+        {
+        <option value="@i.Id">@i.Name</option>
+        }
+        }
+    </optgroup>
+</select>
+}
+
+@section menu
+{
+@foreach (var i in cats)
+{
+<li>
+    <a href="@Url.Action("Category", "Home", new { id = i.Id })">@i.Name</a>
+</li>
+}
+
+}
+
+@section menu2
+{
+@foreach (var i in cats)
+{
+<li>
+    <a href="@Url.Action("Category", "Home", new { id = i.Id })">@i.Name</a>
+</li>
+}
+
+}
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <!-- breadcrumb-list start -->
+                <ul class="breadcrumb-list">
+                    <li class="breadcrumb-item"><a href="index.html">صفحه اصلی</a></li>
+                    <li class="breadcrumb-item active">حساب کاربری</li>
+                </ul>
+                <!-- breadcrumb-list end -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- breadcrumb-area end -->
+
+
+<!-- main-content-wrap start -->
+<div class="main-content-wrap section-ptb my-account-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="account-dashboard">
+                    <div class="dashboard-upper-info">
+                        <div class="row align-items-center no-gutters">
+                            <div class="col-lg-3 col-md-12">
+                                <div class="d-single-info">
+                                    <p class="user-name">لورم ایپسوم متن ساختگی <span>info@gmail.com</span></p>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-12">
+                                <div class="d-single-info">
+                                    <p>لورم ایپسوم متن ساختگی</p>
+                                    <p>info@gmail.com</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-12">
+                                <div class="d-single-info">
+                                    <p>لورم ایپسوم متن ساختگی </p>
+                                    <p>support@yoursite.com</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-12">
+                                <div class="d-single-info text-lg-center">
+                                    <a href="cart.html" class="view-cart"><i class="fa fa-cart-plus"></i>مشاهده سبد خرید</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-lg-2">
+                            <!-- Nav tabs -->
+                            <ul role="tablist" class="nav flex-column dashboard-list">
+                                <li><a href="#dashboard" data-bs-toggle="tab" class="nav-link active">داشبورد</a></li>
+                                <li> <a href="#orders" data-bs-toggle="tab" class="nav-link">سابقه خرید</a></li>
+                                <li><a href="#downloads" data-bs-toggle="tab" class="nav-link">دانلود ها</a></li>
+                                <li><a href="#address" data-bs-toggle="tab" class="nav-link">آدرس ها</a></li>
+                                <li><a href="#account-details" data-bs-toggle="tab" class="nav-link">ویرایش پروفایل</a></li>
+                                <li><a href="login-register.html" class="nav-link">خروج</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-12 col-lg-10">
+                            <!-- Tab panes -->
+                            <div class="tab-content dashboard-content">
+                                <div class="tab-pane active" id="dashboard">
+                                    <h3>داشبورد </h3>
+                                    <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</p>
+                                </div>
+                                <div class="tab-pane fade" id="orders">
+                                    <h3>سفارشات</h3>
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th>سفارشات</th>
+                                                <th>تاریخ</th>
+                                                <th>وضعیت</th>
+                                                <th>جمع کل</th>
+                                                <th>مشاهده </th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>21 آذر 1398</td>
+                                                <td>در حال بررسی</td>
+                                                <td>	25,000 تومان برای 1 محصول </td>
+                                                <td><a href="cart.html" class="view">مشاهده</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>2</td>
+                                                <td> آذر 1398</td>
+                                                <td>در حال بررسی</td>
+                                                <td>	25,000 تومان برای 3 محصول</td>
+                                                <td><a href="cart.html" class="view">مشاهده</a></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="downloads">
+                                    <h3>دانلود ها</h3>
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th>نام محصول</th>
+                                                <th>دانلود ها</th>
+                                                <th>منقضی</th>
+                                                <th>دانلود</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>لورم ایپسوم</td>
+                                                <td>	15 اسفند 1398</td>
+                                                <td>منقضی شده</td>
+                                                <td><a href="#" class="view">دانلود کنید</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>لورم ایپسوم</td>
+                                                <td>	15 اسفند 1398</td>
+                                                <td>منقضی شده</td>
+                                                <td><a href="#" class="view">دانلود کنید</a></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="address">
+                                    <p>لورم ایپسوم متن ساختگی لورم ایپسوم متن</p>
+                                    <h4 class="billing-address">آدرس صورتحساب</h4>
+                                    <a href="#" class="view">ویرایش</a>
+                                    <p class="biller-name">محمد محمدی</p>
+                                    <p>تهران , تجریش</p>
+                                </div>
+                                <div class="tab-pane fade" id="account-details">
+                                    <h3>ویرایش پروفایل</h3>
+                                    <div class="login">
+                                        <div class="login-form-container">
+                                            <div class="account-login-form">
+                                                <form action="#">
+                                                    <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک</p>
+                                                    <div class="input-radio">
+                                                        <span class="custom-radio"><input type="radio" value="1" name="id_gender"> آقا</span>
+                                                        <span class="custom-radio"><input type="radio" value="1" name="id_gender"> خانم</span>
+                                                    </div>
+                                                    <div class="account-input-box">
+                                                        <label>نام</label>
+                                                        <input type="text" name="first-name">
+                                                        <label>نام خانوادگی</label>
+                                                        <input type="text" name="last-name">
+                                                        <label>ایمیل</label>
+                                                        <input type="text" name="email-name">
+                                                        <label>رمز عبور</label>
+                                                        <input type="password" name="user-password">
+                                                        <label>شماره تماس</label>
+                                                        <input type="text" placeholder="" value="" name="birthday">
+                                                    </div>
+                                                    <div class="custom-checkbox">
+                                                        <input type="checkbox" value="1" name="newsletter">
+                                                        <label>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک</label>
+                                                    </div>
+                                                    <div class="button-box">
+                                                        <button class="btn default-btn" type="submit">ذخیره</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
