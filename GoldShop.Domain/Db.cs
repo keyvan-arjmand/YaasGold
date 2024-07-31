@@ -1,4 +1,5 @@
 ﻿using GoldShop.Domain.Entity;
+using GoldShop.Domain.Entity.Page;
 using GoldShop.Domain.Entity.Product;
 using GoldShop.Domain.Entity.User;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -29,6 +30,9 @@ public class Db : IdentityDbContext<User, Role, long>
     public DbSet<Factor> Factors { set; get; }
     public DbSet<Product> Products { set; get; }
     public DbSet<ProductFactor> ProductFactors { set; get; }
+    public DbSet<PostMethod> PostMethods { set; get; }
+    public DbSet<ContactUs>  ContactUs { set; get; }
+    public DbSet<DiscountCode>  DiscountCodes { set; get; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -13,6 +13,7 @@ using GoldShop.Application.Dtos.Factor;
 using GoldShop.Application.Dtos.Products;
 using GoldShop.Application.Dtos.User;
 using GoldShop.Application.Interfaces;
+using GoldShop.Domain.Entity.Page;
 using GoldShop.Domain.Entity.Product;
 using GoldShop.Domain.Entity.User;
 using GoldShop.Domain.Enums;
@@ -506,6 +507,147 @@ public class AdminController : Controller
         else
         {
             return RedirectToAction("Index");
+        }
+    }
+    public async Task<ActionResult> UpdatePostMethod(int id, string title, double price)
+    {
+        if (User.Identity.IsAuthenticated && id > 0)
+        {
+            var postMethod = await _work.GenericRepository<PostMethod>().Table.FirstOrDefaultAsync(x => x.Id == id);
+            postMethod.Title = title;
+            postMethod.Price = price;
+
+            await _work.GenericRepository<PostMethod>().UpdateAsync(postMethod, CancellationToken.None);
+            return RedirectToAction("ManagePostMethod");
+        }
+        else
+        {
+            return RedirectToAction("Index");
+        }
+    }
+    public async Task<ActionResult> InsertPostMethod(string title, double price)
+    {
+        if (User.Identity.IsAuthenticated)
+        {
+            await _work.GenericRepository<PostMethod>().AddAsync(new PostMethod()
+            {
+                Title = title,
+                Price = price
+            }, CancellationToken.None);
+
+            return RedirectToAction("ManagePostMethod");
+        }
+        else
+        {
+            return RedirectToAction("Index");
+        }
+    }
+    public async Task<ActionResult> ManagePostMethod(string search)
+    {
+        if (User.Identity.IsAuthenticated)
+        {
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                ViewBag.PostMethod = await _work.GenericRepository<PostMethod>().TableNoTracking
+                    .Where(x => x.Title.Contains(search)).OrderByDescending(x => x.Id).ToListAsync();
+            }
+            else
+            {
+                ViewBag.PostMethod = await _work.GenericRepository<PostMethod>().TableNoTracking
+                    .OrderByDescending(x => x.Id).ToListAsync();
+            }
+
+            return View();
+        }
+        else
+        {
+            return RedirectToAction("Index");
+        }
+    }
+    public async Task<ActionResult> ManageContact(string search)
+    {
+        if (User.Identity.IsAuthenticated)
+        {
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                ViewBag.Contact = await _work.GenericRepository<ContactUs>().TableNoTracking
+                    .Where(x => x.Name.Contains(search) || x.PhoneNumber.Contains(search) || x.Message.Contains(search))
+                    .OrderByDescending(x => x.InsertDate).ToListAsync();
+            }
+            else
+            {
+                ViewBag.Contact = await _work.GenericRepository<ContactUs>().TableNoTracking
+                    .OrderByDescending(x => x.InsertDate).ToListAsync();
+            }
+
+            return View();
+        }
+        else
+        {
+            return RedirectToAction("Index");
+        }
+    }
+    public async Task<ActionResult> UpdateDiscount(int id, string code, double amount, int count)
+    {
+        if (User.Identity.IsAuthenticated)
+        {
+            var discount = await _work.GenericRepository<DiscountCode>().Table.FirstOrDefaultAsync(x => x.Id == id);
+            discount.Count = count;
+            discount.Code = code;
+            discount.Amount = amount;
+            await _work.GenericRepository<DiscountCode>().UpdateAsync(discount, CancellationToken.None);
+            return RedirectToAction("ManageDiscount");
+        }
+        else
+        {
+            return RedirectToAction("Index");
+        }
+    }
+    public async Task<ActionResult> InsertDiscount(string code, double amount, int count)
+    {
+        if (User.Identity.IsAuthenticated)
+        {
+            await _work.GenericRepository<DiscountCode>().AddAsync(new DiscountCode()
+            {
+                Count = count,
+                Amount = amount,
+                Code = code,
+                IsActive = true
+            }, CancellationToken.None);
+            return RedirectToAction("ManageDiscount");
+        }
+        else
+        {
+            return RedirectToAction("Index");
+        }
+    }
+    public async Task<ActionResult> ManageDiscount(string search)
+    {
+        if (User.Identity.IsAuthenticated)
+        {
+            #region ViewBag
+
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                ViewBag.DiscountCode = await _work.GenericRepository<DiscountCode>().TableNoTracking
+                    .Where(x => x.Code.Contains(search))
+                    .OrderByDescending(x => x.Id)
+                    .ToListAsync();
+            }
+            else
+            {
+                ViewBag.DiscountCode = await _work.GenericRepository<DiscountCode>().TableNoTracking
+                    .OrderByDescending(x => x.Id)
+                    .ToListAsync();
+            }
+
+            #endregion
+
+            return View();
+        }
+        else
+        {
+            return View("Login");
         }
     }
 }
