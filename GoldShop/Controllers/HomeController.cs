@@ -393,4 +393,15 @@ public class HomeController : Controller
         ViewBag.Cats = await _work.GenericRepository<Category>().TableNoTracking.ToListAsync();
         return View();
     }
+    public IActionResult RemoveInBasket(int id)
+    {
+        var basketlist = new List<int>();
+        if (HttpContext.Session.GetString("basket") != null)
+        {
+            basketlist = JsonConvert.DeserializeObject<List<int>>(HttpContext.Session.GetString("basket")).ToList();
+        }
+        basketlist.Remove(id);
+        HttpContext.Session.SetString("basket", JsonConvert.SerializeObject(basketlist));
+        return  RedirectToAction("Index","Home");
+    }
 }

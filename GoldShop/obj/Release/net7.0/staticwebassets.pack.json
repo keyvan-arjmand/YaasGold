@@ -29,6 +29,10 @@
       "PackagePath": "staticwebassets\\Images\\Banner\\Necklacebanner.jpg"
     },
     {
+      "Id": "C:\\Users\\User\\RiderProjects\\GoldShop\\GoldShop\\wwwroot\\Images\\Banner\\Parasteh_home_banner_Desktop-no1.jpg",
+      "PackagePath": "staticwebassets\\Images\\Banner\\Parasteh_home_banner_Desktop-no1.jpg"
+    },
+    {
       "Id": "C:\\Users\\User\\RiderProjects\\GoldShop\\GoldShop\\wwwroot\\Images\\Banner\\bannerBlack.jpg",
       "PackagePath": "staticwebassets\\Images\\Banner\\bannerBlack.jpg"
     },
@@ -49,8 +53,20 @@
       "PackagePath": "staticwebassets\\Images\\Banner\\earrings.png"
     },
     {
+      "Id": "C:\\Users\\User\\RiderProjects\\GoldShop\\GoldShop\\wwwroot\\Images\\Banner\\ezgif-6-ab56919614.png",
+      "PackagePath": "staticwebassets\\Images\\Banner\\ezgif-6-ab56919614.png"
+    },
+    {
+      "Id": "C:\\Users\\User\\RiderProjects\\GoldShop\\GoldShop\\wwwroot\\Images\\Banner\\home-left.jpg",
+      "PackagePath": "staticwebassets\\Images\\Banner\\home-left.jpg"
+    },
+    {
       "Id": "C:\\Users\\User\\RiderProjects\\GoldShop\\GoldShop\\wwwroot\\Images\\Banner\\jewel.png",
       "PackagePath": "staticwebassets\\Images\\Banner\\jewel.png"
+    },
+    {
+      "Id": "C:\\Users\\User\\RiderProjects\\GoldShop\\GoldShop\\wwwroot\\Images\\Banner\\sfdgfhmjkhl.webp",
+      "PackagePath": "staticwebassets\\Images\\Banner\\sfdgfhmjkhl.webp"
     },
     {
       "Id": "C:\\Users\\User\\RiderProjects\\GoldShop\\GoldShop\\wwwroot\\Images\\Banner\\wedding-ring.png",
@@ -89,6 +105,10 @@
       "PackagePath": "staticwebassets\\Images\\Product\\61726440.jpg"
     },
     {
+      "Id": "C:\\Users\\User\\RiderProjects\\GoldShop\\GoldShop\\wwwroot\\Images\\Product\\740d7c4c-18a0-4cea-93ef-5fb136c8c6f3.jpg",
+      "PackagePath": "staticwebassets\\Images\\Product\\740d7c4c-18a0-4cea-93ef-5fb136c8c6f3.jpg"
+    },
+    {
       "Id": "C:\\Users\\User\\RiderProjects\\GoldShop\\GoldShop\\wwwroot\\Images\\Product\\AJ3808-مدال-ورساچ-طلانگین-دار-براق_8467.jpg",
       "PackagePath": "staticwebassets\\Images\\Product\\AJ3808-مدال-ورساچ-طلانگین-دار-براق_8467.jpg"
     },
@@ -117,6 +137,14 @@
       "PackagePath": "staticwebassets\\Images\\Product\\a28cfec2-5e46-4370-a3d7-557a65539651.jpg"
     },
     {
+      "Id": "C:\\Users\\User\\RiderProjects\\GoldShop\\GoldShop\\wwwroot\\Images\\Product\\chain.png",
+      "PackagePath": "staticwebassets\\Images\\Product\\chain.png"
+    },
+    {
+      "Id": "C:\\Users\\User\\RiderProjects\\GoldShop\\GoldShop\\wwwroot\\Images\\Product\\earrings.png",
+      "PackagePath": "staticwebassets\\Images\\Product\\earrings.png"
+    },
+    {
       "Id": "C:\\Users\\User\\RiderProjects\\GoldShop\\GoldShop\\wwwroot\\Images\\Product\\main_image.jpg",
       "PackagePath": "staticwebassets\\Images\\Product\\main_image.jpg"
     },
@@ -131,6 +159,10 @@
     {
       "Id": "C:\\Users\\User\\RiderProjects\\GoldShop\\GoldShop\\wwwroot\\Images\\Product\\photo_2023-10-12_09-00-55.jpg",
       "PackagePath": "staticwebassets\\Images\\Product\\photo_2023-10-12_09-00-55.jpg"
+    },
+    {
+      "Id": "C:\\Users\\User\\RiderProjects\\GoldShop\\GoldShop\\wwwroot\\Images\\Product\\wedding-ring.png",
+      "PackagePath": "staticwebassets\\Images\\Product\\wedding-ring.png"
     },
     {
       "Id": "C:\\Users\\User\\RiderProjects\\GoldShop\\GoldShop\\wwwroot\\Images\\Product\\آویز-طلا-الله-لیزری-دوبل-AJ1985_1200.jpg",
@@ -331,6 +363,10 @@
     {
       "Id": "C:\\Users\\User\\RiderProjects\\GoldShop\\GoldShop\\wwwroot\\assets\\images\\banner\\img-tab2-3.jpg",
       "PackagePath": "staticwebassets\\assets\\images\\banner\\img-tab2-3.jpg"
+    },
+    {
+      "Id": "C:\\Users\\User\\RiderProjects\\GoldShop\\GoldShop\\wwwroot\\assets\\images\\bg\\Parasteh_home_banner_Desktop-no1.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\bg\\Parasteh_home_banner_Desktop-no1.jpg"
     },
     {
       "Id": "C:\\Users\\User\\RiderProjects\\GoldShop\\GoldShop\\wwwroot\\assets\\images\\bg\\about-us-policy-bg.jpg",

@@ -289,12 +289,13 @@ public class AdminController : Controller
     {
         if (User.Identity.IsAuthenticated)
         {
-            ViewBag.productCount =await _work.GenericRepository<Product>().TableNoTracking.CountAsync();
-            ViewBag.inventory =await _work.GenericRepository<Product>().TableNoTracking.CountAsync(x => x.Inventory > 0);
-            ViewBag.orders =await _work.GenericRepository<Factor>().TableNoTracking.CountAsync();
-            ViewBag.categories =await _work.GenericRepository<Category>().TableNoTracking.ToListAsync();
+            ViewBag.productCount = await _work.GenericRepository<Product>().TableNoTracking.CountAsync();
+            ViewBag.inventory =
+                await _work.GenericRepository<Product>().TableNoTracking.CountAsync(x => x.Inventory > 0);
+            ViewBag.orders = await _work.GenericRepository<Factor>().TableNoTracking.CountAsync();
+            ViewBag.categories = await _work.GenericRepository<Category>().TableNoTracking.ToListAsync();
             ViewBag.goldPrice = await _work.GenericRepository<GoldPrice>().TableNoTracking.FirstAsync();
-            switch (string.IsNullOrWhiteSpace(search??string.Empty), catId <= 0)
+            switch (string.IsNullOrWhiteSpace(search ?? string.Empty), catId <= 0)
             {
                 case (true, true):
                     ViewBag.products = await _work.GenericRepository<Product>().TableNoTracking
@@ -332,6 +333,179 @@ public class AdminController : Controller
         else
         {
             return View("Index");
+        }
+    }
+
+    public async Task<ActionResult> InsertState(string title)
+    {
+        if (User.Identity.IsAuthenticated)
+        {
+            await _work.GenericRepository<State>().AddAsync(new State
+            {
+                Title = title
+            }, CancellationToken.None);
+            return RedirectToAction("ManageState");
+        }
+        else
+        {
+            return RedirectToAction("Index");
+        }
+    }
+    
+    public async Task<ActionResult> UpdateState(string title, int id)
+    {
+        if (User.Identity.IsAuthenticated)
+        {
+            var state = await _work.GenericRepository<State>().Table.FirstOrDefaultAsync(x => x.Id == id);
+            state.Title = title;
+            await _work.GenericRepository<State>().UpdateAsync(state, CancellationToken.None);
+            return RedirectToAction("ManageState");
+        }
+        else
+        {
+            return View("Login");
+        }
+    }
+    public async Task<ActionResult> ManageState(string search, int index)
+    {
+        if (User.Identity.IsAuthenticated)
+        {
+            if (string.IsNullOrWhiteSpace(search))
+            {
+                ViewBag.States =
+                    await _work.GenericRepository<State>().TableNoTracking.Include(x => x.Cities)
+                        .OrderByDescending(x => x.Id).ToListAsync();
+                return View();
+            }
+            else
+            {
+                ViewBag.States =
+                    await _work.GenericRepository<State>().TableNoTracking.Include(x => x.Cities)
+                        .Where(x => x.Title.Contains(search)).OrderByDescending(x => x.Id).ToListAsync();
+                return View();
+            }
+        }
+        else
+        {
+            return RedirectToAction("Index");
+        }
+    }
+    public async Task<ActionResult> UpdateCat(int id, string title, IFormFile imageCat, bool isActiveCat)
+    {
+        if (User.Identity.IsAuthenticated)
+        {
+            Upload up = new Upload(_webHostEnvironment);
+            var cat = await _work.GenericRepository<Category>().Table.FirstOrDefaultAsync(x => x.Id == id);
+            cat.Name = title;
+            await _work.GenericRepository<Category>().UpdateAsync(cat, CancellationToken.None);
+            return RedirectToAction("ManageCategory");
+        }
+        else
+        {
+            return View("Login");
+        }
+    }
+    public async Task<ActionResult> InsertCat(string title)
+    {
+        if (User.Identity.IsAuthenticated)
+        {
+            await _work.GenericRepository<Category>().AddAsync(new Category
+            {
+                Name = title,
+            }, CancellationToken.None);
+            return RedirectToAction("ManageCategory");
+        }
+        else
+        {
+            return View("Login");
+        }
+    }
+
+    public async Task<ActionResult> ManageCategory(string search, int index)
+    {
+        if (User.Identity.IsAuthenticated)
+        {
+            if (string.IsNullOrWhiteSpace(search))
+            {
+                ViewBag.Cats = await _work.GenericRepository<Category>().TableNoTracking
+                    .ToListAsync();
+                return View();
+            }
+            else
+            {
+                ViewBag.States =
+                    ViewBag.Cats = await _work.GenericRepository<Category>().TableNoTracking
+                        .Where(x => x.Name.Contains(search)).OrderByDescending(x => x.Id)
+                        .ToListAsync();
+                return View();
+            }
+        }
+        else
+        {
+            return RedirectToAction("Index");
+        }
+    }
+    public async Task<ActionResult> UpdateCity(string title, int id, int stateId)
+    {
+        if (User.Identity.IsAuthenticated)
+        {
+            var state = await _work.GenericRepository<City>().Table.FirstOrDefaultAsync(x => x.Id == id);
+            state.Name = title;
+            state.StateId = stateId;
+            await _work.GenericRepository<City>().UpdateAsync(state, CancellationToken.None);
+            return RedirectToAction("ManageCity");
+        }
+        else
+        {
+            return View("Login");
+        }
+    }
+    
+    public async Task<ActionResult> ManageCity(string search)
+    {
+        if (User.Identity.IsAuthenticated)
+        {
+            if (string.IsNullOrWhiteSpace(search))
+            {
+                ViewBag.States =
+                    await _work.GenericRepository<State>().TableNoTracking.Include(x => x.Cities)
+                        .OrderByDescending(x => x.Id).ToListAsync();
+                ViewBag.Cities = await _work.GenericRepository<City>().TableNoTracking.Include(x => x.State)
+                    .OrderByDescending(x => x.Id).ToListAsync();
+                return View();
+            }
+            else
+            {
+                    ViewBag.States =
+                        await _work.GenericRepository<State>().TableNoTracking.Include(x => x.Cities)
+                            .OrderByDescending(x => x.Id).ToListAsync();
+                    ViewBag.Cities = await _work.GenericRepository<City>().TableNoTracking.Include(x => x.State)
+                        .Where(x => x.Name.Contains(search) || x.State.Title.Contains(search))
+                        .OrderByDescending(x => x.Id).ToListAsync();
+                
+
+                return View();
+            }
+        }
+        else
+        {
+            return RedirectToAction("Index");
+        }
+    }
+    public async Task<ActionResult> InsertCity(string title, int stateId)
+    {
+        if (User.Identity.IsAuthenticated)
+        {
+            await _work.GenericRepository<City>().AddAsync(new City
+            {
+                Name = title,
+                StateId = stateId
+            }, CancellationToken.None);
+            return RedirectToAction("ManageCity");
+        }
+        else
+        {
+            return RedirectToAction("Index");
         }
     }
 }

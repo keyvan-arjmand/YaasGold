@@ -48,8 +48,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFua1xTYW1hbkJhY2suY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/User/RiderProjects/GoldShop/GoldShop/Views/Bank/SinaBack.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFua1xTaW5hQmFjay5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/User/RiderProjects/GoldShop/GoldShop/Views/Home/AboutUs.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxBYm91dFVzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/RiderProjects/GoldShop/GoldShop/Views/Home/Basket.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxCYXNrZXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/User/RiderProjects/GoldShop/GoldShop/Views/Home/Category.cshtml]
@@ -74,6 +82,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/User/RiderProjects/GoldShop/GoldShop/Views/Home/ProductDetail.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcm9kdWN0RGV0YWlsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/RiderProjects/GoldShop/GoldShop/Views/Home/Profile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcm9maWxlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/User/RiderProjects/GoldShop/GoldShop/Views/Shared/Error.cshtml]

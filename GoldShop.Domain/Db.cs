@@ -19,7 +19,7 @@ public class Db : IdentityDbContext<User, Role, long>
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseSqlServer(
-            "Data Source=DESKTOP-M202FR8\\KEY1;Initial Catalog=YassGold;Integrated Security=True;Trust Server Certificate=True");
+            "Data Source=185.88.153.67,1430;Initial Catalog=Yaas;User ID=user_Dev;Password=Keyvan13800!;Trust Server Certificate=True");
         base.OnConfiguring(optionsBuilder);
     }
 

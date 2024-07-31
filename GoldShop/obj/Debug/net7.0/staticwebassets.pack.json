@@ -141,6 +141,10 @@
       "PackagePath": "staticwebassets\\Images\\Product\\chain.png"
     },
     {
+      "Id": "C:\\Users\\User\\RiderProjects\\GoldShop\\GoldShop\\wwwroot\\Images\\Product\\earrings.png",
+      "PackagePath": "staticwebassets\\Images\\Product\\earrings.png"
+    },
+    {
       "Id": "C:\\Users\\User\\RiderProjects\\GoldShop\\GoldShop\\wwwroot\\Images\\Product\\main_image.jpg",
       "PackagePath": "staticwebassets\\Images\\Product\\main_image.jpg"
     },

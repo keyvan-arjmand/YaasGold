@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "pcReq0EO43ETBANDIXZxE1mV7uzHlYsyYlotLpVST0o=",
+  "Hash": "Vjpx3mvW7n2n66ktGl1pHTxMLYkFEWWseS3wzKEoyLI=",
   "Source": "GoldShop",
   "BasePath": "_content/GoldShop",
   "Mode": "Default",
@@ -7138,6 +7138,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Images\\Product\\chain.png"
+    },
+    {
+      "Identity": "C:\\Users\\User\\RiderProjects\\GoldShop\\GoldShop\\wwwroot\\Images\\Product\\earrings.png",
+      "SourceId": "GoldShop",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\User\\RiderProjects\\GoldShop\\GoldShop\\wwwroot\\",
+      "BasePath": "_content/GoldShop",
+      "RelativePath": "Images/Product/earrings.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\Product\\earrings.png"
     },
     {
       "Identity": "C:\\Users\\User\\RiderProjects\\GoldShop\\GoldShop\\wwwroot\\Images\\Product\\GOLD FILLED Paper clip, Satellite chain with Opal Evil Eye Necklace - Bohemian Necklace for Everyday Layering_ Build your own style_.jpg",

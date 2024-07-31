@@ -7,9 +7,9 @@ namespace GoldShop.Domain.Entity.Product;
 public class ProductFactor:BaseEntity
 {
     public long ProductId { get; set; }
-    [ForeignKey(nameof(ProductId))] public Product Product { get; set; } = default!;
+    [ForeignKey(nameof(ProductId))] public Product? Product { get; set; } 
     public long FactorId { get; set; }
     [DeleteBehavior(DeleteBehavior.ClientSetNull)]
-    [ForeignKey(nameof(FactorId))] public Factor Factor { get; set; } = default!;
+    [ForeignKey(nameof(FactorId))] public Factor? Factor { get; set; } 
 
 }

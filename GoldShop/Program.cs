@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
-builder.Services.AddSession(option => { option.IdleTimeout = TimeSpan.FromMinutes(20); });
+builder.Services.AddSession(option => { option.IdleTimeout = TimeSpan.FromHours(3); });
 builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddInfrastructureServices();
 builder.Services.AddAutoMapper(typeof(Program));
@@ -38,7 +38,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 {
     options.AccessDeniedPath = "/Account/AccessDenied";
     options.Cookie.Name = "WebAppIdentityCooclie";
-    options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+    options.ExpireTimeSpan = TimeSpan.FromHours(3);
     options.LoginPath = "/Account/SignUp";
     options.SlidingExpiration = true;
 });

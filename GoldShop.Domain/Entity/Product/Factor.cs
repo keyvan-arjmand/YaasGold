@@ -7,7 +7,7 @@ namespace GoldShop.Domain.Entity.Product;
 public class Factor:BaseEntity
 {
     public long UserId { get; set; }
-    [ForeignKey("UserId")] public User.User User { get; set; } = new();
+    [ForeignKey("UserId")] public User.User User { get; set; } = default!;
     public ICollection<ProductFactor> Products { get; set; } = default!;
     public string Address { get; set; } = string.Empty;
     public DateTime DateTime { get; set; }

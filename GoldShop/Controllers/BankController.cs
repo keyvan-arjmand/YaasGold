@@ -4,7 +4,7 @@ namespace GoldShop.Controllers;
 
 public class BankController : Controller
 {
-    public ActionResult SamanBack()
+    public ActionResult SinaBack()
     {
         return View();
     }

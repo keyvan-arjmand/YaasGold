@@ -6,7 +6,7 @@ namespace GoldShop.Domain.Entity.User;
 public class City : BaseEntity
 {
     public long StateId { get; set; }
-    [ForeignKey("StateId")] public State State { get; set; } = new();
+    [ForeignKey("StateId")] public State? State { get; set; } 
 
     public string Name { get; set; } = string.Empty;
 
