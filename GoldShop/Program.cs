@@ -2,8 +2,12 @@ using GoldShop.Application;
 using GoldShop.Domain;
 using GoldShop.Domain.Entity.User;
 using GoldShop.Infrastructure.Configuration;
+using GoldShop.Jobs;
+using Hangfire;
+using Hangfire.MemoryStorage;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Quartz;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,6 +46,20 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.LoginPath = "/Account/SignUp";
     options.SlidingExpiration = true;
 });
+builder.Services.AddQuartz(q =>
+{
+    // Create a job and trigger
+    q.UseMicrosoftDependencyInjectionJobFactory(); // use DI for job creation
+    q.ScheduleJob<UpdateGoldPrice>(trigger => trigger
+        .WithIdentity("MyJobTrigger")
+        .StartNow()
+        .WithSimpleSchedule(x => x
+            .WithIntervalInSeconds(10)
+            .RepeatForever()));
+});
+
+// Add Quartz Hosted Service
+builder.Services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
 
 var app = builder.Build();
 
@@ -52,6 +70,7 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

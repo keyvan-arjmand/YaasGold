@@ -6,6 +6,8 @@ namespace GoldShop.Domain.Entity.Product;
 public class GoldPrice : BaseEntity
 {
     public double PricePerGram { get; set; }
+    public double PriceApi { get; set; }
     public string GenderType { get; set; } = string.Empty; //نوع جنس
     public PriceType PriceType { get; set; }
+    public DateTime UpdateTime { get; set; }
 }

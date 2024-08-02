@@ -1,4 +1,6 @@
-﻿using GoldShop.Application.Admin.V1.Commands.AdminExist;
+﻿using System.Text;
+using System.Text.Json;
+using GoldShop.Application.Admin.V1.Commands.AdminExist;
 using GoldShop.Application.Admin.V1.Commands.ConfirmCodAdmin;
 using GoldShop.Application.Admin.V1.Commands.ConfirmPasswordAdmin;
 using GoldShop.Application.Admin.V1.Commands.CreateProduct;
@@ -28,6 +30,7 @@ namespace GoldShop.Controllers;
 
 public class AdminController : Controller
 {
+
     private readonly UserManager<User> _userManager;
     private readonly SignInManager<User> _signInManager;
     private readonly RoleManager<Role> _roleManager;
@@ -299,27 +302,27 @@ public class AdminController : Controller
             switch (string.IsNullOrWhiteSpace(search ?? string.Empty), catId <= 0)
             {
                 case (true, true):
-                    ViewBag.products = await _work.GenericRepository<Product>().TableNoTracking
+                    ViewBag.products = await _work.GenericRepository<Product>().TableNoTracking.Include(x=>x.GoldPrice)
                         .Include(x => x.Category)
                         .Skip((page - 1) * 10).Take(10)
                         .ToListAsync();
                     break;
                 case (true, false):
-                    ViewBag.products = await _work.GenericRepository<Product>().TableNoTracking
+                    ViewBag.products = await _work.GenericRepository<Product>().TableNoTracking.Include(x=>x.GoldPrice)
                         .Include(x => x.Category)
                         .Where(x => x.CategoryId == catId)
                         .Skip((page - 1) * 10).Take(10)
                         .ToListAsync();
                     break;
                 case (false, true):
-                    ViewBag.products = await _work.GenericRepository<Product>().TableNoTracking
+                    ViewBag.products = await _work.GenericRepository<Product>().TableNoTracking.Include(x=>x.GoldPrice)
                         .Include(x => x.Category)
                         .Where(x => x.Name.Contains(search) || x.Brand.Contains(search))
                         .Skip((page - 1) * 10).Take(10)
                         .ToListAsync();
                     break;
                 case (false, false):
-                    ViewBag.products = await _work.GenericRepository<Product>().TableNoTracking
+                    ViewBag.products = await _work.GenericRepository<Product>().TableNoTracking.Include(x=>x.GoldPrice)
                         .Include(x => x.Category)
                         .Where(x => x.Name.Contains(search) || x.Brand.Contains(search) && x.CategoryId == catId)
                         .Skip((page - 1) * 10).Take(10)
@@ -585,6 +588,52 @@ public class AdminController : Controller
         else
         {
             return RedirectToAction("Index");
+        }
+    }
+    public class CurrencyRates
+    {
+        public int YekGram18 { get; set; }
+        public int YekMesghal18 { get; set; }
+        public int SekehRob { get; set; }
+        public int SekehNim { get; set; }
+        public int SekehEmam { get; set; }
+        public int SekehTamam { get; set; }
+        public int SekehGerami { get; set; }
+        public int OunceTala { get; set; }
+        public int YekMesghal17 { get; set; }
+        public int OunceNoghreh { get; set; }
+        public int Pelatin { get; set; }
+        public int Dollar { get; set; }
+        public int Euro { get; set; }
+        public int Derham { get; set; }
+        public int YekGram20 { get; set; }
+        public int YekGram21 { get; set; }
+        public string TimeRead { get; set; }
+    }
+    public async Task<CurrencyRates> GetGoldPrice()
+    {
+        if (User.Identity.IsAuthenticated)
+        {
+            HttpClient client = new HttpClient();
+            var jsonPayload = "{\"name\":\"value\"}";
+
+            // Create an instance of StringContent
+            var content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
+
+            // Send a POST request to the specified URI
+            HttpResponseMessage response = await client.PostAsync("https://webservice.tgnsrv.ir/Pr/Get/afshar7365/a09193647365a", content);
+
+            // Ensure the request was successful
+            response.EnsureSuccessStatusCode();
+
+            // Read the response content as a string
+            string responseBody = await response.Content.ReadAsStringAsync();
+            var currency = JsonSerializer.Deserialize<CurrencyRates>(responseBody);
+            return currency;
+        }
+        else
+        {
+            return new CurrencyRates();
         }
     }
     public async Task<ActionResult> UpdateDiscount(int id, string code, double amount, int count)

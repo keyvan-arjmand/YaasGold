@@ -1,4 +1,5 @@
-﻿@using GoldShop.Domain.Entity.Product
+﻿@using GoldShop.Comman
+@using GoldShop.Domain.Entity.Product
 @using GoldShop.Domain.Enums
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 @model GoldShop.Application.Dtos.Products.CreateProductDto
@@ -8,6 +9,7 @@
     List<Product> products = ViewBag.products;
     int productsPage = ViewBag.productsPage;
 }
+
 @section link
 {
     <style>
@@ -16,6 +18,7 @@
         }
     </style>
 }
+
 <div class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
@@ -36,29 +39,8 @@
 <section class="content">
 <div class="container-fluid">
 <div class="row">
-<div class="col-md-3">
-
-    <!-- Profile Image -->
-    <div class="card card-primary card-outline">
-        <div class="card-body box-profile">
-            <p class="text-muted text-center">خلاصه وضعیت</p>
-            <ul class="list-group list-group-unbordered mb-3">
-                <li class="list-group-item">
-                    <b>تعداد محصول</b> <a class="float-left">@ViewBag.productCount</a>
-                </li>
-                <li class="list-group-item">
-                    <b>موجودی محصول</b> <a class="float-left">@ViewBag.inventory</a>
-                </li>
-                <li class="list-group-item">
-                    <b>سفارشات</b> <a class="float-left">@ViewBag.orders</a>
-                </li>
-            </ul>
-        </div>
-        <!-- /.card-body -->
-    </div>
-</div>
 <!-- /.col -->
-<div class="col-md-9">
+<div class="col-md-12">
 <div class="card">
 <div class="card-header p-2">
     <ul class="nav nav-pills">
@@ -93,35 +75,57 @@
             </select>
         </div>
     </form>
-    <div class="d-flex gap-2 flex-wrap justify-content-between mt-3 pt-3">
-        @{
-            <!-- Button trigger modal -->
-            foreach (var i in products)
-            {
-                
-                <form class="card shadow" style="width: 12rem;">
-                    <img src="/Images/Product/@i.Image" class="card-img-top" alt="..." width="100" height="140" style="object-fit: cover">
-                    <div class="card-body">
-                        <h5 class="card-title fs-6 text-center">@i.Name</h5>
-                        <p class="card-text fs-6 text-center">دسته بندی : @i.Category.Name</p>
-                        <p class="card-title fs-6 text-center">موجودی : @i.Inventory</p>
-                        <a class="btn text-white w-100 modalProduct " data-bs-toggle="modal" data-bs-target=".exampleModal" style="background-color: #ff9f00 !important;cursor: pointer">ویرایش</a>
-                    </div>
-                    <input type="text" name="mId" class="mId" value="@i.Id" hidden="hidden"/>
-                    <input type="text" name="mName" class="mName" value="@i.Name" hidden="hidden"/>
-                    <input type="text" name="mBrand" class="mBrand" value="@i.Brand" hidden="hidden"/>
-                    <input type="text" name="mImageBanner" class="mImageBanner" value="@i.ImageBanner" hidden="hidden"/>
-                    <input type="text" name="mImageThumb" class="mImageThumb" value="@i.ImageThumb" hidden="hidden"/>
-                    <input type="text" name="mImage" class="mImage" value="@i.Image" hidden="hidden"/>
-                    <input type="text" name="mWeight" class="mWeight" value="@i.Weight" hidden="hidden"/>
-                    <input type="text" name="mWages" class="mWages" value="@i.Wages" hidden="hidden"/>
-                    <input type="text" name="mInventory" class="mInventory" value="@i.Inventory" hidden="hidden"/>
-                    <input type="text" name="mCategoryId" class="mCategoryId" value="@i.CategoryId" hidden="hidden"/>
-                </form>
-            }
-        }
-
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">محصولات سایت</h3>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body p-0">
+            <table class="table table-striped">
+                <tr>
+                    <th class="text-center" style="width: 10px">Id</th>
+                    <th class="text-center">نام</th>
+                    <th class="text-center">دسته بندی</th>
+                    <th class="text-center">قیمت</th>
+                    <th class="text-center">موجودی</th>
+                    <th class="text-center">#</th>
+                </tr>
+                @{
+                    <!-- Button trigger modal -->
+                    foreach (var i in products)
+                    {
+                        <tr>
+                            <td class="text-center">@i.Id</td>
+                            <td class="text-center">@i.Name</td>
+                            <td class="text-center">@i.Category.Name</td>
+                            <td class="text-center">
+                                @i.GoldPrice.PricePerGram.GetPrice(i.Weight, i.Wages).ToString("N0")
+                            </td>
+                            <td class="text-center">@i.Inventory</td>
+                            <td class="text-center">
+                                <form>
+                                    <a class="badge badge-warning  modalProduct " data-bs-toggle="modal" data-bs-target=".exampleModal" style="cursor: pointer">ویرایش</a>
+                                    <input type="text" name="mId" class="mId" value="@i.Id" hidden="hidden"/>
+                                    <input type="text" name="mName" class="mName" value="@i.Name" hidden="hidden"/>
+                                    <input type="text" name="mBrand" class="mBrand" value="@i.Brand" hidden="hidden"/>
+                                    <input type="text" name="mImageBanner" class="mImageBanner" value="@i.ImageBanner" hidden="hidden"/>
+                                    <input type="text" name="mImageThumb" class="mImageThumb" value="@i.ImageThumb" hidden="hidden"/>
+                                    <input type="text" name="mImage" class="mImage" value="@i.Image" hidden="hidden"/>
+                                    <input type="text" name="mWeight" class="mWeight" value="@i.Weight" hidden="hidden"/>
+                                    <input type="text" name="mWages" class="mWages" value="@i.Wages" hidden="hidden"/>
+                                    <input type="text" name="mInventory" class="mInventory" value="@i.Inventory" hidden="hidden"/>
+                                    <input type="text" name="mCategoryId" class="mCategoryId" value="@i.CategoryId" hidden="hidden"/>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                }
+            </table>
+        </div>
+        <!-- /.card-body -->
     </div>
+
+
     <div class="d-flex justify-content-center">
         <nav aria-label="Page navigation example w-100">
             <ul class="pagination">
@@ -268,7 +272,7 @@
         <div class="d-flex w-100">
             <div class="form-group w-50">
                 <label for="exampleInputFile">عکس محصول</label>
-                <div class="input-group" style="width: 100% !important">
+                <div class="input-group  w-50" style="   min-width: 650px;">
                     <div class="custom-file">
                         <input asp-for="Image" type="file" class="custom-file-input" id="exampleInputFile">
                         <label class="custom-file-label" for="exampleInputFile">انتخاب فایل</label>
@@ -276,8 +280,8 @@
                 </div>
             </div>
             <div class="form-group w-50">
-                <label for="exampleInputFile">بنر محصول</label>
-                <div class="input-group" style="width: 100% !important">
+                <label for="exampleInputFile">بنر اول</label>
+                <div class="input-group  w-50" style="   min-width: 650px;">
                     <div class="custom-file">
                         <input asp-for="ImageBanner" type="file" class="custom-file-input" id="exampleInputFile">
                         <label class="custom-file-label" for="exampleInputFile">انتخاب فایل</label>
@@ -286,11 +290,11 @@
             </div>
         </div>
         <div class="d-flex w-100">
-            <div class="form-group w-50">
-                <label for="exampleInputFile">عکس محصول</label>
-                <div class="input-group" style="width: 100% !important">
+            <div class="form-group  w-50 ">
+                <label for="exampleInputFile"> بنر دوم</label>
+                <div class="input-group w-50" style="   min-width: 650px;">
                     <div class="custom-file">
-                        <input asp-for="ImageThumb" type="file" class="custom-file-input" id="exampleInputFile">
+                        <input asp-for="ImageThumb" type="file" class="custom-file-input  w-50" id="exampleInputFile">
                         <label class="custom-file-label" for="ImageThumb">انتخاب فایل</label>
                     </div>
                 </div>
@@ -320,7 +324,7 @@
         <div class="d-flex w-100">
             <div class="form-group w-50">
                 <label>دسته بندی محصول</label>
-                <select asp-for="CategoryId" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                <select asp-for="CategoryId" class="form-select " style="width: 100%;max-width: 650px" tabindex="-1" aria-hidden="true">
                     @{
                         int Index = 0;
                         foreach (Category i in ViewBag.categories)
