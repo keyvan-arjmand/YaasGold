@@ -77,6 +77,10 @@
       "PackagePath": "staticwebassets\\Images\\Icons\\jewelry.png"
     },
     {
+      "Id": "C:\\Users\\User\\RiderProjects\\GoldShop\\GoldShop\\wwwroot\\Images\\Icons\\man.png",
+      "PackagePath": "staticwebassets\\Images\\Icons\\man.png"
+    },
+    {
       "Id": "C:\\Users\\User\\RiderProjects\\GoldShop\\GoldShop\\wwwroot\\Images\\Icons\\market-research.png",
       "PackagePath": "staticwebassets\\Images\\Icons\\market-research.png"
     },

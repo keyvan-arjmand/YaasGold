@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "oHOH147b21YXJnWOBQFhuMgLIcBfazY6RtHyKZc1Glk=",
+  "Hash": "kk7izs7U9LdtJK1qqvAtpDhLvtg41lvg6t369Azq9G4=",
   "Source": "GoldShop",
   "BasePath": "_content/GoldShop",
   "Mode": "Default",
@@ -6951,6 +6951,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Images\\Icons\\jewelry.png"
+    },
+    {
+      "Identity": "C:\\Users\\User\\RiderProjects\\GoldShop\\GoldShop\\wwwroot\\Images\\Icons\\man.png",
+      "SourceId": "GoldShop",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\User\\RiderProjects\\GoldShop\\GoldShop\\wwwroot\\",
+      "BasePath": "_content/GoldShop",
+      "RelativePath": "Images/Icons/man.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\Icons\\man.png"
     },
     {
       "Identity": "C:\\Users\\User\\RiderProjects\\GoldShop\\GoldShop\\wwwroot\\Images\\Icons\\market-research.png",

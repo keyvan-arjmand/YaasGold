@@ -30,7 +30,6 @@
                     <li class="breadcrumb-item">
                         <a href="#">خانه</a>
                     </li>
-                    <li class="breadcrumb-item active">محصولات</li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -84,6 +83,7 @@
             <table class="table table-striped">
                 <tr>
                     <th class="text-center" style="width: 10px">Id</th>
+                    <th class="text-center" >تصویر</th>
                     <th class="text-center">نام</th>
                     <th class="text-center">دسته بندی</th>
                     <th class="text-center">قیمت</th>
@@ -96,6 +96,7 @@
                     {
                         <tr>
                             <td class="text-center">@i.Id</td>
+                            <td class="text-center"><img src="/Images/Product/@i.Image" width="65"/></td>
                             <td class="text-center">@i.Name</td>
                             <td class="text-center">@i.Category.Name</td>
                             <td class="text-center">
@@ -172,30 +173,12 @@
 
                 <div class="timeline-body">
                     قیمت را بر اساس تومان وارد کنید
-                    <label class="">
-                        @{
-                            if (golden.PriceType == PriceType.Manual)
-                            {
-                                <div class="icheckbox_flat-green checked" id="Admin" aria-checked="false" aria-disabled="false" style="position: relative;">
-                                    <input type="checkbox" class="flat-red" checked="" style="position: absolute; opacity: 0;" onclick="AdminPrice()"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-                                </div>
-                            }
-                            else
-                            {
-                                <div class="icheckbox_flat-green " id="Admin" aria-checked="false" aria-disabled="false" style="position: relative;">
-                                    <input type="checkbox" class="flat-red" checked="" style="position: absolute; opacity: 0;" onclick="AdminPrice()"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-                                </div>
-                            }
-                        }
-
-                    </label>
-
                 </div>
                 <div class="timeline-footer">
                     <form class="input-group mb-3 w-50">
                         <input value="@golden.PricePerGram" id="goldPriced" type="text" class="form-control">
                         <div class="input-group-prepend">
-                            <a onclick="SetGoldPrice()" class="btn btn-success">ثـبت</a>
+                            <a onclick="SetGoldPrice()" id="btnApi" class="btn btn-success text-white" style="border-radius: 5px">ثـبت</a>
                         </div>
                         <!-- /btn-group -->
                     </form>
@@ -218,29 +201,13 @@
                     قیمت براساس نرخ لحظه ای اعلام شده تنظیم میشود
                     <br/>
                     <span class="text-muted">به روز رسانی 5 دقیقه</span>
-                    <label class="">
-                        @{
-                            if (golden.PriceType == PriceType.Auto)
-                            {
-                                <div class="icheckbox_flat-green checked" id="Api" aria-checked="false" aria-disabled="false" style="position: relative;">
-                                    <input type="checkbox" class="flat-red" style="position: absolute; opacity: 0;" onclick="ApiPrice()"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-                                </div>
-                            }
-                            else
-                            {
-                                <div class="icheckbox_flat-green" id="Api" aria-checked="false" aria-disabled="false" style="position: relative;">
-                                    <input type="checkbox" class="flat-red" style="position: absolute; opacity: 0;" onclick="ApiPrice()"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-                                </div>
-                            }
-                        }
-                    </label>
 
                 </div>
                 <div class="timeline-footer">
                     <div class="input-group   w-50">
-                        <input type="text" class="form-control " value="@golden.PricePerGram">
+                        <input type="text" class="form-control " id="priceApi" readonly value="@golden.PriceApi">
                         <span class="input-group-append">
-                            <button type="button" class="btn btn-info btn-flat">ثـبت</button>
+                            <button type="button" id="btnapii" onclick="SetAutoGoldPrice()" class="btn btn-info btn-flat text-white">ثـبت</button>
                         </span>
                     </div>
                 </div>
@@ -468,10 +435,21 @@
      function ApiPrice(){
        $("#Admin").removeClass("checked"); 
       $("#Api").addClass("checked");
+      
+      $("#btnApi").attr("disabled", false);
+      $("#goldPriced").attr("disabled", false);
+         $("#priceApi").attr("disabled", true);
+         $("#btnApii").attr("disabled", true);
      }
      function AdminPrice(){
          $("#Api").removeClass("checked");
-        $("#Admin").addClass("checked"); 
+        $("#Admin").addClass("checked");
+        
+         $("#btnApi").attr("disabled", false);
+         $("#goldPriced").attr("disabled", false);
+         
+         $("#priceApi").attr("disabled", true);
+         $("#btnApii").attr("disabled", true);
      }
         $(document).ready(function () {
      
@@ -508,6 +486,19 @@
                      }
                  });
                }
+         function SetAutoGoldPrice(){
+             $.ajax({
+                 type: "Post",
+                 data: {},
+                 url: "/Admin/SetAutoGoldPrice",
+                 success: function (data) {
+                     window.location.href= "/admin/product";
+                 },
+                 error: function (xhr) {
+                     alert("خطای داخلی در سرور");
+                 }
+             });
+         }
                      function UpdateProduct(){
                         var product = new FormData();
                         product.append("Id",$("#id").val());

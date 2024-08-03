@@ -442,3 +442,12 @@ C:\Users\User\RiderProjects\GoldShop\GoldShop\obj\Release\net7.0\GoldShop.genrun
 C:\Users\User\RiderProjects\GoldShop\GoldShop\obj\Release\net7.0\ref\GoldShop.dll
 C:\Users\User\RiderProjects\GoldShop\GoldShop\bin\Release\net7.0\Vit.Core.dll
 C:\Users\User\RiderProjects\GoldShop\GoldShop\bin\Release\net7.0\Vit.Net.Http.FormFile.dll
+C:\Users\User\RiderProjects\GoldShop\GoldShop\bin\Release\net7.0\Hangfire.AspNetCore.dll
+C:\Users\User\RiderProjects\GoldShop\GoldShop\bin\Release\net7.0\Hangfire.Core.dll
+C:\Users\User\RiderProjects\GoldShop\GoldShop\bin\Release\net7.0\Hangfire.MemoryStorage.dll
+C:\Users\User\RiderProjects\GoldShop\GoldShop\bin\Release\net7.0\Hangfire.NetCore.dll
+C:\Users\User\RiderProjects\GoldShop\GoldShop\bin\Release\net7.0\Hangfire.SqlServer.dll
+C:\Users\User\RiderProjects\GoldShop\GoldShop\bin\Release\net7.0\Quartz.dll
+C:\Users\User\RiderProjects\GoldShop\GoldShop\bin\Release\net7.0\Quartz.AspNetCore.dll
+C:\Users\User\RiderProjects\GoldShop\GoldShop\bin\Release\net7.0\Quartz.Extensions.DependencyInjection.dll
+C:\Users\User\RiderProjects\GoldShop\GoldShop\bin\Release\net7.0\Quartz.Extensions.Hosting.dll

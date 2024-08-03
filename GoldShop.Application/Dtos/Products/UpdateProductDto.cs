@@ -16,5 +16,5 @@ public class UpdateProductDto
     public double Weight { get; set; }//وزن 
     public double Wages { get; set; }//اجرت 
     public long Inventory { get; set; }
-    public long CategoryId { get; set; }
+    public int CategoryId { get; set; }
 }

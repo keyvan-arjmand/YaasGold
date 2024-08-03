@@ -22,6 +22,93 @@ namespace GoldShop.Domain.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("GoldShop.Domain.Entity.Factor.Factor", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<double>("Amount")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Desc")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("DiscountAmount")
+                        .HasColumnType("float");
+
+                    b.Property<string>("DiscountCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FactorCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("GoldRate")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("InsertDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDelete")
+                        .HasColumnType("bit");
+
+                    b.Property<long?>("PostMethodId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<long?>("UserAddressId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("UserId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PostMethodId");
+
+                    b.HasIndex("UserAddressId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Factors");
+                });
+
+            modelBuilder.Entity("GoldShop.Domain.Entity.Factor.FactorProduct", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
+                    b.Property<long?>("FactorId")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsDelete")
+                        .HasColumnType("bit");
+
+                    b.Property<long?>("ProductId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FactorId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("FactorProducts");
+                });
+
             modelBuilder.Entity("GoldShop.Domain.Entity.Page.ContactUs", b =>
                 {
                     b.Property<long>("Id")
@@ -109,40 +196,6 @@ namespace GoldShop.Domain.Migrations
                     b.ToTable("DiscountCodes");
                 });
 
-            modelBuilder.Entity("GoldShop.Domain.Entity.Product.Factor", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<double>("GoldPerDay")
-                        .HasColumnType("float");
-
-                    b.Property<bool>("IsDelete")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<long>("UserId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Factors");
-                });
-
             modelBuilder.Entity("GoldShop.Domain.Entity.Product.GoldPrice", b =>
                 {
                     b.Property<long>("Id")
@@ -158,11 +211,17 @@ namespace GoldShop.Domain.Migrations
                     b.Property<bool>("IsDelete")
                         .HasColumnType("bit");
 
+                    b.Property<double>("PriceApi")
+                        .HasColumnType("float");
+
                     b.Property<double>("PricePerGram")
                         .HasColumnType("float");
 
                     b.Property<int>("PriceType")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdateTime")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -228,32 +287,6 @@ namespace GoldShop.Domain.Migrations
                     b.HasIndex("GoldPriceId");
 
                     b.ToTable("Products");
-                });
-
-            modelBuilder.Entity("GoldShop.Domain.Entity.Product.ProductFactor", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<long>("FactorId")
-                        .HasColumnType("bigint");
-
-                    b.Property<bool>("IsDelete")
-                        .HasColumnType("bit");
-
-                    b.Property<long>("ProductId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FactorId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("ProductFactors");
                 });
 
             modelBuilder.Entity("GoldShop.Domain.Entity.User.City", b =>
@@ -411,6 +444,10 @@ namespace GoldShop.Domain.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("NationalCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -455,6 +492,46 @@ namespace GoldShop.Domain.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("GoldShop.Domain.Entity.User.UserAddress", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("CityId")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsDelete")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Number")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PostCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CityId");
+
+                    b.ToTable("UserAddresses");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<long>", b =>
@@ -560,15 +637,40 @@ namespace GoldShop.Domain.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("GoldShop.Domain.Entity.Product.Factor", b =>
+            modelBuilder.Entity("GoldShop.Domain.Entity.Factor.Factor", b =>
                 {
+                    b.HasOne("GoldShop.Domain.Entity.User.PostMethod", "PostMethod")
+                        .WithMany()
+                        .HasForeignKey("PostMethodId");
+
+                    b.HasOne("GoldShop.Domain.Entity.User.UserAddress", "UserAddress")
+                        .WithMany()
+                        .HasForeignKey("UserAddressId");
+
                     b.HasOne("GoldShop.Domain.Entity.User.User", "User")
                         .WithMany("Factors")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("PostMethod");
 
                     b.Navigation("User");
+
+                    b.Navigation("UserAddress");
+                });
+
+            modelBuilder.Entity("GoldShop.Domain.Entity.Factor.FactorProduct", b =>
+                {
+                    b.HasOne("GoldShop.Domain.Entity.Factor.Factor", "Factor")
+                        .WithMany("Products")
+                        .HasForeignKey("FactorId");
+
+                    b.HasOne("GoldShop.Domain.Entity.Product.Product", "ProductColor")
+                        .WithMany()
+                        .HasForeignKey("ProductId");
+
+                    b.Navigation("Factor");
+
+                    b.Navigation("ProductColor");
                 });
 
             modelBuilder.Entity("GoldShop.Domain.Entity.Product.Product", b =>
@@ -590,24 +692,6 @@ namespace GoldShop.Domain.Migrations
                     b.Navigation("GoldPrice");
                 });
 
-            modelBuilder.Entity("GoldShop.Domain.Entity.Product.ProductFactor", b =>
-                {
-                    b.HasOne("GoldShop.Domain.Entity.Product.Factor", "Factor")
-                        .WithMany("Products")
-                        .HasForeignKey("FactorId")
-                        .IsRequired();
-
-                    b.HasOne("GoldShop.Domain.Entity.Product.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Factor");
-
-                    b.Navigation("Product");
-                });
-
             modelBuilder.Entity("GoldShop.Domain.Entity.User.City", b =>
                 {
                     b.HasOne("GoldShop.Domain.Entity.User.State", "State")
@@ -620,6 +704,17 @@ namespace GoldShop.Domain.Migrations
                 });
 
             modelBuilder.Entity("GoldShop.Domain.Entity.User.User", b =>
+                {
+                    b.HasOne("GoldShop.Domain.Entity.User.City", "City")
+                        .WithMany()
+                        .HasForeignKey("CityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("City");
+                });
+
+            modelBuilder.Entity("GoldShop.Domain.Entity.User.UserAddress", b =>
                 {
                     b.HasOne("GoldShop.Domain.Entity.User.City", "City")
                         .WithMany()
@@ -681,7 +776,7 @@ namespace GoldShop.Domain.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("GoldShop.Domain.Entity.Product.Factor", b =>
+            modelBuilder.Entity("GoldShop.Domain.Entity.Factor.Factor", b =>
                 {
                     b.Navigation("Products");
                 });

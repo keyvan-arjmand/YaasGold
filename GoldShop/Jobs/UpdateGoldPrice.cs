@@ -1,43 +1,44 @@
 ﻿using System.Text;
 using System.Text.Json;
+using GoldShop.Application.Interfaces;
 using GoldShop.Application.Jobs;
 using GoldShop.Controllers;
+using GoldShop.Domain.Entity.Product;
+using GoldShop.Domain.Enums;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Quartz;
 
 namespace GoldShop.Jobs;
 
 public class UpdateGoldPrice : IJob
 {
-    private readonly IMediator Mediator;
+    private readonly IUnitOfWork _work;
 
-    public UpdateGoldPrice(IMediator mediator)
+    public UpdateGoldPrice(IUnitOfWork work)
     {
-        Mediator = mediator;
+        _work = work;
     }
 
     public async Task Execute(IJobExecutionContext context)
     {
         HttpClient client = new HttpClient();
-        var jsonPayload = "{\"name\":\"value\"}";
-
-        // Create an instance of StringContent
-        var content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
-
-        // // Send a POST request to the specified URI
         HttpResponseMessage response =
-            await client.PostAsync("https://webservice.tgnsrv.ir/Pr/Get/afshar7365/a09193647365a", content);
-
-        // // Ensure the request was successful
+            await client.GetAsync("https://webservice.tgnsrv.ir/Pr/Get/afshar7365/a09193647365a");
         response.EnsureSuccessStatusCode();
-        //
-        // // Read the response content as a string
         string responseBody = await response.Content.ReadAsStringAsync();
         var currency = JsonSerializer.Deserialize<AdminController.CurrencyRates>(responseBody);
-        await Mediator.Send(new UpdateGoldPriceCommand
+        if (currency.YekGram18 > 0)
         {
-            GoldPrice = currency.YekGram18
-        });
-        
+            var gold = await _work.GenericRepository<GoldPrice>().Table.FirstOrDefaultAsync();
+            if (gold.PriceType == PriceType.Auto)
+            {
+                gold.PricePerGram = currency.YekGram18 ;
+            }
+
+            gold.PriceApi = currency.YekGram18 ;
+            gold.UpdateTime = DateTime.Now;
+            await _work.GenericRepository<GoldPrice>().UpdateAsync(gold, CancellationToken.None);
+        }
     }
 }

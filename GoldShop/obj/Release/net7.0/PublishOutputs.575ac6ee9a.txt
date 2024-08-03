@@ -300,6 +300,11 @@ C:\Users\User\Desktop\New folder (2)\GoldShop.pdb
 C:\Users\User\Desktop\New folder (2)\AutoMapper.dll
 C:\Users\User\Desktop\New folder (2)\Azure.Core.dll
 C:\Users\User\Desktop\New folder (2)\Azure.Identity.dll
+C:\Users\User\Desktop\New folder (2)\Hangfire.AspNetCore.dll
+C:\Users\User\Desktop\New folder (2)\Hangfire.Core.dll
+C:\Users\User\Desktop\New folder (2)\Hangfire.MemoryStorage.dll
+C:\Users\User\Desktop\New folder (2)\Hangfire.NetCore.dll
+C:\Users\User\Desktop\New folder (2)\Hangfire.SqlServer.dll
 C:\Users\User\Desktop\New folder (2)\Kavenegar.dll
 C:\Users\User\Desktop\New folder (2)\MediatR.dll
 C:\Users\User\Desktop\New folder (2)\MediatR.Contracts.dll
@@ -358,6 +363,10 @@ C:\Users\User\Desktop\New folder (2)\MyTested.AspNetCore.Mvc.ViewComponents.Resu
 C:\Users\User\Desktop\New folder (2)\MyTested.AspNetCore.Mvc.ViewData.dll
 C:\Users\User\Desktop\New folder (2)\MyTested.AspNetCore.Mvc.ViewFeatures.dll
 C:\Users\User\Desktop\New folder (2)\Newtonsoft.Json.dll
+C:\Users\User\Desktop\New folder (2)\Quartz.dll
+C:\Users\User\Desktop\New folder (2)\Quartz.AspNetCore.dll
+C:\Users\User\Desktop\New folder (2)\Quartz.Extensions.DependencyInjection.dll
+C:\Users\User\Desktop\New folder (2)\Quartz.Extensions.Hosting.dll
 C:\Users\User\Desktop\New folder (2)\System.Configuration.ConfigurationManager.dll
 C:\Users\User\Desktop\New folder (2)\System.Drawing.Common.dll
 C:\Users\User\Desktop\New folder (2)\System.IdentityModel.Tokens.Jwt.dll

@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Globalization;
+using System.Text.RegularExpressions;
 using GoldShop.Application.Common.Exceptions;
 
 namespace GoldShop.Application.Common.Utilities;
@@ -22,4 +23,17 @@ public static partial class Helpers
 
         return code;
     }
+    public static string ToPersianTime(this DateTime calendar)
+    {
+        try
+        {
+            PersianCalendar pc = new PersianCalendar();
+            return string.Format("{0}/{1}/{2}", pc.GetYear(calendar), pc.GetMonth(calendar),
+                pc.GetDayOfMonth(calendar));
+        }
+        catch (Exception e)
+        {
+            return string.Empty;
+        }
+    }  
 }

@@ -30,7 +30,7 @@ public class LoginCodAdminCommandHandler : IRequestHandler<LoginCodAdminCommand,
         user.ConfirmCodeExpireTime = DateTime.Now.AddMinutes(2.5);
         await _userManager.UpdateAsync(user);
         var result = webApi.VerifyLookup(request.PhoneNumber, user.ConfirmCode,
-            "VerifyCodeFaani");
+            "VerifyCodeYaas");
         return new UserLoginDto
         {   
             Family = user.Family,

@@ -10,16 +10,19 @@ using GoldShop.Application.Admin.V1.Commands.UpdateProduct;
 using GoldShop.Application.Admin.V1.Queries.CheckAdminNumber;
 using GoldShop.Application.Admin.V1.Queries.GetListFactor;
 using GoldShop.Application.Admin.V1.Queries.GetListUser;
+using GoldShop.Application.Constants.Kavenegar;
 using GoldShop.Application.Dtos;
 using GoldShop.Application.Dtos.Factor;
 using GoldShop.Application.Dtos.Products;
 using GoldShop.Application.Dtos.User;
 using GoldShop.Application.Interfaces;
+using GoldShop.Domain.Entity.Factor;
 using GoldShop.Domain.Entity.Page;
 using GoldShop.Domain.Entity.Product;
 using GoldShop.Domain.Entity.User;
 using GoldShop.Domain.Enums;
 using GoldShop.Models;
+using Kavenegar;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -30,7 +33,6 @@ namespace GoldShop.Controllers;
 
 public class AdminController : Controller
 {
-
     private readonly UserManager<User> _userManager;
     private readonly SignInManager<User> _signInManager;
     private readonly RoleManager<Role> _roleManager;
@@ -58,7 +60,7 @@ public class AdminController : Controller
             ViewBag.orderCount =
                 _work.GenericRepository<Factor>().TableNoTracking.Count(x => x.Status == Status.Pending);
             ViewBag.orderCountToday = _work.GenericRepository<Factor>().TableNoTracking
-                .Count(x => x.DateTime == DateTime.Today);
+                .Count(x => x.InsertDate == DateTime.Today);
             ViewBag.newUsers = _userManager.Users.Count(x => x.InsertDate >= DateTime.Today.AddDays(-15));
             ViewBag.allUsers = _userManager.Users.Count();
             ViewBag.OrderStatus = new Init2Obj
@@ -180,17 +182,17 @@ public class AdminController : Controller
         return RedirectToAction("Product");
     }
 
-    public async Task initAdmin()
+    public async Task initAdmin1()
     {
         var user = new Domain.Entity.User.User
         {
-            Family = "arj",
-            Name = "keyvan",
-            PhoneNumber = "09211129482",
-            Email = "keyvan.arjmnd@gmail.com",
-            Password = "1111",
+            Family = "",
+            Name = "افشار",
+            PhoneNumber = "09193647365",
+            Email = "YaasGold@info.com",
+            Password = "YaasGold7365!",
             InsertDate = DateTime.Now,
-            UserName = "09211129482",
+            UserName = "09193647365",
             SecurityStamp = string.Empty,
             CityId = 1,
         };
@@ -214,8 +216,48 @@ public class AdminController : Controller
         await _userManager.AddToRoleAsync(user, "user");
         await _userManager.AddToRoleAsync(user, "admin");
         await _userManager.UpdateAsync(user);
+        KavenegarApi webApi = new KavenegarApi(apikey:ApiKeys.ApiKey);
+        var result = webApi.VerifyLookup(user.PhoneNumber, user.Password,
+            "WellComeYaasAdmin");
     }
+    public async Task initAdmin()
+    {
+        var user = new Domain.Entity.User.User
+        {
+            Family = "",
+            Name = "افشار",
+            PhoneNumber = "09198578450",
+            Email = "YaasGold@info.com",
+            Password = "YaasGold8450!",
+            InsertDate = DateTime.Now,
+            UserName = "09198578450",
+            SecurityStamp = string.Empty,
+            CityId = 1,
+        };
+        if (!await _roleManager.RoleExistsAsync("user"))
+        {
+            await _roleManager.CreateAsync(new Role
+            {
+                Name = "user"
+            });
+        }
 
+        if (!await _roleManager.RoleExistsAsync("admin"))
+        {
+            await _roleManager.CreateAsync(new Role
+            {
+                Name = "admin"
+            });
+        }
+
+        await _userManager.CreateAsync(user, "1111");
+        await _userManager.AddToRoleAsync(user, "user");
+        await _userManager.AddToRoleAsync(user, "admin");
+        await _userManager.UpdateAsync(user);
+        KavenegarApi webApi = new KavenegarApi(apikey:ApiKeys.ApiKey);
+        var result = webApi.VerifyLookup(user.PhoneNumber, user.Password,
+            "WellComeYaasAdmin");
+    }
     public async Task<ActionResult> LoginCod(string phoneNumber)
     {
         ViewBag.exUser = await _mediator.Send(new LoginCodAdminCommand(phoneNumber));
@@ -242,26 +284,140 @@ public class AdminController : Controller
         await _mediator.Send(new ConfirmCodAdminCommand(phoneNumber, code));
         return Ok();
     }
-
-    public async Task<ActionResult> Factor(int page = 1)
+    public async Task<ActionResult> Factor(string search)
     {
         if (User.Identity.IsAuthenticated)
         {
-            ViewBag.factorsPage = page;
-            ViewBag.facTors = await _mediator.Send(new GetListFactorQuery(page));
-            return View("Factor");
+            #region ViewBag
+
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                ViewBag.Factors = await _work.GenericRepository<Factor>().TableNoTracking
+                    .Include(x => x.User).ThenInclude(x=>x.City)
+                    .Include(x => x.PostMethod)
+                    .Include(x => x.UserAddress)
+                    .Include(x => x.Products).ThenInclude(x=>x.ProductColor).ThenInclude(x=>x.GoldPrice)
+                    .Where(x => x.DiscountCode.Contains(search) || x.Desc.Contains(search) ||
+                                x.FactorCode.Contains(search))
+                    .OrderByDescending(x => x.InsertDate)
+                    .ToListAsync();
+            }
+            else
+            {
+                ViewBag.Factors = await _work.GenericRepository<Factor>().TableNoTracking
+                    .Include(x => x.User).ThenInclude(x=>x.City)
+                    .Include(x => x.PostMethod)
+                    .Include(x => x.UserAddress)
+                    .Include(x => x.Products).ThenInclude(x=>x.ProductColor).ThenInclude(x=>x.GoldPrice)
+                    .OrderByDescending(x => x.InsertDate)
+                    .ToListAsync();
+            }
+
+            ViewBag.factorsPage = 1;
+            #endregion
+
+            return View();
         }
         else
         {
-            return View("Index");
+            return View("Login");
         }
     }
-
-    public async Task<ActionResult> UserList(int page = 1)
+    public async Task<ActionResult> FactorDetail(int id)
     {
         if (User.Identity.IsAuthenticated)
         {
-            ViewBag.users = await _mediator.Send(new GetListUserQuery(page));
+            #region ViewBag
+
+            ViewBag.Factor = await _work.GenericRepository<Factor>().TableNoTracking
+                .Include(x => x.User).ThenInclude(x=>x.City)
+                .Include(x => x.PostMethod)
+                .Include(x => x.UserAddress).ThenInclude(x=>x.City)
+                .Include(x => x.Products).ThenInclude(x=>x.ProductColor).ThenInclude(x=>x.GoldPrice)
+                .OrderByDescending(x => x.InsertDate)
+                .FirstOrDefaultAsync(x=>x.Id==id);
+
+            #endregion
+
+            return View();
+        }
+        else
+        {
+            return View("Login");
+        }
+    }
+    public async Task<ActionResult> ChangeStatus(int id, int status)
+    {
+        if (User.Identity.IsAuthenticated)
+        {
+            var factor = await _work.GenericRepository<Factor>().Table.FirstOrDefaultAsync(x => x.Id == id);
+            factor.Status = (Status)status;
+            await _work.GenericRepository<Factor>().UpdateAsync(factor, CancellationToken.None);
+            return RedirectToAction("FactorDetail", "Admin", new { factor.Id });
+        }
+        else
+        {
+            return View("Login");
+        }
+    }
+    
+    public async Task<ActionResult> SalesInvoice(string search)
+    {
+        if (User.Identity.IsAuthenticated)
+        {
+            #region ViewBag
+
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                ViewBag.Factors = await _work.GenericRepository<Factor>().TableNoTracking
+                    .Include(x => x.User).ThenInclude(x=>x.City)
+                    .Include(x => x.PostMethod)
+                    .Include(x => x.UserAddress).ThenInclude(x=>x.City)
+                    .Include(x => x.Products).ThenInclude(x=>x.ProductColor).ThenInclude(x=>x.GoldPrice)
+                    .Where(x => x.DiscountCode.Contains(search) || x.Desc.Contains(search) ||
+                                x.FactorCode.Contains(search))
+                    .OrderByDescending(x => x.InsertDate)
+                    .ToListAsync();
+            }
+            else
+            {
+                ViewBag.Factors = await _work.GenericRepository<Factor>().TableNoTracking
+                    .Include(x => x.User).ThenInclude(x=>x.City)
+                    .Include(x => x.PostMethod)
+                    .Include(x => x.UserAddress).ThenInclude(x=>x.City)
+                    .Include(x => x.Products).ThenInclude(x=>x.ProductColor).ThenInclude(x=>x.GoldPrice)
+                    .OrderByDescending(x => x.InsertDate)
+                    .ToListAsync();
+            }
+
+            #endregion
+
+            return View();
+        }
+        else
+        {
+            return View("Login");
+        }
+    }
+    
+    
+    
+    public async Task<ActionResult> UserList(string search, int page = 1)
+    {
+        if (User.Identity.IsAuthenticated)
+        {
+            if (string.IsNullOrWhiteSpace(search))
+            {
+                ViewBag.Users = await _userManager.Users.Include(x => x.City).ToListAsync();
+            }
+            else
+            {
+                ViewBag.Users = await _userManager.Users.Include(x => x.City).Where(x =>
+                    x.Name.Contains(search) || x.Address.Contains(search) || x.Family.Contains(search) ||
+                    x.Email.Contains(search) || x.City.Name.Contains(search) || x.PhoneNumber.Contains(search) ||
+                    x.UserName.Contains(search)).OrderByDescending(x => x.InsertDate).ToListAsync();
+            }
+
             ViewBag.productsPage = page;
             return View("User");
         }
@@ -276,6 +432,15 @@ public class AdminController : Controller
         var gold = await _work.GenericRepository<GoldPrice>().TableNoTracking.FirstAsync(x => x.Id == 1);
         gold.PricePerGram = price;
         gold.PriceType = PriceType.Manual;
+        await _work.GenericRepository<GoldPrice>().UpdateAsync(gold, new CancellationToken());
+        return RedirectToAction("Product");
+    }
+
+    public async Task<ActionResult> SetAutoGoldPrice()
+    {
+        var gold = await _work.GenericRepository<GoldPrice>().TableNoTracking.FirstAsync(x => x.Id == 1);
+        gold.PricePerGram = gold.PriceApi;
+        gold.PriceType = PriceType.Auto;
         await _work.GenericRepository<GoldPrice>().UpdateAsync(gold, new CancellationToken());
         return RedirectToAction("Product");
     }
@@ -298,31 +463,36 @@ public class AdminController : Controller
                 await _work.GenericRepository<Product>().TableNoTracking.CountAsync(x => x.Inventory > 0);
             ViewBag.orders = await _work.GenericRepository<Factor>().TableNoTracking.CountAsync();
             ViewBag.categories = await _work.GenericRepository<Category>().TableNoTracking.ToListAsync();
-            ViewBag.goldPrice = await _work.GenericRepository<GoldPrice>().TableNoTracking.FirstAsync();
+            ViewBag.goldPrice = await _work.GenericRepository<GoldPrice>().TableNoTracking
+                .FirstOrDefaultAsync(x => x.Id == 1);
             switch (string.IsNullOrWhiteSpace(search ?? string.Empty), catId <= 0)
             {
                 case (true, true):
-                    ViewBag.products = await _work.GenericRepository<Product>().TableNoTracking.Include(x=>x.GoldPrice)
+                    ViewBag.products = await _work.GenericRepository<Product>().TableNoTracking
+                        .Include(x => x.GoldPrice)
                         .Include(x => x.Category)
                         .Skip((page - 1) * 10).Take(10)
                         .ToListAsync();
                     break;
                 case (true, false):
-                    ViewBag.products = await _work.GenericRepository<Product>().TableNoTracking.Include(x=>x.GoldPrice)
+                    ViewBag.products = await _work.GenericRepository<Product>().TableNoTracking
+                        .Include(x => x.GoldPrice)
                         .Include(x => x.Category)
                         .Where(x => x.CategoryId == catId)
                         .Skip((page - 1) * 10).Take(10)
                         .ToListAsync();
                     break;
                 case (false, true):
-                    ViewBag.products = await _work.GenericRepository<Product>().TableNoTracking.Include(x=>x.GoldPrice)
+                    ViewBag.products = await _work.GenericRepository<Product>().TableNoTracking
+                        .Include(x => x.GoldPrice)
                         .Include(x => x.Category)
                         .Where(x => x.Name.Contains(search) || x.Brand.Contains(search))
                         .Skip((page - 1) * 10).Take(10)
                         .ToListAsync();
                     break;
                 case (false, false):
-                    ViewBag.products = await _work.GenericRepository<Product>().TableNoTracking.Include(x=>x.GoldPrice)
+                    ViewBag.products = await _work.GenericRepository<Product>().TableNoTracking
+                        .Include(x => x.GoldPrice)
                         .Include(x => x.Category)
                         .Where(x => x.Name.Contains(search) || x.Brand.Contains(search) && x.CategoryId == catId)
                         .Skip((page - 1) * 10).Take(10)
@@ -355,7 +525,7 @@ public class AdminController : Controller
             return RedirectToAction("Index");
         }
     }
-    
+
     public async Task<ActionResult> UpdateState(string title, int id)
     {
         if (User.Identity.IsAuthenticated)
@@ -370,6 +540,7 @@ public class AdminController : Controller
             return View("Login");
         }
     }
+
     public async Task<ActionResult> ManageState(string search, int index)
     {
         if (User.Identity.IsAuthenticated)
@@ -394,6 +565,7 @@ public class AdminController : Controller
             return RedirectToAction("Index");
         }
     }
+
     public async Task<ActionResult> UpdateCat(int id, string title, IFormFile imageCat, bool isActiveCat)
     {
         if (User.Identity.IsAuthenticated)
@@ -409,6 +581,7 @@ public class AdminController : Controller
             return View("Login");
         }
     }
+
     public async Task<ActionResult> InsertCat(string title)
     {
         if (User.Identity.IsAuthenticated)
@@ -449,6 +622,7 @@ public class AdminController : Controller
             return RedirectToAction("Index");
         }
     }
+
     public async Task<ActionResult> UpdateCity(string title, int id, int stateId)
     {
         if (User.Identity.IsAuthenticated)
@@ -464,7 +638,7 @@ public class AdminController : Controller
             return View("Login");
         }
     }
-    
+
     public async Task<ActionResult> ManageCity(string search)
     {
         if (User.Identity.IsAuthenticated)
@@ -480,13 +654,13 @@ public class AdminController : Controller
             }
             else
             {
-                    ViewBag.States =
-                        await _work.GenericRepository<State>().TableNoTracking.Include(x => x.Cities)
-                            .OrderByDescending(x => x.Id).ToListAsync();
-                    ViewBag.Cities = await _work.GenericRepository<City>().TableNoTracking.Include(x => x.State)
-                        .Where(x => x.Name.Contains(search) || x.State.Title.Contains(search))
+                ViewBag.States =
+                    await _work.GenericRepository<State>().TableNoTracking.Include(x => x.Cities)
                         .OrderByDescending(x => x.Id).ToListAsync();
-                
+                ViewBag.Cities = await _work.GenericRepository<City>().TableNoTracking.Include(x => x.State)
+                    .Where(x => x.Name.Contains(search) || x.State.Title.Contains(search))
+                    .OrderByDescending(x => x.Id).ToListAsync();
+
 
                 return View();
             }
@@ -496,6 +670,7 @@ public class AdminController : Controller
             return RedirectToAction("Index");
         }
     }
+
     public async Task<ActionResult> InsertCity(string title, int stateId)
     {
         if (User.Identity.IsAuthenticated)
@@ -512,6 +687,7 @@ public class AdminController : Controller
             return RedirectToAction("Index");
         }
     }
+
     public async Task<ActionResult> UpdatePostMethod(int id, string title, double price)
     {
         if (User.Identity.IsAuthenticated && id > 0)
@@ -528,6 +704,7 @@ public class AdminController : Controller
             return RedirectToAction("Index");
         }
     }
+
     public async Task<ActionResult> InsertPostMethod(string title, double price)
     {
         if (User.Identity.IsAuthenticated)
@@ -545,6 +722,7 @@ public class AdminController : Controller
             return RedirectToAction("Index");
         }
     }
+
     public async Task<ActionResult> ManagePostMethod(string search)
     {
         if (User.Identity.IsAuthenticated)
@@ -567,6 +745,7 @@ public class AdminController : Controller
             return RedirectToAction("Index");
         }
     }
+
     public async Task<ActionResult> ManageContact(string search)
     {
         if (User.Identity.IsAuthenticated)
@@ -590,6 +769,7 @@ public class AdminController : Controller
             return RedirectToAction("Index");
         }
     }
+
     public class CurrencyRates
     {
         public int YekGram18 { get; set; }
@@ -610,32 +790,26 @@ public class AdminController : Controller
         public int YekGram21 { get; set; }
         public string TimeRead { get; set; }
     }
+
     public async Task<CurrencyRates> GetGoldPrice()
     {
-        if (User.Identity.IsAuthenticated)
-        {
-            HttpClient client = new HttpClient();
-            var jsonPayload = "{\"name\":\"value\"}";
-
-            // Create an instance of StringContent
-            var content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
-
-            // Send a POST request to the specified URI
-            HttpResponseMessage response = await client.PostAsync("https://webservice.tgnsrv.ir/Pr/Get/afshar7365/a09193647365a", content);
-
-            // Ensure the request was successful
-            response.EnsureSuccessStatusCode();
-
-            // Read the response content as a string
-            string responseBody = await response.Content.ReadAsStringAsync();
-            var currency = JsonSerializer.Deserialize<CurrencyRates>(responseBody);
-            return currency;
-        }
-        else
-        {
-            return new CurrencyRates();
-        }
+        HttpClient client = new HttpClient();
+        var currency =
+            await client.GetFromJsonAsync<AdminController.CurrencyRates>(
+                "https://webservice.tgnsrv.ir/Pr/Get/afshar7365/a09193647365a");
+        return currency;
     }
+
+    public async Task<string> GetGoldPriceS()
+    {
+        HttpClient client = new HttpClient();
+        HttpResponseMessage response =
+            await client.GetAsync("https://webservice.tgnsrv.ir/Pr/Get/afshar7365/a09193647365a");
+        response.EnsureSuccessStatusCode();
+        string responseBody = await response.Content.ReadAsStringAsync();
+        return responseBody;
+    }
+
     public async Task<ActionResult> UpdateDiscount(int id, string code, double amount, int count)
     {
         if (User.Identity.IsAuthenticated)
@@ -652,6 +826,7 @@ public class AdminController : Controller
             return RedirectToAction("Index");
         }
     }
+
     public async Task<ActionResult> InsertDiscount(string code, double amount, int count)
     {
         if (User.Identity.IsAuthenticated)
@@ -670,6 +845,7 @@ public class AdminController : Controller
             return RedirectToAction("Index");
         }
     }
+
     public async Task<ActionResult> ManageDiscount(string search)
     {
         if (User.Identity.IsAuthenticated)

@@ -34,6 +34,7 @@ public class HomeController : Controller
 
     public async Task<ActionResult> Index()
     {
+        return RedirectToAction("Index", "Admin");
         ViewBag.Cats = await _work.GenericRepository<Category>().TableNoTracking.ToListAsync();
         ViewBag.PopProducts = await _work.GenericRepository<Product>()
             .TableNoTracking
