@@ -146,23 +146,23 @@ public class HomeController : Controller
             case (true, true):
                 if (isFilter)
                 {
-                    ViewBag.products = await _work.GenericRepository<Product>().TableNoTracking
-                        .Include(x => x.Category)
-                        .Include(x => x.GoldPrice)
-                        .Where(x => minPrice <= (x.Weight * x.GoldPrice.PricePerGram) +
-                                    (x.Weight * x.Wages) +
-                                    (((x.Weight * x.Wages) + (x.Weight * x.GoldPrice.PricePerGram)) * 7 / 100) +
-                                    (((x.Weight * x.Wages) +
-                                      (((x.Weight * x.Wages) + (x.Weight * x.GoldPrice.PricePerGram)) * 7 / 100)) * 9 /
-                                     100) &&
-                                    maxPrice >= (x.Weight * x.GoldPrice.PricePerGram) +
-                                    (x.Weight * x.Wages) +
-                                    (((x.Weight * x.Wages) + (x.Weight * x.GoldPrice.PricePerGram)) * 7 / 100) +
-                                    (((x.Weight * x.Wages) +
-                                      (((x.Weight * x.Wages) + (x.Weight * x.GoldPrice.PricePerGram)) * 7 / 100)) * 9 /
-                                     100))
-                        .Skip((page - 1) * 10).Take(10)
-                        .ToListAsync();
+                    // ViewBag.products = await _work.GenericRepository<Product>().TableNoTracking
+                    //     .Include(x => x.Category)
+                    //     .Include(x => x.GoldPrice)
+                    //     .Where(x => minPrice <= (x.Weight * x.GoldPrice.PricePerGram) +
+                    //                 (x.Weight * x.Wages) +
+                    //                 (((x.Weight * x.Wages) + (x.Weight * x.GoldPrice.PricePerGram)) * 7 / 100) +
+                    //                 (((x.Weight * x.Wages) +
+                    //                   (((x.Weight * x.Wages) + (x.Weight * x.GoldPrice.PricePerGram)) * 7 / 100)) * 9 /
+                    //                  100) &&
+                    //                 maxPrice >= (x.Weight * x.GoldPrice.PricePerGram) +
+                    //                 (x.Weight * x.Wages) +
+                    //                 (((x.Weight * x.Wages) + (x.Weight * x.GoldPrice.PricePerGram)) * 7 / 100) +
+                    //                 (((x.Weight * x.Wages) +
+                    //                   (((x.Weight * x.Wages) + (x.Weight * x.GoldPrice.PricePerGram)) * 7 / 100)) * 9 /
+                    //                  100))
+                    //     .Skip((page - 1) * 10).Take(10)
+                    //     .ToListAsync();
                 }
                 else
                 {
@@ -177,24 +177,24 @@ public class HomeController : Controller
             case (true, false):
                 if (isFilter)
                 {
-                    ViewBag.products = await _work.GenericRepository<Product>().TableNoTracking
-                        .Include(x => x.Category)
-                        .Include(x => x.GoldPrice)
-                        .Where(x => x.CategoryId == id &&
-                                    minPrice <= (x.Weight * x.GoldPrice.PricePerGram) +
-                                    (x.Weight * x.Wages) +
-                                    (((x.Weight * x.Wages) + (x.Weight * x.GoldPrice.PricePerGram)) * 7 / 100) +
-                                    (((x.Weight * x.Wages) +
-                                      (((x.Weight * x.Wages) + (x.Weight * x.GoldPrice.PricePerGram)) * 7 / 100)) * 9 /
-                                     100) &&
-                                    maxPrice >= (x.Weight * x.GoldPrice.PricePerGram) +
-                                    (x.Weight * x.Wages) +
-                                    (((x.Weight * x.Wages) + (x.Weight * x.GoldPrice.PricePerGram)) * 7 / 100) +
-                                    (((x.Weight * x.Wages) +
-                                      (((x.Weight * x.Wages) + (x.Weight * x.GoldPrice.PricePerGram)) * 7 / 100)) * 9 /
-                                     100))
-                        .Skip((page - 1) * 10).Take(10)
-                        .ToListAsync();
+                    // ViewBag.products = await _work.GenericRepository<Product>().TableNoTracking
+                    //     .Include(x => x.Category)
+                    //     .Include(x => x.GoldPrice)
+                    //     .Where(x => x.CategoryId == id &&
+                    //                 minPrice <= (x.Weight * x.GoldPrice.PricePerGram) +
+                    //                 (x.Weight * x.Wages) +
+                    //                 (((x.Weight * x.Wages) + (x.Weight * x.GoldPrice.PricePerGram)) * 7 / 100) +
+                    //                 (((x.Weight * x.Wages) +
+                    //                   (((x.Weight * x.Wages) + (x.Weight * x.GoldPrice.PricePerGram)) * 7 / 100)) * 9 /
+                    //                  100) &&
+                    //                 maxPrice >= (x.Weight * x.GoldPrice.PricePerGram) +
+                    //                 (x.Weight * x.Wages) +
+                    //                 (((x.Weight * x.Wages) + (x.Weight * x.GoldPrice.PricePerGram)) * 7 / 100) +
+                    //                 (((x.Weight * x.Wages) +
+                    //                   (((x.Weight * x.Wages) + (x.Weight * x.GoldPrice.PricePerGram)) * 7 / 100)) * 9 /
+                    //                  100))
+                    //     .Skip((page - 1) * 10).Take(10)
+                    //     .ToListAsync();
                 }
                 else
                 {
@@ -210,22 +210,22 @@ public class HomeController : Controller
             case (false, true):
                 if (isFilter)
                 {
-                    ViewBag.products = await _work.GenericRepository<Product>().TableNoTracking
-                        .Include(x => x.Category)
-                        .Include(x => x.GoldPrice)
-                        .Where(x => x.Name.Contains(search) || x.Brand.Contains(search) &&
-                            minPrice <= (x.Weight * x.GoldPrice.PricePerGram) +
-                            (x.Weight * x.Wages) +
-                            (((x.Weight * x.Wages) + (x.Weight * x.GoldPrice.PricePerGram)) * 7 / 100) +
-                            (((x.Weight * x.Wages) +
-                              (((x.Weight * x.Wages) + (x.Weight * x.GoldPrice.PricePerGram)) * 7 / 100)) * 9 / 100) &&
-                            maxPrice >= (x.Weight * x.GoldPrice.PricePerGram) +
-                            (x.Weight * x.Wages) +
-                            (((x.Weight * x.Wages) + (x.Weight * x.GoldPrice.PricePerGram)) * 7 / 100) +
-                            (((x.Weight * x.Wages) +
-                              (((x.Weight * x.Wages) + (x.Weight * x.GoldPrice.PricePerGram)) * 7 / 100)) * 9 / 100))
-                        .Skip((page - 1) * 10).Take(10)
-                        .ToListAsync();
+                    // ViewBag.products = await _work.GenericRepository<Product>().TableNoTracking
+                    //     .Include(x => x.Category)
+                    //     .Include(x => x.GoldPrice)
+                    //     .Where(x => x.Name.Contains(search) || x.Brand.Contains(search) &&
+                    //         minPrice <= (x.Weight * x.GoldPrice.PricePerGram) +
+                    //         (x.Weight * x.Wages) +
+                    //         (((x.Weight * x.Wages) + (x.Weight * x.GoldPrice.PricePerGram)) * 7 / 100) +
+                    //         (((x.Weight * x.Wages) +
+                    //           (((x.Weight * x.Wages) + (x.Weight * x.GoldPrice.PricePerGram)) * 7 / 100)) * 9 / 100) &&
+                    //         maxPrice >= (x.Weight * x.GoldPrice.PricePerGram) +
+                    //         (x.Weight * x.Wages) +
+                    //         (((x.Weight * x.Wages) + (x.Weight * x.GoldPrice.PricePerGram)) * 7 / 100) +
+                    //         (((x.Weight * x.Wages) +
+                    //           (((x.Weight * x.Wages) + (x.Weight * x.GoldPrice.PricePerGram)) * 7 / 100)) * 9 / 100))
+                    //     .Skip((page - 1) * 10).Take(10)
+                    //     .ToListAsync();
                 }
                 else
                 {
@@ -241,23 +241,23 @@ public class HomeController : Controller
             case (false, false):
                 if (isFilter)
                 {
-                    ViewBag.products = await _work.GenericRepository<Product>().TableNoTracking
-                        .Include(x => x.Category)
-                        .Include(x => x.GoldPrice)
-                        .Where(x => x.Name.Contains(search) || x.Brand.Contains(search) && x.CategoryId == id &&
-                            minPrice <=
-                            (x.Weight * x.GoldPrice.PricePerGram) +
-                            (x.Weight * x.Wages) +
-                            (((x.Weight * x.Wages) + (x.Weight * x.GoldPrice.PricePerGram)) * 7 / 100) +
-                            (((x.Weight * x.Wages) +
-                              (((x.Weight * x.Wages) + (x.Weight * x.GoldPrice.PricePerGram)) * 7 / 100)) * 9 / 100) &&
-                            maxPrice >= (x.Weight * x.GoldPrice.PricePerGram) +
-                            (x.Weight * x.Wages) +
-                            (((x.Weight * x.Wages) + (x.Weight * x.GoldPrice.PricePerGram)) * 7 / 100) +
-                            (((x.Weight * x.Wages) +
-                              (((x.Weight * x.Wages) + (x.Weight * x.GoldPrice.PricePerGram)) * 7 / 100)) * 9 / 100))
-                        .Skip((page - 1) * 10).Take(10)
-                        .ToListAsync();
+                    // ViewBag.products = await _work.GenericRepository<Product>().TableNoTracking
+                    //     .Include(x => x.Category)
+                    //     .Include(x => x.GoldPrice)
+                    //     .Where(x => x.Name.Contains(search) || x.Brand.Contains(search) && x.CategoryId == id &&
+                    //         minPrice <=
+                    //         (x.Weight * x.GoldPrice.PricePerGram) +
+                    //         (x.Weight * x.Wages) +
+                    //         (((x.Weight * x.Wages) + (x.Weight * x.GoldPrice.PricePerGram)) * 7 / 100) +
+                    //         (((x.Weight * x.Wages) +
+                    //           (((x.Weight * x.Wages) + (x.Weight * x.GoldPrice.PricePerGram)) * 7 / 100)) * 9 / 100) &&
+                    //         maxPrice >= (x.Weight * x.GoldPrice.PricePerGram) +
+                    //         (x.Weight * x.Wages) +
+                    //         (((x.Weight * x.Wages) + (x.Weight * x.GoldPrice.PricePerGram)) * 7 / 100) +
+                    //         (((x.Weight * x.Wages) +
+                    //           (((x.Weight * x.Wages) + (x.Weight * x.GoldPrice.PricePerGram)) * 7 / 100)) * 9 / 100))
+                    //     .Skip((page - 1) * 10).Take(10)
+                    //     .ToListAsync();
                 }
                 else
                 {

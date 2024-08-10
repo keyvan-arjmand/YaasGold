@@ -10,8 +10,11 @@ public class UpdateProductCommand : IRequest
     public string ImageBanner { get; set; } = string.Empty;
     public string ImageThumb { get; set; } = string.Empty;
     public string Image { get; set; } = string.Empty;
-    public double Weight { get; set; } //وزن 
+    public string Size { get; set; } = string.Empty;
+    public string Desc { get; set; } = string.Empty;
+    public string Weight { get; set; } //وزن 
     public double Wages { get; set; } //اجرت 
+    public double WagesPercentage { get; set; } //اجرت 
     public long Inventory { get; set; }
-    public int CategoryId { get; set; }
+    public long CategoryId { get; set; }
 }

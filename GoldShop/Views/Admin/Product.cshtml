@@ -1,4 +1,5 @@
-﻿@using GoldShop.Comman
+﻿@using GoldShop.Application.Common.Utilities
+@using GoldShop.Comman
 @using GoldShop.Domain.Entity.Product
 @using GoldShop.Domain.Enums
 @using Microsoft.AspNetCore.Mvc.TagHelpers
@@ -83,7 +84,7 @@
             <table class="table table-striped">
                 <tr>
                     <th class="text-center" style="width: 10px">Id</th>
-                    <th class="text-center" >تصویر</th>
+                    <th class="text-center">تصویر</th>
                     <th class="text-center">نام</th>
                     <th class="text-center">دسته بندی</th>
                     <th class="text-center">قیمت</th>
@@ -96,15 +97,44 @@
                     {
                         <tr>
                             <td class="text-center">@i.Id</td>
-                            <td class="text-center"><img src="/Images/Product/@i.Image" width="65"/></td>
+                            <td class="text-center">
+                                <img src="/Images/Product/@i.Image" width="65"/>
+                            </td>
                             <td class="text-center">@i.Name</td>
                             <td class="text-center">@i.Category.Name</td>
                             <td class="text-center">
-                                @i.GoldPrice.PricePerGram.GetPrice(i.Weight, i.Wages).ToString("N0")
+                                @i.GoldPrice.PricePerGram.GetPrice(i.Weight, i.WagesAmount).ToString("N0")
                             </td>
                             <td class="text-center">@i.Inventory</td>
                             <td class="text-center">
                                 <form>
+                                    @{
+                                        var weight1 = i.Weight != 0 ? i.Weight.ToString() : string.Empty;
+                                        var weight2 = i.Weight2 != 0 ? i.Weight2.ToString() : string.Empty;
+                                        var weight3 = i.Weight3 != 0 ? i.Weight3.ToString() : string.Empty;
+                                        var weight4 = i.Weight4 != 0 ? i.Weight4.ToString() : string.Empty;
+                                        var weight5 = i.Weight5 != 0 ? i.Weight5.ToString() : string.Empty;
+                                        List<string> aa = new List<string>(new[] { weight1, weight2, weight3, weight4, weight5 });
+                                        var result = string.Empty;
+                                        int index = 1;
+                                        aa.RemoveAll(string.IsNullOrWhiteSpace);
+                                        foreach (var q in aa)
+                                        {
+                                            if (!string.IsNullOrWhiteSpace(q))
+                                            {
+                                                if (index != aa.Count())
+                                                {
+                                                    result += q + ",";
+                                                }
+                                                else
+                                                {
+                                                    result += q;
+                                                }
+                                            }
+
+                                            index++;
+                                        }
+                                    }
                                     <a class="badge badge-warning  modalProduct " data-bs-toggle="modal" data-bs-target=".exampleModal" style="cursor: pointer">ویرایش</a>
                                     <input type="text" name="mId" class="mId" value="@i.Id" hidden="hidden"/>
                                     <input type="text" name="mName" class="mName" value="@i.Name" hidden="hidden"/>
@@ -112,8 +142,11 @@
                                     <input type="text" name="mImageBanner" class="mImageBanner" value="@i.ImageBanner" hidden="hidden"/>
                                     <input type="text" name="mImageThumb" class="mImageThumb" value="@i.ImageThumb" hidden="hidden"/>
                                     <input type="text" name="mImage" class="mImage" value="@i.Image" hidden="hidden"/>
-                                    <input type="text" name="mWeight" class="mWeight" value="@i.Weight" hidden="hidden"/>
-                                    <input type="text" name="mWages" class="mWages" value="@i.Wages" hidden="hidden"/>
+                                    <input type="text" name="mWeight" class="mWeight" value="@result" hidden="hidden"/>
+                                    <input type="text" name="mDesc" class="mDesc" value="@i.Desc" hidden="hidden"/>
+                                    <input type="text" name="mSize" class="mSize" value="@i.Size" hidden="hidden"/>
+                                    <input type="text" name="mWages" class="mWages" value="@i.WagesAmount" hidden="hidden"/>
+                                    <input type="text" name="mWagesPercentage" class="mWagesPercentage" value="@i.WagesPercentage" hidden="hidden"/>
                                     <input type="text" name="mInventory" class="mInventory" value="@i.Inventory" hidden="hidden"/>
                                     <input type="text" name="mCategoryId" class="mCategoryId" value="@i.CategoryId" hidden="hidden"/>
                                 </form>
@@ -159,36 +192,9 @@
         <!-- timeline time label -->
         <li class="time-label">
             <span class="bg-danger">
-                14/12/1402
+                @DateTime.Now.ToPersianTime()
             </span>
         </li>
-        <!-- /.timeline-label -->
-        <!-- timeline item -->
-        <li>
-            <i class="fa bg-warning">
-                <img src="/Images/Icons/money.png" width="30"/>
-            </i>
-            <div class="timeline-item">
-                <h3 class="timeline-header"><a href="#"> طــلا</a> قیمت روز</h3>
-
-                <div class="timeline-body">
-                    قیمت را بر اساس تومان وارد کنید
-                </div>
-                <div class="timeline-footer">
-                    <form class="input-group mb-3 w-50">
-                        <input value="@golden.PricePerGram" id="goldPriced" type="text" class="form-control">
-                        <div class="input-group-prepend">
-                            <a onclick="SetGoldPrice()" id="btnApi" class="btn btn-success text-white" style="border-radius: 5px">ثـبت</a>
-                        </div>
-                        <!-- /btn-group -->
-                    </form>
-                </div>
-            </div>
-        </li>
-        <!-- END timeline item -->
-        <!-- timeline item -->
-        <!-- END timeline item -->
-        <!-- timeline item -->
         <li>
             <i class="fa bg-warning">
                 <img src="/Images/Icons/market-research.png" width="30"/>
@@ -200,15 +206,12 @@
                 <div class="timeline-body">
                     قیمت براساس نرخ لحظه ای اعلام شده تنظیم میشود
                     <br/>
-                    <span class="text-muted">به روز رسانی 5 دقیقه</span>
+                    <span class="text-muted">به روز رسانی 1 دقیقه</span>
 
                 </div>
                 <div class="timeline-footer">
                     <div class="input-group   w-50">
                         <input type="text" class="form-control " id="priceApi" readonly value="@golden.PriceApi">
-                        <span class="input-group-append">
-                            <button type="button" id="btnapii" onclick="SetAutoGoldPrice()" class="btn btn-info btn-flat text-white">ثـبت</button>
-                        </span>
                     </div>
                 </div>
             </div>
@@ -267,24 +270,37 @@
                 </div>
             </div>
             <div class="form-group w-50">
-                <label for="inputName2" class=" control-label">وزن</label>
-                <div class="col-sm-10">
-                    <input asp-for="Weight" type="text" class="form-control" id="inputName2" placeholder="وزن">
-                </div>
-            </div>
-
-        </div>
-        <div class="d-flex w-100">
-            <div class="form-group w-50">
-                <label for="inputSkills" class=" control-label">اجرت</label>
-                <div class="col-sm-10">
-                    <input asp-for="Wages" type="text" class="form-control" id="inputSkills" placeholder="اجرت">
-                </div>
-            </div>
-            <div class="form-group w-50">
                 <label for="inputSkills" class=" control-label">موجودی</label>
                 <div class="col-sm-10">
                     <input asp-for="Inventory" type="text" class="form-control" id="inputSkills" placeholder="موجودی">
+                </div>
+            </div>
+        </div>
+        <div class="d-flex w-100">
+            <div class="form-group w-50">
+                <label for="inputSkills" class=" control-label">اجرت تومانی</label>
+                <div class="col-sm-10">
+                    <input asp-for="Wages" type="text" class="form-control" id="inputSkills" placeholder="تومان">
+                </div>
+            </div>
+            <div class="form-group w-50">
+                <label for="inputSkills" class=" control-label">اجرت درصدی</label>
+                <div class="col-sm-10">
+                    <input asp-for="WagesPercentage" type="text" class="form-control" id="inputSkills" placeholder="درصد">
+                </div>
+            </div>
+        </div>
+        <div class="d-flex w-100">
+            <div class="form-group w-50">
+                <label for="inputName2" class=" control-label">وزن</label>
+                <div class="col-sm-10">
+                    <input asp-for="Weight" type="text" class="form-control" id="inputName2" placeholder="نمونه 3.1 , 4.2 , 3">
+                </div>
+            </div>
+            <div class="form-group w-50">
+                <label for="inputName2" class=" control-label">سایز بندی</label>
+                <div class="col-sm-10">
+                    <input asp-for="Size" type="text" class="form-control" id="inputName2" placeholder="نمونه 33 * 23 mm , 11*10 mm ">
                 </div>
             </div>
         </div>
@@ -311,6 +327,12 @@
                 </select>
 
             </div>
+            <div class="form-group w-50">
+                <label for="inputName2" class=" control-label">توضیحات محصول </label>
+                <div class="col-sm-10">
+                    <textarea asp-for="Desc" type="text" class="form-control" id="inputName2" placeholder="توضیحات محصول "></textarea>
+                </div>
+            </div>
         </div>
 
         <div class="form-group w-50">
@@ -318,6 +340,7 @@
                 <button type="submit" class="btn btn-success">ثـبت</button>
             </div>
         </div>
+
     </form>
 </div>
 <!-- /.tab-pane -->
@@ -361,8 +384,8 @@
                         <input type="text" id="Weight" style="border-radius: 5px 0px 0px 5px;" name="Weight" class="form-control weightP" required="required">
                     </div>
                     <div class="input-group p-3  m-2">
-                        <span class="input-group-text" style="border-radius: 0px 5px 5px 0px;" id="basic-addon2">اجرت</span>
-                        <input type="text" id="Wages" style="border-radius: 5px 0px 0px 5px;" name="Wages" class="form-control wagesP" required="required">
+                        <span class="input-group-text" style="border-radius: 0px 5px 5px 0px;" id="basic-addon2">اندازه</span>
+                        <input type="text" id="SizeP" style="border-radius: 5px 0px 0px 5px;" name="Size" class="form-control SizeP">
                     </div>
                 </div>
                 <div class="d-flex justify-content-between">
@@ -390,6 +413,23 @@
                             }
                         </select>
                     </div>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <div class="input-group p-3  m-2">
+                        <span class="input-group-text" style="border-radius: 0px 5px 5px 0px;" id="basic-addon2">اجرت تومانی</span>
+                        <input type="text" id="wagesP" style="border-radius: 5px 0px 0px 5px;" name="Size" class="form-control wagesP">
+                    </div>
+                    <div class="input-group p-3  m-2">
+                        <span class="input-group-text" style="border-radius: 0px 5px 5px 0px;" id="basic-addon2">اجرت درصدی</span>
+                        <input type="text" id="wagesPe" style="border-radius: 5px 0px 0px 5px;" name="Size" class="form-control wagesPe">
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <div class="input-group p-3  m-2">
+                        <span class="input-group-text" style="border-radius: 0px 5px 5px 0px;" id="basic-addon2">توضیحات</span>
+                        <textarea type="text" id="Desc" style="border-radius: 5px 0px 0px 5px;" name="Size" class="form-control Desc"></textarea>
+                    </div>
+
                 </div>
                 <div class="d-flex justify-content-between" style="background-color:	rgb(220,220,220,0.4)">
                     <div class=" m-2  p-3">
@@ -467,6 +507,9 @@
                      $('.mImageThreeP').val(currentrow.find($("input.mImage[type=text]")).val());
                      $(".weightP").val(currentrow.find($("input.mWeight[type=text]")).val());
                      $(".wagesP").val(currentrow.find($("input.mWages[type=text]")).val());
+                     $(".SizeP").val(currentrow.find($("input.mSize[type=text]")).val());
+                     $(".Desc").val(currentrow.find($("input.mDesc[type=text]")).val());
+                     $(".wagesPe").val(currentrow.find($("input.mWagesPercentage[type=text]")).val());
                      $(".inventoryP").val(currentrow.find($("input.mInventory[type=text]")).val());
                      $(".catIdP ").val(currentrow.find($("input.mCategoryId[type=text]")).val()).change();
                  });
@@ -511,9 +554,12 @@
                         product.append("Image",$("#Image")[0].files[0]);
                         product.append("ImageName",$("#ImageName").val());
                         product.append("Weight",$("#Weight").val());
-                        product.append("Wages",$("#Wages").val());
+                        product.append("Wages",$("#wagesP").val());
                         product.append("Inventory",$("#Inventory").val());
                         product.append("CategoryId",$("#CategoryIdProd").val());
+                        product.append("Size",$("#SizeP").val());
+                        product.append("Desc",$("#Desc").val());
+                        product.append("WagesPercentage",$("#wagesPe").val());
                              $.ajax({
                                     type: "Put",
                                     data: product,

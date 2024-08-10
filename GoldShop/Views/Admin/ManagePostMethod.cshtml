@@ -1,13 +1,13 @@
 ﻿@using GoldShop.Domain.Entity.User
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 @{
-Layout = "_LayoutAdmin";
-List<PostMethod> postMethods = ViewBag.PostMethod;
+    Layout = "_LayoutAdmin";
+    List<PostMethod> postMethods = ViewBag.PostMethod;
 }
 
 @section link
 {
-<style>
+    <style>
     .modal{
         top: 80px;
     }
@@ -57,6 +57,13 @@ List<PostMethod> postMethods = ViewBag.PostMethod;
                                         <label for="exampleInputPassword1">هزینه</label>
                                         <input name="price" class="form-control" id="exampleInputPassword1">
                                     </div>
+                                    <div class="form-group">
+                                        <div class="form-check">
+                                            @Html.CheckBox("isActive",new{name="isActive"})
+                                            @* <input name="isActive" class="form-check-input" type="checkbox" id="isActive"> *@
+                                            <label class="form-check-label">پس کرایه</label>
+                                        </div>
+                                    </div>
                                     <div class="d-flex flex-column align-content-center justify-content-center ">
                                         <div class="form-input">
                                             <button type="submit" class="btn btn-primary">ثبت</button>
@@ -83,42 +90,47 @@ List<PostMethod> postMethods = ViewBag.PostMethod;
                                             <th class="text-center" style="width: 10%">#</th>
                                         </tr>
                                         @{
-                                        if (postMethods.Count < 1)
-                                        {
-                                        <tr>
-                                            <td> </td>
-                                            <td> </td>
-                                            <td class="text-center">
-                                                یافت نشد
-                                            </td>
-                                        </tr>
-                                        }
-                                        else
-                                        {
-                                        foreach (var i in postMethods)
-                                        {
-                                        <tr>
-                                            <td class="text-center">@i.Id</td>
-                                            <td class="text-center">@i.Title</td>
-                                            @if (@i.Price < 1)
+                                            if (postMethods.Count < 1)
                                             {
-                                            <td class="text-center">رایگان</td>
+                                                <tr>
+                                                    <td> </td>
+                                                    <td> </td>
+                                                    <td class="text-center">
+                                                        یافت نشد
+                                                    </td>
+                                                </tr>
                                             }
                                             else
                                             {
-                                            <td class="text-center">@i.Price</td>
+                                                foreach (var i in postMethods)
+                                                {
+                                                    <tr>
+                                                        <td class="text-center">@i.Id</td>
+                                                        <td class="text-center">@i.Title</td>
+                                                        @if (i.IsFee)
+                                                        {
+                                                            <td class="text-center">پس کرایه</td>
+                                                        }
+                                                        else if (@i.Price < 1)
+                                                        {
+                                                            <td class="text-center">رایگان</td>
+                                                        }
+                                                        else
+                                                        {
+                                                            <td class="text-center">@i.Price</td>
+                                                        }
+                                                        <td class="text-center">
+                                                            <form>
+                                                                <a class="badge bg-warning text-muted modalProduct" data-toggle="modal" data-target="#exampleModal">ویرایش</a>
+                                                                <input type="text" name="mId" class="mId" value="@i.Id" hidden="hidden"/>
+                                                                <input type="text" name="mTitle" class="mTitle" value="@i.Title" hidden="hidden"/>
+                                                                <input type="text" name="mTitle" class="mPrice" value="@i.Price" hidden="hidden"/>
+                                                                <input type="text" name="isActive" class="isActive" value="@i.IsFee" hidden="hidden"/>
+                                                            </form>
+                                                        </td>
+                                                    </tr>
+                                                }
                                             }
-                                            <td class="text-center">
-                                                <form>
-                                                    <a class="badge bg-warning text-muted modalProduct" data-toggle="modal" data-target="#exampleModal">ویرایش</a>
-                                                    <input type="text" name="mId" class="mId" value="@i.Id" hidden="hidden"/>
-                                                    <input type="text" name="mTitle" class="mTitle" value="@i.Title" hidden="hidden"/>
-                                                    <input type="text" name="mTitle" class="mPrice" value="@i.Price" hidden="hidden"/>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                        }
-                                        }
                                         }
                                         </tbody>
                                     </table>
@@ -157,9 +169,17 @@ List<PostMethod> postMethods = ViewBag.PostMethod;
                         <input type="text" id="Price" style="border-radius: 5px 0px 0px 5px;" class="form-control brandP" required="required" name="price">
                     </div>
                 </div>
+                <div class="d-flex justify-content-between">
+                    <div class="form-group">
+                        <div class="form-check">
+                            @Html.CheckBox("isActive", new { id = "isActiveId" })
+                            <label class="form-check-label">پس کرایه</label>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer d-flex justify-content-between gap-2">
-                <button type="submit" class="btn btn-primary " >ذخیره تغیرات</button>
+                <button type="submit" class="btn btn-primary ">ذخیره تغیرات</button>
             </div>
         </form>
     </div>
@@ -167,7 +187,7 @@ List<PostMethod> postMethods = ViewBag.PostMethod;
 
 @section script{
 
-<script>
+    <script>
 
     $(document).ready(function () {
 
@@ -177,6 +197,7 @@ List<PostMethod> postMethods = ViewBag.PostMethod;
             $("#Id").val(currentrow.find($("input.mId[type=text]")).val());
             $("#Title").val(currentrow.find($("input.mTitle[type=text]")).val());
             $("#Price").val(currentrow.find($("input.mPrice[type=text]")).val());
+            $('#isActiveId').prop('checked',currentrow.find($("input.isActive[type=text]")).val());
         });
     });
 </script>

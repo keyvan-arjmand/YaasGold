@@ -10,8 +10,16 @@ public class Product : BaseEntity
     public string ImageBanner { get; set; } = string.Empty;
     public string ImageThumb { get; set; } = string.Empty;
     public string Image { get; set; } = string.Empty;
+    public string Size { get; set; } = string.Empty;
+    public string Desc { get; set; } = string.Empty;
     public double Weight { get; set; } //وزن 
-    public double Wages { get; set; } //اجرت 
+    public double Weight2 { get; set; } //وزن 
+    public double Weight3 { get; set; } //وزن 
+    public double Weight4 { get; set; } //وزن 
+    public double Weight5 { get; set; } //وزن 
+
+    public double WagesAmount { get; set; } //اجرت 
+    public double WagesPercentage { get; set; } //اجرت 
     public long Inventory { get; set; }
     public bool IsSpecial { get; set; }
     public DateTime InsertDate { get; set; }

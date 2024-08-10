@@ -75,7 +75,6 @@ List<State> state = ViewBag.States;
                                             <tr>
                                                 <th class="text-center" style="width: 5%">id</th>
                                                 <th class="text-center" style="width: 20%">استان</th>
-                                                <th class="text-center" style="width: 20%">تعداد شهر</th>
                                                 <th class="text-center" style="width: 10%">#</th>
                                             </tr>
                                             @{
@@ -94,7 +93,6 @@ List<State> state = ViewBag.States;
                                             <tr>
                                                 <td class="text-center">@i.Id</td>
                                                 <td class="text-center">@i.Title</td>
-                                                <td class="text-center">@i.Cities.Count</td>
                                                 <td class="text-center">
                                                     <form>
                                                         <a class="badge bg-warning text-muted modalState" data-toggle="modal" data-target="#exampleModal">ویرایش</a>

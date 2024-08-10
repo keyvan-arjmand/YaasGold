@@ -120,7 +120,7 @@
                     </ul>
                 </div>
                 <div class="price-box">
-                    <span class="new-price">@prod.GoldPrice.PricePerGram.GetPrice(prod.Weight, prod.Wages).ToString("n0") تومان</span>
+                    <span class="new-price">@prod.GoldPrice.PricePerGram.GetPrice(prod.Weight, prod.WagesAmount).ToString("n0") تومان</span>
                 </div>
                 <p>
                     لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنو
@@ -167,7 +167,7 @@
      
                 <div class="product-content">
                     <div class="price-box">
-                        <span class="new-price">@i.GoldPrice.PricePerGram.GetPrice(prod.Weight, prod.Wages).ToString("n0") تومان </span>
+                        <span class="new-price">@i.GoldPrice.PricePerGram.GetPrice(prod.Weight, prod.WagesAmount).ToString("n0") تومان </span>
                     </div>
                     <h6 class="product-name">
                         <a href="@Url.Action("ProductDetail", "Home", new { id = i.Id })">@i.Name</a>

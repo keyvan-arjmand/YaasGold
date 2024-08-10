@@ -243,6 +243,10 @@ namespace GoldShop.Domain.Migrations
                     b.Property<long>("CategoryId")
                         .HasColumnType("bigint");
 
+                    b.Property<string>("Desc")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<long>("GoldPriceId")
                         .HasColumnType("bigint");
 
@@ -274,10 +278,29 @@ namespace GoldShop.Domain.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Wages")
+                    b.Property<string>("Size")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("WagesAmount")
+                        .HasColumnType("float");
+
+                    b.Property<double>("WagesPercentage")
                         .HasColumnType("float");
 
                     b.Property<double>("Weight")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Weight2")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Weight3")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Weight4")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Weight5")
                         .HasColumnType("float");
 
                     b.HasKey("Id");
@@ -323,6 +346,9 @@ namespace GoldShop.Domain.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<bool>("IsDelete")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsFee")
                         .HasColumnType("bit");
 
                     b.Property<double>("Price")

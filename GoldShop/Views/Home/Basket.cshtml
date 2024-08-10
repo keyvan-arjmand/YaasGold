@@ -90,11 +90,11 @@
                                             <tr>
                                             <td class="plantmore-product-thumbnail"><a href="#"><img src="/Images/Product/@i.Image" alt="" width="90"></a></td>
                                             <td class="plantmore-product-name"><a href="#">@i.Name</a></td>
-                                            <td class="plantmore-product-price"><span class="amount">@i.GoldPrice.PricePerGram.GetPrice(i.Weight, i.Wages).ToString("N0") تومان</span></td>
+                                            <td class="plantmore-product-price"><span class="amount">@i.GoldPrice.PricePerGram.GetPrice(i.Weight, i.WagesAmount).ToString("N0") تومان</span></td>
                                             <td class="plantmore-product-quantity">
                                                 <input value="1" type="number">
                                             </td>
-                                            <td class="product-subtotal"><span class="amount">@i.GoldPrice.PricePerGram.GetPrice(i.Weight, i.Wages).ToString("N0") تومان</span></td>
+                                            <td class="product-subtotal"><span class="amount">@i.GoldPrice.PricePerGram.GetPrice(i.Weight, i.WagesAmount).ToString("N0") تومان</span></td>
                                             <td class="plantmore-product-remove"><a href="#"><i class="icon-x"></i></a></td>
                                         </tr>
                                         }
@@ -130,7 +130,7 @@
                                     <h2>مجموع سبد</h2>
                                     <ul>
                                         @* <li>زیرمجموع <span>49000 تومان</span></li> *@
-                                        <li>جمع کل <span>@products.Sum(x=>x.GoldPrice.PricePerGram.GetPrice(x.Weight, x.Wages)).ToString("N0") تومان </span></li>
+                                        <li>جمع کل <span>@products.Sum(x=>x.GoldPrice.PricePerGram.GetPrice(x.Weight, x.WagesAmount)).ToString("N0") تومان </span></li>
                                     </ul>
                                     <a href="#" class="proceed-checkout-btn">ادامه فرایند پرداخت</a>
                                 </div>

@@ -91,7 +91,6 @@ public class AdminController : Controller
                             Name = x.Name,
                             Brand = x.Brand,
                             Inventory = x.Inventory,
-                            Wages = x.Wages,
                             Weight = x.Weight,
                             Image = x.Image,
                             ImageBanner = x.ImageBanner,
@@ -136,6 +135,8 @@ public class AdminController : Controller
             Weight = request.Weight,
             Name = request.Name,
             CategoryId = request.CategoryId,
+            Desc = request.Desc,
+            Size = request.Size
         };
         if (request.Image != null)
         {
@@ -170,13 +171,16 @@ public class AdminController : Controller
             Id = request.Id,
             Image = request.Image != null
                 ? up.Uploadfile(request.Image, "Product")
-                : request.ImageName,
+                : string.Empty,
             ImageThumb = request.ImageThumb != null
                 ? up.Uploadfile(request.ImageThumb, "Product")
-                : request.ImageThumbName,
+                : string.Empty,
             ImageBanner = request.ImageBanner != null
                 ? up.Uploadfile(request.ImageBanner, "Product")
-                : request.ImageBannerName,
+                :string.Empty,
+            Size = request.Size,
+            Desc = request.Desc,
+            WagesPercentage = request.WagesPercentage
         };
         await _mediator.Send(req);
         return RedirectToAction("Product");
@@ -216,10 +220,11 @@ public class AdminController : Controller
         await _userManager.AddToRoleAsync(user, "user");
         await _userManager.AddToRoleAsync(user, "admin");
         await _userManager.UpdateAsync(user);
-        KavenegarApi webApi = new KavenegarApi(apikey:ApiKeys.ApiKey);
+        KavenegarApi webApi = new KavenegarApi(apikey: ApiKeys.ApiKey);
         var result = webApi.VerifyLookup(user.PhoneNumber, user.Password,
             "WellComeYaasAdmin");
     }
+
     public async Task initAdmin()
     {
         var user = new Domain.Entity.User.User
@@ -254,10 +259,11 @@ public class AdminController : Controller
         await _userManager.AddToRoleAsync(user, "user");
         await _userManager.AddToRoleAsync(user, "admin");
         await _userManager.UpdateAsync(user);
-        KavenegarApi webApi = new KavenegarApi(apikey:ApiKeys.ApiKey);
+        KavenegarApi webApi = new KavenegarApi(apikey: ApiKeys.ApiKey);
         var result = webApi.VerifyLookup(user.PhoneNumber, user.Password,
             "WellComeYaasAdmin");
     }
+
     public async Task<ActionResult> LoginCod(string phoneNumber)
     {
         ViewBag.exUser = await _mediator.Send(new LoginCodAdminCommand(phoneNumber));
@@ -284,6 +290,7 @@ public class AdminController : Controller
         await _mediator.Send(new ConfirmCodAdminCommand(phoneNumber, code));
         return Ok();
     }
+
     public async Task<ActionResult> Factor(string search)
     {
         if (User.Identity.IsAuthenticated)
@@ -293,10 +300,10 @@ public class AdminController : Controller
             if (!string.IsNullOrWhiteSpace(search))
             {
                 ViewBag.Factors = await _work.GenericRepository<Factor>().TableNoTracking
-                    .Include(x => x.User).ThenInclude(x=>x.City)
+                    .Include(x => x.User).ThenInclude(x => x.City)
                     .Include(x => x.PostMethod)
                     .Include(x => x.UserAddress)
-                    .Include(x => x.Products).ThenInclude(x=>x.ProductColor).ThenInclude(x=>x.GoldPrice)
+                    .Include(x => x.Products).ThenInclude(x => x.ProductColor).ThenInclude(x => x.GoldPrice)
                     .Where(x => x.DiscountCode.Contains(search) || x.Desc.Contains(search) ||
                                 x.FactorCode.Contains(search))
                     .OrderByDescending(x => x.InsertDate)
@@ -305,15 +312,16 @@ public class AdminController : Controller
             else
             {
                 ViewBag.Factors = await _work.GenericRepository<Factor>().TableNoTracking
-                    .Include(x => x.User).ThenInclude(x=>x.City)
+                    .Include(x => x.User).ThenInclude(x => x.City)
                     .Include(x => x.PostMethod)
                     .Include(x => x.UserAddress)
-                    .Include(x => x.Products).ThenInclude(x=>x.ProductColor).ThenInclude(x=>x.GoldPrice)
+                    .Include(x => x.Products).ThenInclude(x => x.ProductColor).ThenInclude(x => x.GoldPrice)
                     .OrderByDescending(x => x.InsertDate)
                     .ToListAsync();
             }
 
             ViewBag.factorsPage = 1;
+
             #endregion
 
             return View();
@@ -323,6 +331,7 @@ public class AdminController : Controller
             return View("Login");
         }
     }
+
     public async Task<ActionResult> FactorDetail(int id)
     {
         if (User.Identity.IsAuthenticated)
@@ -330,12 +339,12 @@ public class AdminController : Controller
             #region ViewBag
 
             ViewBag.Factor = await _work.GenericRepository<Factor>().TableNoTracking
-                .Include(x => x.User).ThenInclude(x=>x.City)
+                .Include(x => x.User).ThenInclude(x => x.City)
                 .Include(x => x.PostMethod)
-                .Include(x => x.UserAddress).ThenInclude(x=>x.City)
-                .Include(x => x.Products).ThenInclude(x=>x.ProductColor).ThenInclude(x=>x.GoldPrice)
+                .Include(x => x.UserAddress).ThenInclude(x => x.City)
+                .Include(x => x.Products).ThenInclude(x => x.ProductColor).ThenInclude(x => x.GoldPrice)
                 .OrderByDescending(x => x.InsertDate)
-                .FirstOrDefaultAsync(x=>x.Id==id);
+                .FirstOrDefaultAsync(x => x.Id == id);
 
             #endregion
 
@@ -346,6 +355,7 @@ public class AdminController : Controller
             return View("Login");
         }
     }
+
     public async Task<ActionResult> ChangeStatus(int id, int status)
     {
         if (User.Identity.IsAuthenticated)
@@ -360,7 +370,7 @@ public class AdminController : Controller
             return View("Login");
         }
     }
-    
+
     public async Task<ActionResult> SalesInvoice(string search)
     {
         if (User.Identity.IsAuthenticated)
@@ -370,10 +380,10 @@ public class AdminController : Controller
             if (!string.IsNullOrWhiteSpace(search))
             {
                 ViewBag.Factors = await _work.GenericRepository<Factor>().TableNoTracking
-                    .Include(x => x.User).ThenInclude(x=>x.City)
+                    .Include(x => x.User).ThenInclude(x => x.City)
                     .Include(x => x.PostMethod)
-                    .Include(x => x.UserAddress).ThenInclude(x=>x.City)
-                    .Include(x => x.Products).ThenInclude(x=>x.ProductColor).ThenInclude(x=>x.GoldPrice)
+                    .Include(x => x.UserAddress).ThenInclude(x => x.City)
+                    .Include(x => x.Products).ThenInclude(x => x.ProductColor).ThenInclude(x => x.GoldPrice)
                     .Where(x => x.DiscountCode.Contains(search) || x.Desc.Contains(search) ||
                                 x.FactorCode.Contains(search))
                     .OrderByDescending(x => x.InsertDate)
@@ -382,10 +392,10 @@ public class AdminController : Controller
             else
             {
                 ViewBag.Factors = await _work.GenericRepository<Factor>().TableNoTracking
-                    .Include(x => x.User).ThenInclude(x=>x.City)
+                    .Include(x => x.User).ThenInclude(x => x.City)
                     .Include(x => x.PostMethod)
-                    .Include(x => x.UserAddress).ThenInclude(x=>x.City)
-                    .Include(x => x.Products).ThenInclude(x=>x.ProductColor).ThenInclude(x=>x.GoldPrice)
+                    .Include(x => x.UserAddress).ThenInclude(x => x.City)
+                    .Include(x => x.Products).ThenInclude(x => x.ProductColor).ThenInclude(x => x.GoldPrice)
                     .OrderByDescending(x => x.InsertDate)
                     .ToListAsync();
             }
@@ -399,9 +409,8 @@ public class AdminController : Controller
             return View("Login");
         }
     }
-    
-    
-    
+
+
     public async Task<ActionResult> UserList(string search, int page = 1)
     {
         if (User.Identity.IsAuthenticated)
@@ -688,13 +697,14 @@ public class AdminController : Controller
         }
     }
 
-    public async Task<ActionResult> UpdatePostMethod(int id, string title, double price)
+    public async Task<ActionResult> UpdatePostMethod(int id, string title, double price, bool isActive)
     {
         if (User.Identity.IsAuthenticated && id > 0)
         {
             var postMethod = await _work.GenericRepository<PostMethod>().Table.FirstOrDefaultAsync(x => x.Id == id);
             postMethod.Title = title;
             postMethod.Price = price;
+            postMethod.IsFee = isActive;
 
             await _work.GenericRepository<PostMethod>().UpdateAsync(postMethod, CancellationToken.None);
             return RedirectToAction("ManagePostMethod");
@@ -705,14 +715,15 @@ public class AdminController : Controller
         }
     }
 
-    public async Task<ActionResult> InsertPostMethod(string title, double price)
+    public async Task<ActionResult> InsertPostMethod(string title, double price, bool isActive)
     {
         if (User.Identity.IsAuthenticated)
         {
             await _work.GenericRepository<PostMethod>().AddAsync(new PostMethod()
             {
                 Title = title,
-                Price = price
+                Price = price,
+                IsFee = isActive
             }, CancellationToken.None);
 
             return RedirectToAction("ManagePostMethod");

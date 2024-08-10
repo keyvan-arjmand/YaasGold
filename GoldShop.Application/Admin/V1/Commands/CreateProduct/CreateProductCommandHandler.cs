@@ -24,20 +24,47 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand>
         var cat = await _work.GenericRepository<Category>().TableNoTracking
             .FirstOrDefaultAsync(x => x.Id == request.CategoryId, cancellationToken: cancellationToken);
         if (cat == null) throw new NotFoundException("cat not found");
-        await _work.GenericRepository<Product>().AddAsync(new Product
+        var weight = request.Weight.Split(",").Select(Convert.ToDouble).ToList();
+        var prod = new Product
         {
-            Weight = request.Weight,
             Image = request.Image,
             ImageThumb = request.ImageThumb,
             Brand = request.Brand,
             Name = request.Name,
             Inventory = request.Inventory,
-            Wages = request.Wages,
+            WagesAmount = request.Wages,
             ImageBanner = request.ImageBanner,
             InsertDate = DateTime.Now,
             IsDelete = false,
             GoldPriceId = gold.Id,
-            CategoryId = cat.Id
-        }, cancellationToken);
+            CategoryId = cat.Id,
+            Size = request.Size,
+            Desc = request.Desc,
+            WagesPercentage = request.WagesPercentage,
+        };
+        for (int i = 1; i <= weight.Count; i++)
+        {
+            if (i == 1)
+            {
+                prod.Weight = weight[0];
+            }
+            if (i == 2)
+            {
+                prod.Weight2 = weight[1];
+            }
+            if (i == 3)
+            {
+                prod.Weight3 = weight[2];
+            }
+            if (i == 4)
+            {
+                prod.Weight4 = weight[3];
+            }
+            if (i == 5)
+            {
+                prod.Weight5 = weight[4];
+            }
+        }
+        await _work.GenericRepository<Product>().AddAsync(prod, cancellationToken);
     }
 }
