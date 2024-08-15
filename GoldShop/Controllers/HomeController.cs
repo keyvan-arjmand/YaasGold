@@ -34,7 +34,6 @@ public class HomeController : Controller
 
     public async Task<ActionResult> Index()
     {
-        return RedirectToAction("Index", "Admin");
         ViewBag.Cats = await _work.GenericRepository<Category>().TableNoTracking.ToListAsync();
         ViewBag.PopProducts = await _work.GenericRepository<Product>()
             .TableNoTracking
@@ -308,7 +307,7 @@ public class HomeController : Controller
         return gold + wagesGold + tax + profit;
     }
 
-    public async Task<IActionResult > InsertUser(string number, string password, string email)
+    public async Task<IActionResult> InsertUser(string number, string password, string email)
     {
         if (!await _userManager.Users.AnyAsync(x => x.PhoneNumber == number))
         {
@@ -335,15 +334,15 @@ public class HomeController : Controller
             await _userManager.CreateAsync(user, password);
             await _userManager.AddToRoleAsync(user, "user");
             await _userManager.UpdateAsync(user);
-            return  RedirectToAction("Index");
+            return RedirectToAction("Index");
         }
         else
         {
-            return  RedirectToAction("Index");
+            return RedirectToAction("Index");
         }
-       
     }
-    public async Task<IActionResult > AddToBasket(int id)
+
+    public async Task<IActionResult> AddToBasket(int id)
     {
         var basketlist = new List<int>();
 
@@ -357,7 +356,8 @@ public class HomeController : Controller
 
         return RedirectToAction("Index", "Home");
     }
-    public async Task<IActionResult > Basket()
+
+    public async Task<IActionResult> Basket()
     {
         ViewBag.Cats = await _work.GenericRepository<Category>().TableNoTracking.ToListAsync();
         var basketProducts = new List<Product>();
@@ -371,29 +371,32 @@ public class HomeController : Controller
                 basketProducts.Add(prod!);
             }
         }
+
         ViewBag.BasketProd = basketProducts;
         return View();
     }
-    public async Task<IActionResult > UserLogin(string number, string password)
+
+    public async Task<IActionResult> UserLogin(string number, string password)
     {
         var user = await _userManager.FindByNameAsync(number);
         if (user != null)
         {
             var userRoles = await _userManager.GetRolesAsync(user);
             var result = await _signInManager.PasswordSignInAsync(user, password, true, false);
-          return  RedirectToAction("Profile","Home");
+            return RedirectToAction("Profile", "Home");
         }
         else
         {
-            return  RedirectToAction("Index","Home");
+            return RedirectToAction("Index", "Home");
         }
     }
 
-    public async Task<IActionResult > Profile()
+    public async Task<IActionResult> Profile()
     {
         ViewBag.Cats = await _work.GenericRepository<Category>().TableNoTracking.ToListAsync();
         return View();
     }
+
     public IActionResult RemoveInBasket(int id)
     {
         var basketlist = new List<int>();
@@ -401,8 +404,9 @@ public class HomeController : Controller
         {
             basketlist = JsonConvert.DeserializeObject<List<int>>(HttpContext.Session.GetString("basket")).ToList();
         }
+
         basketlist.Remove(id);
         HttpContext.Session.SetString("basket", JsonConvert.SerializeObject(basketlist));
-        return  RedirectToAction("Index","Home");
+        return RedirectToAction("Index", "Home");
     }
 }
