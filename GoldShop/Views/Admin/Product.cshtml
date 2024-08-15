@@ -103,7 +103,7 @@
                             <td class="text-center">@i.Name</td>
                             <td class="text-center">@i.Category.Name</td>
                             <td class="text-center">
-                                @i.GoldPrice.PricePerGram.GetPrice(i.Weight, i.WagesAmount).ToString("N0")
+                                @i.GoldPrice.PricePerGram.GetPrice(i.Weight, i.WagesAmount, i.WagesPercentage).ToString("N0")
                             </td>
                             <td class="text-center">@i.Inventory</td>
                             <td class="text-center">

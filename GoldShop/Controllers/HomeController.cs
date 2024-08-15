@@ -51,6 +51,7 @@ public class HomeController : Controller
             .Include(x => x.GoldPrice)
             .OrderBy(x => x.InsertDate)
             .Take(15).ToListAsync();
+        ViewBag.Curency = await _work.GenericRepository<GoldPrice>().TableNoTracking.FirstOrDefaultAsync();
         return View();
     }
 

@@ -47,101 +47,102 @@
 
 <div class="main-content-wrap shop-page section-ptb">
 <div class="container">
-<div class="row single-product-area product-details-inner">
-    <div class="col-lg-5 col-md-6">
-        <!-- Product Details Left -->
-        <div class="product-large-slider">
-            <div class="pro-large-img img-zoom">
-                <img src="/Images/Product/@prod.Image" alt="product-details"/>
-                <a href="/Images/Product/@prod.Image" data-fancybox="images">
-                    <i class="fa fa-search"></i>
-                </a>
-            </div>
-            <div class="pro-large-img img-zoom">
-                <img src="/Images/Product/@prod.ImageBanner" alt="product-details"/>
-                <a href="/Images/Product/@prod.ImageBanner" data-fancybox="images">
-                    <i class="fa fa-search"></i>
-                </a>
-            </div>
-            <div class="pro-large-img img-zoom">
-                <img src="/Images/Product/@prod.ImageThumb" alt="product-details"/>
-                <a href="/Images/Product/@prod.ImageThumb" data-fancybox="images">
-                    <i class="fa fa-search"></i>
-                </a>
-            </div>
+    <div class="row single-product-area product-details-inner">
+        
+        <div class="col-lg-5 col-md-6">
+            <!-- Product Details Left -->
+            <div class="product-large-slider">
+                <div class="pro-large-img img-zoom">
+                    <img src="/Images/Product/@prod.Image" alt="product-details"/>
+                    <a href="/Images/Product/@prod.Image" data-fancybox="images">
+                        <i class="fa fa-search"></i>
+                    </a>
+                </div>
+                <div class="pro-large-img img-zoom">
+                    <img src="/Images/Product/@prod.ImageBanner" alt="product-details"/>
+                    <a href="/Images/Product/@prod.ImageBanner" data-fancybox="images">
+                        <i class="fa fa-search"></i>
+                    </a>
+                </div>
+                <div class="pro-large-img img-zoom">
+                    <img src="/Images/Product/@prod.ImageThumb" alt="product-details"/>
+                    <a href="/Images/Product/@prod.ImageThumb" data-fancybox="images">
+                        <i class="fa fa-search"></i>
+                    </a>
+                </div>
 
 
+            </div>
+            <div class="product-nav ltr">
+                <div class="pro-nav-thumb">
+                    <img src="/Images/Product/@prod.Image" alt="product-details"/>
+                </div>
+                <div class="pro-nav-thumb">
+                    <img src="/Images/Product/@prod.ImageBanner" alt="product-details"/>
+                </div>
+                <div class="pro-nav-thumb">
+                    <img src="/Images/Product/@prod.ImageThumb" alt="product-details"/>
+                </div>
+            </div>
+            <!--// Product Details Left -->
         </div>
-        <div class="product-nav ltr">
-            <div class="pro-nav-thumb">
-                <img src="/Images/Product/@prod.Image" alt="product-details"/>
-            </div>
-            <div class="pro-nav-thumb">
-                <img src="/Images/Product/@prod.ImageBanner" alt="product-details"/>
-            </div>
-            <div class="pro-nav-thumb">
-                <img src="/Images/Product/@prod.ImageThumb" alt="product-details"/>
-            </div>
-        </div>
-        <!--// Product Details Left -->
-    </div>
 
-    <div class="col-lg-7 col-md-6">
-        <div class="product-details-view-content">
-            <div class="product-info">
-                <h3>نام محصول</h3>
-                <div class="product-rating d-flex">
-                    <ul class="d-flex">
-                        <li>
-                            <a href="#">
-                                <i class="icon-star"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="icon-star"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="icon-star"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="icon-star"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="icon-star"></i>
-                            </a>
-                        </li>
+        <div class="col-lg-7 col-md-6">
+            <div class="product-details-view-content">
+                <div class="product-info">
+                    <h3>نام محصول</h3>
+                    <div class="product-rating d-flex">
+                        <ul class="d-flex">
+                            <li>
+                                <a href="#">
+                                    <i class="icon-star"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="icon-star"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="icon-star"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="icon-star"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="icon-star"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="price-box">
+                        <span class="new-price">@prod.GoldPrice.PricePerGram.GetPrice(prod.Weight, prod.WagesAmount, prod.WagesPercentage).ToString("n0") تومان</span>
+                    </div>
+                    <p>
+                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنو
+                    </p>
+
+                    <div class="single-add-to-cart">
+                        <form action="#" class="cart-quantity d-flex">
+
+                            <button class="add-to-cart" type="submit" aria-readonly="true"> افزودن به سبد</button>
+                        </form>
+                    </div>
+
+                    <ul class="stock-cont mt-2 pt-2">
+                        <li class="product-sku">وزن: <span>@prod.Weight</span></li>
+                        <li class="product-stock-status">دسته&zwnj;بندی : <a href="#">@prod.Category.Name</a></li>
+                        <li class="product-stock-status">برند : <a href="#">@prod.Brand</a></li>
                     </ul>
                 </div>
-                <div class="price-box">
-                    <span class="new-price">@prod.GoldPrice.PricePerGram.GetPrice(prod.Weight, prod.WagesAmount).ToString("n0") تومان</span>
-                </div>
-                <p>
-                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنو
-                </p>
-
-                <div class="single-add-to-cart">
-                    <form action="#" class="cart-quantity d-flex">
-
-                        <button class="add-to-cart" type="submit" aria-readonly="true"> افزودن به سبد</button>
-                    </form>
-                </div>
-
-                <ul class="stock-cont mt-2 pt-2">
-                    <li class="product-sku">وزن: <span>@prod.Weight</span></li>
-                    <li class="product-stock-status">دسته&zwnj;بندی : <a href="#">@prod.Category.Name</a></li>
-                    <li class="product-stock-status">برند : <a href="#">@prod.Brand</a></li>
-                </ul>
             </div>
         </div>
     </div>
-</div>
 
 <div class="related-product-area section-pt ltr">
 <div class="row">
@@ -167,7 +168,7 @@
      
                 <div class="product-content">
                     <div class="price-box">
-                        <span class="new-price">@i.GoldPrice.PricePerGram.GetPrice(prod.Weight, prod.WagesAmount).ToString("n0") تومان </span>
+                        <span class="new-price">@i.GoldPrice.PricePerGram.GetPrice(prod.Weight, prod.WagesAmount, i.WagesPercentage).ToString("n0") تومان </span>
                     </div>
                     <h6 class="product-name">
                         <a href="@Url.Action("ProductDetail", "Home", new { id = i.Id })">@i.Name</a>

@@ -33,11 +33,27 @@ public class UpdateGoldPrice : IJob
             var gold = await _work.GenericRepository<GoldPrice>().Table.FirstOrDefaultAsync();
             if (gold.PriceType == PriceType.Auto)
             {
-                gold.PricePerGram = currency.YekGram18 ;
+                gold.PricePerGram = currency.YekGram18;
             }
 
-            gold.PriceApi = currency.YekGram18 ;
+            gold.PriceApi = currency.YekGram18;
             gold.UpdateTime = DateTime.Now;
+            gold.YekGram18 = currency.YekGram18;
+            gold.YekMesghal18 = currency.YekMesghal18;
+            gold.SekehRob = currency.SekehRob;
+            gold.SekehNim = currency.SekehNim;
+            gold.SekehEmam = currency.SekehEmam;
+            gold.SekehTamam = currency.SekehTamam;
+            gold.SekehGerami = currency.SekehGerami;
+            gold.OunceTala = currency.OunceTala;
+            gold.YekMesghal17 = currency.YekMesghal17;
+            gold.OunceNoghreh = currency.OunceNoghreh;
+            gold.Pelatin = currency.Pelatin;
+            gold.Dollar = currency.Dollar;
+            gold.Euro = currency.Euro;
+            gold.Derham = currency.Derham;
+            gold.YekGram20 = currency.YekGram20;
+            gold.YekGram21 = currency.YekGram21;
             await _work.GenericRepository<GoldPrice>().UpdateAsync(gold, CancellationToken.None);
         }
     }

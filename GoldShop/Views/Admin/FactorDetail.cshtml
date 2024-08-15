@@ -226,7 +226,7 @@ Factor factor = ViewBag.Factor;
                                                 @prod.Name
                                             </td>
                                             <td>@prod.Brand</td>
-                                            <td> @i.Factor.GoldRate.GetPrice(prod.Weight, prod.WagesAmount).ToString("N0")</td>
+                                            <td> @i.Factor.GoldRate.GetPrice(prod.Weight, prod.WagesAmount, prod.WagesPercentage).ToString("N0")</td>
                                             <td>@i.Count</td>
                                         </tr>
                                         }

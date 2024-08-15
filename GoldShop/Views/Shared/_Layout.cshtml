@@ -34,6 +34,8 @@
     <!-- Main Style CSS (Please use minify version for better website load performance) -->
     <link rel="stylesheet" href="/assets/css/style.css">
     <!--<link rel="stylesheet" href="assets/css/style.min.css">-->
+    
+    
     <style>
         .image-size{
           max-width: 182px;
@@ -73,16 +75,13 @@
                                     </li>
                                 </ul>
                             </div>
-                            <div class="d-flex justify-content-center text-white">
-                                قیمت طلا : 3,800,000
-                            </div>
+                            @await RenderSectionAsync("GoldPrice")
+                            
+                         
                         </div>
 
                         <form class="search-box-inner">
-                            <div class="search-select-box">
-                                @await RenderSectionAsync("selectBox")
 
-                            </div>
                             <div class="search-field-wrap">
                                 <input id="Search" type="text" class="search-field" placeholder="جستجو...">
 

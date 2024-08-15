@@ -204,12 +204,30 @@ namespace GoldShop.Domain.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
+                    b.Property<int>("Derham")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Dollar")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Euro")
+                        .HasColumnType("int");
+
                     b.Property<string>("GenderType")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDelete")
                         .HasColumnType("bit");
+
+                    b.Property<int>("OunceNoghreh")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OunceTala")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Pelatin")
+                        .HasColumnType("int");
 
                     b.Property<double>("PriceApi")
                         .HasColumnType("float");
@@ -220,8 +238,42 @@ namespace GoldShop.Domain.Migrations
                     b.Property<int>("PriceType")
                         .HasColumnType("int");
 
+                    b.Property<int>("SekehEmam")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SekehGerami")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SekehNim")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SekehRob")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SekehTamam")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TimeRead")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("UpdateTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("YekGram18")
+                        .HasColumnType("int");
+
+                    b.Property<int>("YekGram20")
+                        .HasColumnType("int");
+
+                    b.Property<int>("YekGram21")
+                        .HasColumnType("int");
+
+                    b.Property<int>("YekMesghal17")
+                        .HasColumnType("int");
+
+                    b.Property<int>("YekMesghal18")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
