@@ -57,6 +57,10 @@
       "PackagePath": "staticwebassets\\Images\\Banner\\ezgif-6-ab56919614.png"
     },
     {
+      "Id": "C:\\Users\\User\\RiderProjects\\GoldShop\\GoldShop\\wwwroot\\Images\\Banner\\gold-shop-decor.jpg",
+      "PackagePath": "staticwebassets\\Images\\Banner\\gold-shop-decor.jpg"
+    },
+    {
       "Id": "C:\\Users\\User\\RiderProjects\\GoldShop\\GoldShop\\wwwroot\\Images\\Banner\\home-left.jpg",
       "PackagePath": "staticwebassets\\Images\\Banner\\home-left.jpg"
     },
@@ -371,6 +375,10 @@
     {
       "Id": "C:\\Users\\User\\RiderProjects\\GoldShop\\GoldShop\\wwwroot\\assets\\images\\bg\\Parasteh_home_banner_Desktop-no1.jpg",
       "PackagePath": "staticwebassets\\assets\\images\\bg\\Parasteh_home_banner_Desktop-no1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\User\\RiderProjects\\GoldShop\\GoldShop\\wwwroot\\assets\\images\\bg\\aa145d17-c126-4c86-880b-cbcc2e6f5891 (1).webp",
+      "PackagePath": "staticwebassets\\assets\\images\\bg\\aa145d17-c126-4c86-880b-cbcc2e6f5891 (1).webp"
     },
     {
       "Id": "C:\\Users\\User\\RiderProjects\\GoldShop\\GoldShop\\wwwroot\\assets\\images\\bg\\about-us-policy-bg.jpg",

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "c0MecUWmYgtUwJCL6JE63PHAyq+cN4bRbW9VKT1vbFA=",
+  "Hash": "MtbUW/aWFgsKgqy6Go/sczuSfpL6IASxBQbiBvXLHGI=",
   "Source": "GoldShop",
   "BasePath": "_content/GoldShop",
   "Mode": "Default",
@@ -848,6 +848,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\assets\\images\\banner\\img-tab2-3.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\User\\RiderProjects\\GoldShop\\GoldShop\\wwwroot\\assets\\images\\bg\\aa145d17-c126-4c86-880b-cbcc2e6f5891 (1).webp",
+      "SourceId": "GoldShop",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\User\\RiderProjects\\GoldShop\\GoldShop\\wwwroot\\",
+      "BasePath": "_content/GoldShop",
+      "RelativePath": "assets/images/bg/aa145d17-c126-4c86-880b-cbcc2e6f5891 (1).webp",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\images\\bg\\aa145d17-c126-4c86-880b-cbcc2e6f5891 (1).webp"
     },
     {
       "Identity": "C:\\Users\\User\\RiderProjects\\GoldShop\\GoldShop\\wwwroot\\assets\\images\\bg\\about-us-policy-bg.jpg",
@@ -6764,6 +6781,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Images\\Banner\\ezgif-6-ab56919614.png"
+    },
+    {
+      "Identity": "C:\\Users\\User\\RiderProjects\\GoldShop\\GoldShop\\wwwroot\\Images\\Banner\\gold-shop-decor.jpg",
+      "SourceId": "GoldShop",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\User\\RiderProjects\\GoldShop\\GoldShop\\wwwroot\\",
+      "BasePath": "_content/GoldShop",
+      "RelativePath": "Images/Banner/gold-shop-decor.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\Banner\\gold-shop-decor.jpg"
     },
     {
       "Identity": "C:\\Users\\User\\RiderProjects\\GoldShop\\GoldShop\\wwwroot\\Images\\Banner\\GOLDFILLED.jpg",

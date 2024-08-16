@@ -6,8 +6,8 @@ namespace GoldShop.Domain.Entity.User;
 public class UserAddress:BaseEntity
 {
     public long UserId { get; set; }
-    public long CityId { get; set; }
-    [ForeignKey("CityId")] public City City { get; set; } = default!;
+    public long StateId { get; set; }
+    [ForeignKey("StateId")] public State? State { get; set; }
     public string Address { get; set; } = string.Empty;
     public string Number { get; set; } = string.Empty;
     public string PostCode { get; set; } = string.Empty;

@@ -198,7 +198,7 @@ public class AdminController : Controller
             InsertDate = DateTime.Now,
             UserName = "09193647365",
             SecurityStamp = string.Empty,
-            CityId = 1,
+            StateId = 1,
         };
         if (!await _roleManager.RoleExistsAsync("user"))
         {
@@ -237,7 +237,7 @@ public class AdminController : Controller
             InsertDate = DateTime.Now,
             UserName = "09198578450",
             SecurityStamp = string.Empty,
-            CityId = 1,
+            StateId = 1,
         };
         if (!await _roleManager.RoleExistsAsync("user"))
         {
@@ -300,7 +300,7 @@ public class AdminController : Controller
             if (!string.IsNullOrWhiteSpace(search))
             {
                 ViewBag.Factors = await _work.GenericRepository<Factor>().TableNoTracking
-                    .Include(x => x.User).ThenInclude(x => x.City)
+                    .Include(x => x.User).ThenInclude(x => x.State)
                     .Include(x => x.PostMethod)
                     .Include(x => x.UserAddress)
                     .Include(x => x.Products).ThenInclude(x => x.ProductColor).ThenInclude(x => x.GoldPrice)
@@ -312,7 +312,7 @@ public class AdminController : Controller
             else
             {
                 ViewBag.Factors = await _work.GenericRepository<Factor>().TableNoTracking
-                    .Include(x => x.User).ThenInclude(x => x.City)
+                    .Include(x => x.User).ThenInclude(x => x.State)
                     .Include(x => x.PostMethod)
                     .Include(x => x.UserAddress)
                     .Include(x => x.Products).ThenInclude(x => x.ProductColor).ThenInclude(x => x.GoldPrice)
@@ -339,9 +339,9 @@ public class AdminController : Controller
             #region ViewBag
 
             ViewBag.Factor = await _work.GenericRepository<Factor>().TableNoTracking
-                .Include(x => x.User).ThenInclude(x => x.City)
+                .Include(x => x.User).ThenInclude(x => x.State)
                 .Include(x => x.PostMethod)
-                .Include(x => x.UserAddress).ThenInclude(x => x.City)
+                .Include(x => x.UserAddress).ThenInclude(x => x.State)
                 .Include(x => x.Products).ThenInclude(x => x.ProductColor).ThenInclude(x => x.GoldPrice)
                 .OrderByDescending(x => x.InsertDate)
                 .FirstOrDefaultAsync(x => x.Id == id);
@@ -380,9 +380,9 @@ public class AdminController : Controller
             if (!string.IsNullOrWhiteSpace(search))
             {
                 ViewBag.Factors = await _work.GenericRepository<Factor>().TableNoTracking
-                    .Include(x => x.User).ThenInclude(x => x.City)
+                    .Include(x => x.User).ThenInclude(x => x.State)
                     .Include(x => x.PostMethod)
-                    .Include(x => x.UserAddress).ThenInclude(x => x.City)
+                    .Include(x => x.UserAddress).ThenInclude(x => x.State)
                     .Include(x => x.Products).ThenInclude(x => x.ProductColor).ThenInclude(x => x.GoldPrice)
                     .Where(x => x.DiscountCode.Contains(search) || x.Desc.Contains(search) ||
                                 x.FactorCode.Contains(search))
@@ -392,9 +392,9 @@ public class AdminController : Controller
             else
             {
                 ViewBag.Factors = await _work.GenericRepository<Factor>().TableNoTracking
-                    .Include(x => x.User).ThenInclude(x => x.City)
+                    .Include(x => x.User).ThenInclude(x => x.State)
                     .Include(x => x.PostMethod)
-                    .Include(x => x.UserAddress).ThenInclude(x => x.City)
+                    .Include(x => x.UserAddress).ThenInclude(x => x.State)
                     .Include(x => x.Products).ThenInclude(x => x.ProductColor).ThenInclude(x => x.GoldPrice)
                     .OrderByDescending(x => x.InsertDate)
                     .ToListAsync();
@@ -417,13 +417,13 @@ public class AdminController : Controller
         {
             if (string.IsNullOrWhiteSpace(search))
             {
-                ViewBag.Users = await _userManager.Users.Include(x => x.City).ToListAsync();
+                ViewBag.Users = await _userManager.Users.Include(x => x.State).ToListAsync();
             }
             else
             {
-                ViewBag.Users = await _userManager.Users.Include(x => x.City).Where(x =>
+                ViewBag.Users = await _userManager.Users.Include(x => x.State).Where(x =>
                     x.Name.Contains(search) || x.Address.Contains(search) || x.Family.Contains(search) ||
-                    x.Email.Contains(search) || x.City.Name.Contains(search) || x.PhoneNumber.Contains(search) ||
+                    x.Email.Contains(search) || x.Name.Contains(search) || x.PhoneNumber.Contains(search) ||
                     x.UserName.Contains(search)).OrderByDescending(x => x.InsertDate).ToListAsync();
             }
 
@@ -632,15 +632,15 @@ public class AdminController : Controller
         }
     }
 
-    public async Task<ActionResult> UpdateCity(string title, int id, int stateId)
+    public async Task<ActionResult> UpdateState(string title, int id, int stateId)
     {
         if (User.Identity.IsAuthenticated)
         {
-            var state = await _work.GenericRepository<City>().Table.FirstOrDefaultAsync(x => x.Id == id);
-            state.Name = title;
-            state.StateId = stateId;
-            await _work.GenericRepository<City>().UpdateAsync(state, CancellationToken.None);
-            return RedirectToAction("ManageCity");
+            var state = await _work.GenericRepository<State>().Table.FirstOrDefaultAsync(x => x.Id == id);
+            state.Title = title;
+            state.Id = stateId;
+            await _work.GenericRepository<State>().UpdateAsync(state, CancellationToken.None);
+            return RedirectToAction("ManageState");
         }
         else
         {
@@ -648,7 +648,7 @@ public class AdminController : Controller
         }
     }
 
-    public async Task<ActionResult> ManageCity(string search)
+    public async Task<ActionResult> ManageState(string search)
     {
         if (User.Identity.IsAuthenticated)
         {
@@ -680,7 +680,7 @@ public class AdminController : Controller
         }
     }
 
-    public async Task<ActionResult> InsertCity(string title, int stateId)
+    public async Task<ActionResult> InsertState(string title, int stateId)
     {
         if (User.Identity.IsAuthenticated)
         {
@@ -689,7 +689,7 @@ public class AdminController : Controller
                 Name = title,
                 StateId = stateId
             }, CancellationToken.None);
-            return RedirectToAction("ManageCity");
+            return RedirectToAction("ManageState");
         }
         else
         {

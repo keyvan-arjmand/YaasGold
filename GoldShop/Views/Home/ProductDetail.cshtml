@@ -6,22 +6,56 @@
     Product prod = ViewBag.product;
     List<Product> prods = ViewBag.products;
     List<Category> cats = ViewBag.Cats;
+GoldPrice goldPrice = ViewBag.Curency;
 }
 
-@section selectBox
+@section GoldPrice
 {
-    <select id="catId" class="nice-select">
-        <optgroup label="organic food">
-            <option value="0">همه</option>
-            @{
-                foreach (var i in cats)
-                {
-                    <option value="@i.Id">@i.Name</option>
-                }
-            }
-        </optgroup>
-    </select>
+<div class="d-flex justify-content-between gap-3">
+    <div class="d-flex justify-content-center text-white">
+        قیمت طلا : @goldPrice.YekGram18
+    </div>
+</div>
+
 }
+
+@section Currency
+{
+<ul class="nav align-items-center">
+    <li class="language">
+        قیمت دلار : @goldPrice.Dollar
+    </li>
+    <li class="curreny-wrap">
+        قیمت یورو : @goldPrice.Euro
+    </li>
+    <li class="curreny-wrap">
+        قیمت درهم : @goldPrice.Derham
+    </li>
+    <li class="curreny-wrap">
+        قیمت انس طلا : @goldPrice.OunceTala
+    </li>
+    <li class="curreny-wrap">
+        قیمت سکه گرمی : @goldPrice.SekehGerami
+    </li>
+</ul>
+}
+
+@section Seke
+{
+<ul class="my-account-container">
+    <li>
+        قیمت سکه ربع : @goldPrice.SekehRob
+    </li>
+    <li>
+        قیمت سکه نیم : @goldPrice.SekehNim
+    </li>
+    <li>
+        قیمت سکه تمام : @goldPrice.SekehTamam
+    </li>
+    <li>
+        قیمت سکه امام : @goldPrice.SekehEmam
+    </li>
+</ul>}
 
 @section menu
 {

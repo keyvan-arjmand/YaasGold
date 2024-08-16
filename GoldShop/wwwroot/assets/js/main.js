@@ -885,21 +885,16 @@ $('[data-countdown]').each(function() {
 -------------------------------*/
     $( "#price-slider" ).slider({
         range: true,
-        min: 0,
+        min: 100000,
         max: 50000000,
-        values: [ 1000000, 2000000 ],
+        values: [ 100000, 9000000 ],
         slide: function( event, ui ) {
-            $( "#min-price" ).val( ui.values[ 0 ] + ' تومان  '  );
-            $( "#max-price" ).val( ui.values[ 1 ] + ' تومان '  );
+            $( "#min-price" ).val( ui.values[ 0 ].toLocaleString('en-US') + ' تومان  '  );
+            $( "#max-price" ).val( ui.values[ 1 ].toLocaleString('en-US') + ' تومان '  );
         }
     });
-    var formatter = new Intl.NumberFormat('fa-ir', {
-        style: 'currency',
-        currency: 'تومان'
-    });
-
-    $( "#min-price" ).val(formatter.format($( "#price-slider" ).slider( "values", 0 )));
-    $("#max-price").val(formatter.format($("#price-slider").slider("values", 1)));
+    $( "#min-price" ).val( $( "#price-slider" ).slider( "values", 0 ).toLocaleString('en-US') + ' تومان ' );
+    $( "#max-price" ).val( $( "#price-slider" ).slider( "values", 1 ).toLocaleString('en-US') +  ' تومان ' );
 
     /*--
         Category menu Activation

@@ -5,44 +5,79 @@
     List<Product> products = ViewBag.products;
     SearchHistory searchHistory = ViewBag.searchHistory;
     List<Category> cats = ViewBag.Cats;
+    GoldPrice goldPrice = ViewBag.Curency;
 }
 
-@section selectBox
+@section GoldPrice
 {
-    <select id="catId" class="nice-select">
-        <optgroup label="organic food">
-            <option value="0">همه</option>
-            @{
-                foreach (var i in cats)
-                {
-                    <option value="@i.Id">@i.Name</option>
-                }
-            }
-        </optgroup>
-    </select>
+    <div class="d-flex justify-content-between gap-3">
+        <div class="d-flex justify-content-center text-white">
+            قیمت طلا : @goldPrice.YekGram18
+        </div>
+    </div>
+
 }
+
+@section Currency
+{
+    <ul class="nav align-items-center">
+        <li class="language">
+            قیمت دلار : @goldPrice.Dollar
+        </li>
+        <li class="curreny-wrap">
+            قیمت یورو : @goldPrice.Euro
+        </li>
+        <li class="curreny-wrap">
+            قیمت درهم : @goldPrice.Derham
+        </li>
+        <li class="curreny-wrap">
+            قیمت انس طلا : @goldPrice.OunceTala
+        </li>
+        <li class="curreny-wrap">
+            قیمت سکه گرمی : @goldPrice.SekehGerami
+        </li>
+    </ul>
+}
+
+@section Seke
+{
+    <ul class="my-account-container">
+        <li>
+            قیمت سکه ربع : @goldPrice.SekehRob
+        </li>
+        <li>
+            قیمت سکه نیم : @goldPrice.SekehNim
+        </li>
+        <li>
+            قیمت سکه تمام : @goldPrice.SekehTamam
+        </li>
+        <li>
+            قیمت سکه امام : @goldPrice.SekehEmam
+        </li>
+    </ul>}
 
 @section menu
-{ 
+{
     @foreach (var i in cats)
     {
-    <li>
-        <a href="@Url.Action("Category", "Home", new { id = i.Id })">@i.Name</a>
-    </li>
+        <li>
+            <a href="@Url.Action("Category", "Home", new { id = i.Id })">@i.Name</a>
+        </li>
     }
 
 }
 
 @section menu2
-{ 
+{
     @foreach (var i in cats)
     {
-    <li>
-        <a href="@Url.Action("Category", "Home", new { id = i.Id })">@i.Name</a>
-    </li>
+        <li>
+            <a href="@Url.Action("Category", "Home", new { id = i.Id })">@i.Name</a>
+        </li>
     }
 
 }
+
 <input value="@searchHistory.Id" hidden="hidden" id="id"/>
 <input value="@searchHistory.Search" hidden="hidden" id="search"/>
 <div class="main-content-wrap shop-page section-ptb">
@@ -104,11 +139,6 @@
     <!-- shop-sidebar-wrap end -->
 </div>
 <div class="col-lg-9 order-lg-2 order-1">
-
-    <div class="shop-banner mb-30">
-        <img src="/assets/images/bg/shop-catergorypage.jpg" alt="Shop banner">
-    </div>
-
     <!-- shop-product-wrapper start -->
     <div class="shop-product-wrapper">
         <div class="row align-itmes-center">
@@ -161,7 +191,7 @@
                                         <!-- Single Product Start -->
                                         <div class="single-product-wrap mt-10">
                                             <div class="product-image">
-                                                <a href="@Url.Action("ProductDetail","Home",new{id=i.Id})">
+                                                <a href="@Url.Action("ProductDetail", "Home", new { id = i.Id })">
                                                     <img src="/Images/Product/@i.Image" class="image-size" alt="">
                                                 </a>
                                             </div>
@@ -170,10 +200,10 @@
                                                     <span class="new-price">@i.GoldPrice.PricePerGram.GetPrice(i.Weight, i.WagesAmount, i.WagesPercentage).ToString("n0") تومان</span>
                                                 </div>
                                                 <h6 class="product-name">
-                                                    <a href="@Url.Action("ProductDetail","Home",new{id=i.Id})">@i.Name </a>
+                                                    <a href="@Url.Action("ProductDetail", "Home", new { id = i.Id })">@i.Name </a>
                                                 </h6>
                                                 <div class="product-button-action">
-                                                    <a href="#" class="add-to-cart" aria-readonly="true">افزودن به سبد</a>
+                                                    <a href="@Url.Action("ProductDetail", "Home", new { id = i.Id })" class="add-to-cart" aria-readonly="true">مشاهده</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -194,7 +224,7 @@
                                         <!-- single-product-wrap start -->
                                         <div class="single-product">
                                             <div class="product-image">
-                                                <a href="@Url.Action("ProductDetail","Home",new{id=i.Id})">
+                                                <a href="@Url.Action("ProductDetail", "Home", new { id = i.Id })">
                                                     <img src="/Images/Product/@i.Image" alt="Produce Images">
                                                 </a>
                                             </div>
@@ -208,7 +238,7 @@
                                                 <span class="new-price">@i.GoldPrice.PricePerGram.GetPrice(i.Weight, i.WagesAmount, i.WagesPercentage).ToString("n0") تومان </span>
                                             </div>
                                             <p>
-                                                <a href="@Url.Action("ProductDetail","Home",new{id=i.Id})" class="product-name">@i.Name</a>
+                                                <a href="@Url.Action("ProductDetail", "Home", new { id = i.Id })" class="product-name">@i.Name</a>
                                             </p>
 
                                             <div class="product-rating">
@@ -240,21 +270,16 @@
                                                     </li>
                                                 </ul>
                                             </div>
-                                            <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.</p>
+                                            <p>@i.Desc</p>
                                         </div>
                                     </div>
 
                                     <div class="col-lg-3 col-md-3">
                                         <div class="block2">
                                             <div class="product-button">
-                                                <div class="add-to-cart">
-                                                    <div class="product-button-action">
-                                                        <a href="#" class="add-to-cart" aria-readonly="true">افزودن به سبد</a>
-                                                    </div>
-                                                </div>
                                                 <ul class="actions">
                                                     <li class="quickviewbtn">
-                                                        <a class="detail-link quickview" href="@Url.Action("ProductDetail","Home",new{id=i.Id})"> <i class="icon-eye2"></i> مشاهده کالا</a>
+                                                        <a class="detail-link quickview" href="@Url.Action("ProductDetail", "Home", new { id = i.Id })"> <i class="icon-eye2"></i> مشاهده کالا</a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -297,18 +322,34 @@
 </div>
 </div>
 </div>
+
 @section script
 {
     <script>
+        function extractNumber(value) {
+            // حذف فضاهای اضافی و کاراکترهای غیر عددی (مانند کاما و تومان)
+            return value.replace(/[^\d]/g, ''); // فقط اعداد را نگه می‌دارد
+        }
     function filterByPrice(){
-       window.location.href= "/home/FilterByPrice?search="
+      
+
+        const minPriceInput = document.getElementById("min-price").value.trim(); // trim برای حذف فضاهای اضافی
+        const maxPriceInput = document.getElementById("max-price").value.trim(); // trim برای حذف فضاهای اضافی
+
+        const minPrice = extractNumber(minPriceInput);
+        const maxPrice = extractNumber(maxPriceInput);
+console.dir(   `&minPrice=${minPrice}&maxPrice=${maxPrice}`)
+
+        window.location.href= "/home/FilterByPrice?search="
         + document.getElementById("search").value
-        +"&id="+document.getElementById("id").value
-        +"&minPrice="+document.getElementById("min-price").value.match(/\d+/)[0]
-        +"&maxPrice="+document.getElementById("max-price").value.match(/\d+/)[0];
+        +"&id="+document.getElementById("id").value+
+               `&minPrice=${minPrice}&maxPrice=${maxPrice}`;
 
     }
  
 
+    
     </script>
+
+
 }

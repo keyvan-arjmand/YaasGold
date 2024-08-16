@@ -139,8 +139,9 @@ namespace GoldShop.Domain.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Subject")
-                        .HasColumnType("int");
+                    b.Property<string>("Subject")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -480,9 +481,6 @@ namespace GoldShop.Domain.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("CityId")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -550,6 +548,9 @@ namespace GoldShop.Domain.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<long>("StateId")
+                        .HasColumnType("bigint");
+
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
@@ -559,8 +560,6 @@ namespace GoldShop.Domain.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CityId");
-
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
 
@@ -568,6 +567,8 @@ namespace GoldShop.Domain.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.HasIndex("StateId");
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
@@ -584,9 +585,6 @@ namespace GoldShop.Domain.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("CityId")
-                        .HasColumnType("bigint");
-
                     b.Property<bool>("IsDelete")
                         .HasColumnType("bit");
 
@@ -602,12 +600,15 @@ namespace GoldShop.Domain.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<long>("StateId")
+                        .HasColumnType("bigint");
+
                     b.Property<long>("UserId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CityId");
+                    b.HasIndex("StateId");
 
                     b.ToTable("UserAddresses");
                 });
@@ -783,24 +784,24 @@ namespace GoldShop.Domain.Migrations
 
             modelBuilder.Entity("GoldShop.Domain.Entity.User.User", b =>
                 {
-                    b.HasOne("GoldShop.Domain.Entity.User.City", "City")
+                    b.HasOne("GoldShop.Domain.Entity.User.State", "State")
                         .WithMany()
-                        .HasForeignKey("CityId")
+                        .HasForeignKey("StateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("City");
+                    b.Navigation("State");
                 });
 
             modelBuilder.Entity("GoldShop.Domain.Entity.User.UserAddress", b =>
                 {
-                    b.HasOne("GoldShop.Domain.Entity.User.City", "City")
+                    b.HasOne("GoldShop.Domain.Entity.User.State", "State")
                         .WithMany()
-                        .HasForeignKey("CityId")
+                        .HasForeignKey("StateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("City");
+                    b.Navigation("State");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<long>", b =>

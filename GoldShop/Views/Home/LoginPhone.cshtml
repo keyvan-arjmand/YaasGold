@@ -1,7 +1,7 @@
 ﻿@using GoldShop.Domain.Entity.Product
 @{
-    Layout = "_Layout";
-    List<Category> cats = ViewBag.Cats;
+Layout = "_Layout";
+List<Category> cats = ViewBag.Cats;
 GoldPrice goldPrice = ViewBag.Curency;
 }
 
@@ -54,24 +54,24 @@ GoldPrice goldPrice = ViewBag.Curency;
 </ul>}
 
 @section menu
-{ 
-    @foreach (var i in cats)
-    {
-    <li>
-        <a href="@Url.Action("Category", "Home", new { id = i.Id })">@i.Name</a>
-    </li>
-    }
+{
+@foreach (var i in cats)
+{
+<li>
+    <a href="@Url.Action("Category", "Home", new { id = i.Id })">@i.Name</a>
+</li>
+}
 
 }
 
 @section menu2
 {
-    @foreach (var i in cats)
-    {
-        <li>
-            <a href="@Url.Action("Category", "Home", new { id = i.Id })">@i.Name</a>
-        </li>
-    }
+@foreach (var i in cats)
+{
+<li>
+    <a href="@Url.Action("Category", "Home", new { id = i.Id })">@i.Name</a>
+</li>
+}
 }
 <div class="main-content-wrap section-ptb lagin-and-register-page">
     <div class="container">
@@ -110,7 +110,7 @@ GoldPrice goldPrice = ViewBag.Curency;
                                                     <button class="login-btn btn" type="submit"><span>ورود</span></button>
                                                 </div>
                                             </div>
-                                      
+
                                         </div>
                                     </form>
                                 </div>
@@ -124,7 +124,6 @@ GoldPrice goldPrice = ViewBag.Curency;
                                             <input type="text" name="number" placeholder="شماره تلفن">
                                             <input type="password" name="password" placeholder="رمز عبور">
                                             <input name="email" placeholder="ایمیل" type="email">
-                                            <input name="NCode" placeholder="کد ملی" type="email">
                                         </div>
                                         <div class="button-box">
                                             <button class="register-btn btn" type="submit"><span>ثبت نام</span></button>
@@ -141,7 +140,7 @@ GoldPrice goldPrice = ViewBag.Curency;
 </div>
 @section script
 {
-    <script>
-         
-    </script>
+<script>
+
+</script>
 }
