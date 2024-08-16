@@ -1,8 +1,8 @@
 ﻿@using GoldShop.Domain.Entity.Product
 @using GoldShop.Domain.Entity.User
 @{
-    Layout = "_Layout";
-    List<Category> cats = ViewBag.Cats;
+Layout = "_Layout";
+List<Category> cats = ViewBag.Cats;
 GoldPrice goldPrice = ViewBag.Curency;
 List<State> states = ViewBag.State;
 }
@@ -56,24 +56,24 @@ List<State> states = ViewBag.State;
 </ul>}
 
 @section menu
-{ 
-    @foreach (var i in cats)
-    {
-    <li>
-        <a href="@Url.Action("Category", "Home", new { id = i.Id })">@i.Name</a>
-    </li>
-    }
+{
+@foreach (var i in cats)
+{
+<li>
+    <a href="@Url.Action("Category", "Home", new { id = i.Id })">@i.Name</a>
+</li>
+}
 
 }
 
 @section menu2
 {
-    @foreach (var i in cats)
-    {
-        <li>
-            <a href="@Url.Action("Category", "Home", new { id = i.Id })">@i.Name</a>
-        </li>
-    }
+@foreach (var i in cats)
+{
+<li>
+    <a href="@Url.Action("Category", "Home", new { id = i.Id })">@i.Name</a>
+</li>
+}
 }
 <div class="main-content-wrap section-ptb lagin-and-register-page">
     <div class="container">
@@ -83,22 +83,24 @@ List<State> states = ViewBag.State;
                     <!-- login-register-tab-list start -->
                     <div class="login-register-tab-list nav">
                         <a class="active" data-bs-toggle="tab" href="#lg1">
-                            <h4> ورود </h4>
+                            <h4> کد تایید </h4>
                         </a>
                     </div>
+                    <input type="text" value="@ViewBag.Phone" hidden="hidden" id="PhoneNumber">
                     <!-- login-register-tab-list end -->
                     <div class="tab-content">
                         <div id="lg1" class="tab-pane active">
                             <div class="login-form-container">
                                 <div class="login-register-form">
-                                    <form >
+                                    <form asp-action="UserLogin" asp-controller="Home" method="post">
                                         <div class="login-input-box">
-                                            <input type="text" id="Phone" name="number" placeholder="شماره">
+                                            <input type="text" id="Code" name="number" placeholder="کد یکبار مصرف را وارد کنید">
                                         </div>
+                                        
                                         <div class="button-box">
                                             <div class="d-flex justify-content-between gap-3">
                                                 <div class="button-box">
-                                                    <a class="login-btn btn"  onclick="Login()"><span>ارسال کد</span></a>
+                                                    <a class="login-btn btn" onclick="Login()"><span>ارسال کد</span></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -114,26 +116,21 @@ List<State> states = ViewBag.State;
 </div>
 @section script
 {
-    <script>
+<script>
     function Login(){
-        if ($('#Phone').val()!=='')
-        {
-            $.ajax({
-                type: "Post",
-                data: {phoneNumber:$('#Phone').val()},
-                url: "/Home/SendLoginCode",
-                success: function (data) {
-                    var phoneNumber = $('#Phone').val();
-                    var confirmCodeUrl = '@Url.Action("ConfirmCode", "Home")';
-                    window.location.href = confirmCodeUrl + '?phoneNumber=' + encodeURIComponent(phoneNumber);
-                },
-                error: function (xhr) {
-                    alert("شماره وارد شده معتبر نمیباشد");
-                }
-            });
-        }else{
-            alert("شماره تلفن را وارد کنید")}
-
+        $.ajax({
+            type: "Post",
+            data: {phoneNumber:$('#PhoneNumber').val(),code:$('#Code').val()},
+            url: "/Home/ValidateCode/",
+            success: function (data) {
+                window.location.href= `@Url.Action("Profile", "Home")`
+            },
+            error: function (xhr) {
+                alert("کد وارد شده معتبر نمیباشد");
+            }
+        });
     }
 </script>
 }
+
+

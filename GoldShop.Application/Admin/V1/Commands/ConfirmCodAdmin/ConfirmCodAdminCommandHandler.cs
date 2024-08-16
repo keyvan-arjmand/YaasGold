@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace GoldShop.Application.Admin.V1.Commands.ConfirmCodAdmin;
 
-public class ConfirmCodAdminCommandHandler:IRequestHandler<ConfirmCodAdminCommand>
+public class ConfirmCodAdminCommandHandler:IRequestHandler<ConfirmCodAdminCommand,User>
 {
     private readonly UserManager<User> _userManager;
     private readonly SignInManager<User> _signInManager;
@@ -15,7 +15,7 @@ public class ConfirmCodAdminCommandHandler:IRequestHandler<ConfirmCodAdminComman
         _signInManager = signInManager;
     }
 
-    public async Task Handle(ConfirmCodAdminCommand request, CancellationToken cancellationToken)
+    public async Task<User> Handle(ConfirmCodAdminCommand request, CancellationToken cancellationToken)
     {
         var user = await _userManager.FindByNameAsync(request.PhoneNumber);
         if (user == null) throw new Exception("User not found");
@@ -30,5 +30,6 @@ public class ConfirmCodAdminCommandHandler:IRequestHandler<ConfirmCodAdminComman
         user.PhoneNumberConfirmed = true;
         await _signInManager.PasswordSignInAsync(user, user.Password, true, false);
         await _userManager.UpdateAsync(user);
+        return user;
     }
 }

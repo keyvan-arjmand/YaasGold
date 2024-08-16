@@ -1,5 +1,8 @@
 ﻿using System.Diagnostics;
+using GoldShop.Application.Admin.V1.Commands.ConfirmCodAdmin;
 using GoldShop.Application.Common.Exceptions;
+using GoldShop.Application.Common.Utilities;
+using GoldShop.Application.Constants.Kavenegar;
 using GoldShop.Application.Interfaces;
 using GoldShop.Comman;
 using GoldShop.Domain.Entity.Page;
@@ -7,6 +10,8 @@ using GoldShop.Domain.Entity.Product;
 using GoldShop.Domain.Entity.User;
 using Microsoft.AspNetCore.Mvc;
 using GoldShop.Models;
+using Kavenegar;
+using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Formatters.Xml;
 using Microsoft.EntityFrameworkCore;
@@ -21,16 +26,18 @@ public class HomeController : Controller
     private readonly RoleManager<Role> _roleManager;
     private readonly UserManager<User> _userManager;
     private readonly SignInManager<User> _signInManager;
+    private readonly IMediator _mediator;
 
 
     public HomeController(ILogger<HomeController> logger, IUnitOfWork work, RoleManager<Role> roleManager,
-        UserManager<User> userManager, SignInManager<User> signInManager)
+        UserManager<User> userManager, SignInManager<User> signInManager, IMediator mediator)
     {
         _logger = logger;
         _work = work;
         _roleManager = roleManager;
         _userManager = userManager;
         _signInManager = signInManager;
+        _mediator = mediator;
     }
 
     public async Task<ActionResult> Index()
@@ -139,6 +146,7 @@ public class HomeController : Controller
                     .ToListAsync();
                 break;
         }
+
         ViewBag.Curency = await _work.GenericRepository<GoldPrice>().TableNoTracking.FirstOrDefaultAsync();
 
         return View("Category");
@@ -306,7 +314,7 @@ public class HomeController : Controller
     public async Task<ActionResult> Login()
     {
         ViewBag.Curency = await _work.GenericRepository<GoldPrice>().TableNoTracking.FirstOrDefaultAsync();
-
+        ViewBag.State = await _work.GenericRepository<State>().TableNoTracking.ToListAsync();
         ViewBag.Cats = await _work.GenericRepository<Category>().TableNoTracking.ToListAsync();
         return View();
     }
@@ -336,7 +344,8 @@ public class HomeController : Controller
         return gold + wagesGold + tax + profit;
     }
 
-    public async Task<IActionResult> InsertUser(string number, string password, string email,string NCode,long stateId)
+    public async Task<IActionResult> InsertUser(string number, string password, string email, string NCode,
+        long stateId)
     {
         if (!await _userManager.Users.AnyAsync(x => x.PhoneNumber == number))
         {
@@ -371,7 +380,43 @@ public class HomeController : Controller
             return RedirectToAction("Index");
         }
     }
+    public async Task<ActionResult> ValidateCode(string phoneNumber, string code)
+    {
+        var user = await _mediator.Send(new ConfirmCodAdminCommand(phoneNumber, code));
+        await _signInManager.PasswordSignInAsync(user, user.Password, true, false);
+        return Ok();
+    }
+    public async Task<ActionResult> SendLoginCode(string phoneNumber)
+    {
+        var user = await _userManager.FindByNameAsync(phoneNumber);
+        KavenegarApi webApi = new KavenegarApi(apikey: ApiKeys.ApiKey);
+        if (user == null)
+            throw new Exception("User not Exist");
+        user.ConfirmCode = Helpers.GetConfirmCode();
+        user.ConfirmCodeExpireTime = DateTime.Now.AddMinutes(3);
+        await _userManager.UpdateAsync(user);
+        var result = webApi.VerifyLookup(phoneNumber, user.ConfirmCode,
+            "VerifyCodeYaas");
+        return Ok();
+    }
 
+    public async Task<ActionResult> ConfirmCode(string phoneNumber)
+    {
+        ViewBag.Curency = await _work.GenericRepository<GoldPrice>().TableNoTracking.FirstOrDefaultAsync();
+
+        ViewBag.Cats = await _work.GenericRepository<Category>().TableNoTracking.ToListAsync();
+        ViewBag.Phone = phoneNumber;
+        return View();
+    }
+    public async Task<IActionResult> Logout()
+    {
+        if (User.Identity.IsAuthenticated)
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+        }
+        else return RedirectToAction("Index", "Home");
+    }
     public async Task<IActionResult> InsertMessage(string number, string name, string subject, string message)
     {
         await _work.GenericRepository<ContactUs>().AddAsync(new ContactUs
@@ -383,7 +428,7 @@ public class HomeController : Controller
             Message = message,
             Subject = message,
         }, CancellationToken.None);
-        return RedirectToAction("ContactUs","Home");
+        return RedirectToAction("ContactUs", "Home");
     }
 
     public async Task<IActionResult> AddToBasket(int id)
@@ -444,10 +489,16 @@ public class HomeController : Controller
 
         return View();
     }
+
     public async Task<ActionResult> LoginPhone()
     {
+        ViewBag.Cats = await _work.GenericRepository<Category>().TableNoTracking.ToListAsync();
+
+        ViewBag.Curency = await _work.GenericRepository<GoldPrice>().TableNoTracking.FirstOrDefaultAsync();
+
         return View();
     }
+
     public IActionResult RemoveInBasket(int id)
     {
         var basketlist = new List<int>();

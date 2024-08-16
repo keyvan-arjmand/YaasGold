@@ -1,8 +1,10 @@
 ﻿@using GoldShop.Domain.Entity.Product
+@using GoldShop.Domain.Entity.User
 @{
     Layout = "_Layout";
     List<Category> cats = ViewBag.Cats;
 GoldPrice goldPrice = ViewBag.Curency;
+List<State> states = ViewBag.State;
 }
 
 @section GoldPrice
@@ -124,7 +126,25 @@ GoldPrice goldPrice = ViewBag.Curency;
                                             <input type="text" name="number" placeholder="شماره تلفن">
                                             <input type="password" name="password" placeholder="رمز عبور">
                                             <input name="email" placeholder="ایمیل" type="email">
-                                            <input name="NCode" placeholder="کد ملی" type="email">
+                                            <input name="NCode" placeholder="کد ملی" type="text">
+                                            <select class="form-select" name="stateId" aria-label="Default select example">
+                                                @{
+                                                    int index = 0;
+                                                    foreach (var i in states)
+                                                    {
+                                                        if (index == 0)
+                                                        {
+                                                            <option value="@i.Id" selected>@i.Title</option>
+
+                                                        }
+                                                        else
+                                                        {
+                                                            <option value="@i.Id" >@i.Title</option>
+
+                                                        }
+                                                    }
+                                                }
+                                            </select>
                                         </div>
                                         <div class="button-box">
                                             <button class="register-btn btn" type="submit"><span>ثبت نام</span></button>
