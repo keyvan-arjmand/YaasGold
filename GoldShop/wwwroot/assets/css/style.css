@@ -2155,7 +2155,7 @@ img.mfp-img {
   font-size: 20px;
   color: #fff;
   position: absolute;
-  background: #80BB01;
+  background: grey;
   border: none;
 }
 
@@ -2400,7 +2400,7 @@ img.mfp-img {
   width: 50px;
   height: 50px;
   font-size: 30px;
-  background-color: #80BB01;
+  background-color: grey;
   color: #fff;
   line-height: 50px;
   text-align: center;

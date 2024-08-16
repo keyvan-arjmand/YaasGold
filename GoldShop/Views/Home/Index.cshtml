@@ -15,15 +15,47 @@
         <div class="d-flex justify-content-center text-white">
             قیمت طلا : @goldPrice.YekGram18
         </div>
-        <div class="d-flex justify-content-center text-white">
-            قیمت دلار : @goldPrice.Dollar
-        </div>
-        <div class="d-flex justify-content-center text-white">
-            قیمت سکه : @goldPrice.SekehGerami
-        </div>
     </div>
-  
+
 }
+
+@section Currency
+{
+    <ul class="nav align-items-center">
+        <li class="language">
+            قیمت دلار : @goldPrice.Dollar
+        </li>
+        <li class="curreny-wrap">
+            قیمت یورو : @goldPrice.Euro
+        </li>
+        <li class="curreny-wrap">
+            قیمت درهم : @goldPrice.Derham
+        </li>
+        <li class="curreny-wrap">
+            قیمت انس طلا : @goldPrice.OunceTala
+        </li>
+        <li class="curreny-wrap">
+            قیمت سکه گرمی : @goldPrice.SekehGerami
+        </li>
+    </ul>
+}
+
+@section Seke
+{
+    <ul class="my-account-container">
+        <li>
+            قیمت سکه ربع : @goldPrice.SekehRob
+        </li>
+        <li>
+            قیمت سکه نیم : @goldPrice.SekehNim
+        </li>
+        <li>
+            قیمت سکه تمام : @goldPrice.SekehTamam
+        </li>
+        <li>
+            قیمت سکه امام : @goldPrice.SekehEmam
+        </li>
+    </ul>}
 
 @section menu
 {
@@ -85,9 +117,7 @@
                                         <div class="slider-content-text">
                                             <h2>گالری یاس <br>تخفیف شگفت انگیز</h2>
                                             <p>پیشنهاد منحصر به فرد -20٪ تخفیف در این هفته </p>
-                                            <div class="slider-btn">
-                                                <a href="#">خرید کن</a>
-                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -96,9 +126,7 @@
                                         <div class="slider-content-text">
                                             <h2>گالری یاس <br>تخفیف شگفت انگیز</h2>
                                             <p>پیشنهاد منحصر به فرد -20٪ تخفیف در این هفته </p>
-                                            <div class="slider-btn">
-                                                <a href="#">خرید کن</a>
-                                            </div>
+
                                         </div>
                                     </div>
 
@@ -108,9 +136,7 @@
                                         <div class="slider-content-text">
                                             <h2>گالری یاس <br>تخفیف شگفت انگیز</h2>
                                             <p>پیشنهاد منحصر به فرد -20٪ تخفیف در این هفته </p>
-                                            <div class="slider-btn">
-                                                <a href="#">خرید کن</a>
-                                            </div>
+
                                         </div>
                                     </div>
 
@@ -121,9 +147,7 @@
                                         <div class="slider-content-text">
                                             <h2>گالری یاس <br>تخفیف شگفت انگیز</h2>
                                             <p>پیشنهاد منحصر به فرد -20٪ تخفیف در این هفته </p>
-                                            <div class="slider-btn">
-                                                <a href="#">خرید کن</a>
-                                            </div>
+
                                         </div>
                                     </div>
 
@@ -175,15 +199,15 @@
                 <!-- single-categories-item Start -->
                 <div class="single-categories-item mt-30">
                     <div class="cat-item-image">
-                        <a href="#">
+                        <a href="@Url.Action("Category", "Home", new { id = (long)3 })">
                             <img src="/Images/Banner/jewel.png" alt="">
                         </a>
                     </div>
                     <div class="categories-title">
                         <h6>
-                            <a href="">گردنبد</a>
+                            <a href="@Url.Action("Category", "Home", new { id = (long)3 })">گردنبد</a>
                         </h6>
-                        <p>11 محصول</p>
+                        <p>نمایش محصولات</p>
                     </div>
                 </div>
                 <!-- single-categories-item End -->
@@ -192,15 +216,15 @@
                 <!-- single-categories-item Start -->
                 <div class="single-categories-item mt-30">
                     <div class="cat-item-image">
-                        <a href="#">
+                        <a href="@Url.Action("Category", "Home", new { id = (long)1 })">
                             <img src="/Images/Banner/bracelet.png" alt="">
                         </a>
                     </div>
                     <div class="categories-title">
                         <h6>
-                            <a href="#">دستبند</a>
+                            <a href="@Url.Action("Category", "Home", new { id = (long)1 })">دستبند</a>
                         </h6>
-                        <p>7 محصول</p>
+                        <p>نمایش محصولات</p>
                     </div>
                 </div>
                 <!-- single-categories-item End -->
@@ -209,15 +233,15 @@
                 <!-- single-categories-item Start -->
                 <div class="single-categories-item mt-30">
                     <div class="cat-item-image">
-                        <a href="#">
+                        <a href="@Url.Action("Category", "Home", new { id = (long)4 })">
                             <img src="/Images/Banner/earrings.png" alt="">
                         </a>
                     </div>
                     <div class="categories-title">
                         <h6>
-                            <a href="#">گوشواره</a>
+                            <a href="@Url.Action("Category", "Home", new { id = (long)4 })">گوشواره</a>
                         </h6>
-                        <p>11 محصول</p>
+                        <p>نمایش محصولات</p>
                     </div>
                 </div>
                 <!-- single-categories-item End -->
@@ -226,15 +250,15 @@
                 <!-- single-categories-item Start -->
                 <div class="single-categories-item mt-30">
                     <div class="cat-item-image">
-                        <a href="#">
+                        <a href="@Url.Action("Category", "Home", new { id = (long)2 })">
                             <img src="/Images/Banner/box.png" alt="">
                         </a>
                     </div>
                     <div class="categories-title">
                         <h6>
-                            <a href="#">نیم ست</a>
+                            <a href="@Url.Action("Category", "Home", new { id = (long)2 })">نیم ست</a>
                         </h6>
-                        <p>5 محصول</p>
+                        <p>نمایش محصولات</p>
                     </div>
                 </div>
                 <!-- single-categories-item End -->
@@ -243,15 +267,15 @@
                 <!-- single-categories-item Start -->
                 <div class="single-categories-item mt-30">
                     <div class="cat-item-image">
-                        <a href="#">
+                        <a href="@Url.Action("Category", "Home", new { id = (long)5 })">
                             <img src="/Images/Banner/wedding-ring.png" alt="">
                         </a>
                     </div>
                     <div class="categories-title">
                         <h6>
-                            <a href="#">انگشتر</a>
+                            <a href="@Url.Action("Category", "Home", new { id = (long)5 })">انگشتر</a>
                         </h6>
-                        <p>8 محصول</p>
+                        <p>نمایش محصولات</p>
                     </div>
                 </div>
                 <!-- single-categories-item End -->
@@ -260,15 +284,15 @@
                 <!-- single-categories-item Start -->
                 <div class="single-categories-item mt-30">
                     <div class="cat-item-image">
-                        <a href="#">
+                        <a href="@Url.Action("Category", "Home", new { id = (long)6 })">
                             <img src="/Images/Banner/chain.png" alt="">
                         </a>
                     </div>
                     <div class="categories-title">
                         <h6>
-                            <a href="#">زنجیر</a>
+                            <a href="@Url.Action("Category", "Home", new { id = (long)6 })">زنجیر</a>
                         </h6>
-                        <p>12 محصول</p>
+                        <p>نمایش محصولات</p>
                     </div>
                 </div>
                 <!-- single-categories-item End -->
