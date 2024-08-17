@@ -5,6 +5,7 @@ using GoldShop.Application.Common.Utilities;
 using GoldShop.Application.Constants.Kavenegar;
 using GoldShop.Application.Interfaces;
 using GoldShop.Comman;
+using GoldShop.Domain.Entity.Factor;
 using GoldShop.Domain.Entity.Page;
 using GoldShop.Domain.Entity.Product;
 using GoldShop.Domain.Entity.User;
@@ -484,10 +485,23 @@ public class HomeController : Controller
 
     public async Task<IActionResult> Profile()
     {
-        ViewBag.Cats = await _work.GenericRepository<Category>().TableNoTracking.ToListAsync();
-        ViewBag.Curency = await _work.GenericRepository<GoldPrice>().TableNoTracking.FirstOrDefaultAsync();
-
-        return View();
+        if (User.Identity.IsAuthenticated)
+        {
+            ViewBag.Cats = await _work.GenericRepository<Category>().TableNoTracking.ToListAsync();
+            ViewBag.Curency = await _work.GenericRepository<GoldPrice>().TableNoTracking.FirstOrDefaultAsync();
+           var user = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == User.Identity.Name);
+            ViewBag.Factor = await _work.GenericRepository<Factor>().TableNoTracking.Where(x => x.UserId == user.Id)
+                .ToListAsync();
+            ViewBag.UserAddress = await _work.GenericRepository<UserAddress>().TableNoTracking.Where(x => x.UserId == user.Id)
+                .ToListAsync();
+            ViewBag.User = user;
+            return View();
+        }
+        else
+        {
+            return RedirectToAction("Index");
+        }
+  
     }
 
     public async Task<ActionResult> LoginPhone()
