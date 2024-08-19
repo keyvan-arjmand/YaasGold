@@ -5,20 +5,6 @@
     Layout = "_Layout";
     List<Category> cats = ViewBag.Cats;
 }
-@section selectBox
-{
-    <select id="catId" class="nice-select">
-        <optgroup label="organic food">
-            <option value="0">همه</option>
-            @{
-                foreach (var i in cats)
-                {
-                    <option value="@i.Id">@i.Name</option>
-                }
-            }
-        </optgroup>
-    </select>
-}
 
 @section menu
 { 

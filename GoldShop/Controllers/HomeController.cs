@@ -381,12 +381,14 @@ public class HomeController : Controller
             return RedirectToAction("Index");
         }
     }
+
     public async Task<ActionResult> ValidateCode(string phoneNumber, string code)
     {
         var user = await _mediator.Send(new ConfirmCodAdminCommand(phoneNumber, code));
         await _signInManager.PasswordSignInAsync(user, user.Password, true, false);
         return Ok();
     }
+
     public async Task<ActionResult> SendLoginCode(string phoneNumber)
     {
         var user = await _userManager.FindByNameAsync(phoneNumber);
@@ -409,6 +411,7 @@ public class HomeController : Controller
         ViewBag.Phone = phoneNumber;
         return View();
     }
+
     public async Task<IActionResult> Logout()
     {
         if (User.Identity.IsAuthenticated)
@@ -418,6 +421,7 @@ public class HomeController : Controller
         }
         else return RedirectToAction("Index", "Home");
     }
+
     public async Task<IActionResult> InsertMessage(string number, string name, string subject, string message)
     {
         await _work.GenericRepository<ContactUs>().AddAsync(new ContactUs
@@ -432,41 +436,8 @@ public class HomeController : Controller
         return RedirectToAction("ContactUs", "Home");
     }
 
-    public async Task<IActionResult> AddToBasket(int id)
-    {
-        var basketlist = new List<int>();
 
-        if (HttpContext.Session.GetString("basket") != null)
-        {
-            basketlist = JsonConvert.DeserializeObject<List<int>>(HttpContext.Session.GetString("basket")).ToList();
-        }
 
-        basketlist.Add(id);
-        HttpContext.Session.SetString("basket", JsonConvert.SerializeObject(basketlist));
-
-        return RedirectToAction("Index", "Home");
-    }
-
-    public async Task<IActionResult> Basket()
-    {
-        ViewBag.Cats = await _work.GenericRepository<Category>().TableNoTracking.ToListAsync();
-        var basketProducts = new List<Product>();
-        if (HttpContext.Session.GetString("basket") != null)
-        {
-            var basketList = JsonConvert.DeserializeObject<List<int>>(HttpContext.Session.GetString("basket")).ToList();
-            foreach (var id in basketList)
-            {
-                var prod = await _work.GenericRepository<Product>().TableNoTracking.Include(x => x.Category)
-                    .Include(x => x.GoldPrice).FirstOrDefaultAsync(x => x.Id == id);
-                basketProducts.Add(prod!);
-            }
-        }
-
-        ViewBag.BasketProd = basketProducts;
-        ViewBag.Curency = await _work.GenericRepository<GoldPrice>().TableNoTracking.FirstOrDefaultAsync();
-
-        return View();
-    }
 
     public async Task<IActionResult> UserLogin(string number, string password)
     {
@@ -479,7 +450,29 @@ public class HomeController : Controller
         }
         else
         {
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Home");
+        }
+    }
+
+    public async Task<IActionResult> OrderDetail(int id)
+    {
+        if (User.Identity.IsAuthenticated)
+        {
+            ViewBag.Cats = await _work.GenericRepository<Category>().TableNoTracking.ToListAsync();
+            ViewBag.Curency = await _work.GenericRepository<GoldPrice>().TableNoTracking.FirstOrDefaultAsync();
+            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == User.Identity.Name);
+            ViewBag.Factor =
+                await _work.GenericRepository<Factor>().TableNoTracking
+                    .Include(x=>x.UserAddress)
+                    .Include(x=>x.User)
+                    .Include(x=>x.Products).ThenInclude(x=>x.ProductColor)
+                    .FirstOrDefaultAsync(x => x.Id == id);
+            ViewBag.User = user;
+            return View();
+        }
+        else
+        {
+            return RedirectToAction("Index");
         }
     }
 
@@ -489,10 +482,11 @@ public class HomeController : Controller
         {
             ViewBag.Cats = await _work.GenericRepository<Category>().TableNoTracking.ToListAsync();
             ViewBag.Curency = await _work.GenericRepository<GoldPrice>().TableNoTracking.FirstOrDefaultAsync();
-           var user = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == User.Identity.Name);
+            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == User.Identity.Name);
             ViewBag.Factor = await _work.GenericRepository<Factor>().TableNoTracking.Where(x => x.UserId == user.Id)
                 .ToListAsync();
-            ViewBag.UserAddress = await _work.GenericRepository<UserAddress>().TableNoTracking.Where(x => x.UserId == user.Id)
+            ViewBag.UserAddress = await _work.GenericRepository<UserAddress>().TableNoTracking
+                .Where(x => x.UserId == user.Id)
                 .ToListAsync();
             ViewBag.User = user;
             return View();
@@ -501,9 +495,26 @@ public class HomeController : Controller
         {
             return RedirectToAction("Index");
         }
-  
     }
+    public async Task<IActionResult> AddressDetail(int id)
+    {
+        if (User.Identity.IsAuthenticated)
+        {
+            ViewBag.Cats = await _work.GenericRepository<Category>().TableNoTracking.ToListAsync();
+            ViewBag.Curency = await _work.GenericRepository<GoldPrice>().TableNoTracking.FirstOrDefaultAsync();
+            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == User.Identity.Name);
 
+            ViewBag.UserAddress = await _work.GenericRepository<UserAddress>().TableNoTracking
+                .FirstOrDefaultAsync(x => x.Id == id);
+            ViewBag.User = user;
+            ViewBag.State = await _work.GenericRepository<State>().TableNoTracking.ToListAsync();
+            return View();
+        }
+        else
+        {
+            return RedirectToAction("Index");
+        }
+    }
     public async Task<ActionResult> LoginPhone()
     {
         ViewBag.Cats = await _work.GenericRepository<Category>().TableNoTracking.ToListAsync();
@@ -513,16 +524,5 @@ public class HomeController : Controller
         return View();
     }
 
-    public IActionResult RemoveInBasket(int id)
-    {
-        var basketlist = new List<int>();
-        if (HttpContext.Session.GetString("basket") != null)
-        {
-            basketlist = JsonConvert.DeserializeObject<List<int>>(HttpContext.Session.GetString("basket")).ToList();
-        }
-
-        basketlist.Remove(id);
-        HttpContext.Session.SetString("basket", JsonConvert.SerializeObject(basketlist));
-        return RedirectToAction("Index", "Home");
-    }
+   
 }

@@ -1,0 +1,198 @@
+﻿@using GoldShop.Application.Common.Utilities
+@using GoldShop.Domain.Entity.Factor
+@using GoldShop.Domain.Entity.Product
+@using GoldShop.Domain.Entity.User
+
+@{
+Layout = "_Layout";
+List<Category> cats = ViewBag.Cats;
+GoldPrice goldPrice = ViewBag.Curency;
+GoldShop.Domain.Entity.User.User user = ViewBag.User;
+UserAddress userAddresses = ViewBag.UserAddress;
+List<State> states = ViewBag.State;
+}
+
+@section GoldPrice
+{
+<div class="d-flex justify-content-between gap-3">
+    <div class="d-flex justify-content-center text-white">
+        قیمت طلا : @goldPrice.YekGram18
+    </div>
+</div>
+
+}
+
+@section Currency
+{
+<ul class="nav align-items-center">
+    <li class="language">
+        قیمت دلار : @goldPrice.Dollar
+    </li>
+    <li class="curreny-wrap">
+        قیمت یورو : @goldPrice.Euro
+    </li>
+    <li class="curreny-wrap">
+        قیمت درهم : @goldPrice.Derham
+    </li>
+    <li class="curreny-wrap">
+        قیمت انس طلا : @goldPrice.OunceTala
+    </li>
+    <li class="curreny-wrap">
+        قیمت سکه گرمی : @goldPrice.SekehGerami
+    </li>
+</ul>
+}
+
+@section Seke
+{
+<ul class="my-account-container">
+    <li>
+        قیمت سکه ربع : @goldPrice.SekehRob
+    </li>
+    <li>
+        قیمت سکه نیم : @goldPrice.SekehNim
+    </li>
+    <li>
+        قیمت سکه تمام : @goldPrice.SekehTamam
+    </li>
+    <li>
+        قیمت سکه امام : @goldPrice.SekehEmam
+    </li>
+</ul>}
+
+
+@section menu
+{
+@foreach (var i in cats)
+{
+<li>
+    <a href="@Url.Action("Category", "Home", new { id = i.Id })">@i.Name</a>
+</li>
+}
+
+}
+
+@section menu2
+{
+@foreach (var i in cats)
+{
+<li>
+    <a href="@Url.Action("Category", "Home", new { id = i.Id })">@i.Name</a>
+</li>
+}
+
+}
+
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <!-- breadcrumb-list start -->
+                <ul class="breadcrumb-list">
+                    <li class="breadcrumb-item">
+                        <a href="@Url.Action("Index")">صفحه اصلی</a>
+                    </li>
+                    <li class="breadcrumb-item active">حساب کاربری</li>
+                </ul>
+                <!-- breadcrumb-list end -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- breadcrumb-area end -->
+
+
+<!-- main-content-wrap start -->
+<div class="main-content-wrap section-ptb my-account-page">
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="account-dashboard">
+                <div class="dashboard-upper-info">
+                    <div class="row align-items-center no-gutters">
+                        <div class="col-lg-4 col-md-12">
+                            <div class="d-single-info">
+                                <p class="user-name">نام <span>@user.Name @user.Family</span></p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-12">
+                            <div class="d-single-info">
+                                <p>شماره تماس</p>
+                                <p>@user.PhoneNumber</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-12">
+                            <div class="d-single-info">
+                                <p>کد ملی</p>
+                                <p>@user.NationalCode</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-lg-2">
+                        <!-- Nav tabs -->
+                        <ul role="tablist" class="nav flex-column dashboard-list">
+                            <li>
+                                <a href="#orders" data-bs-toggle="tab" class="nav-link active">ویرایش اطلاعات</a>
+                            </li>
+                             
+                        </ul>
+                    </div>
+                    <div class="col-md-12 col-lg-10">
+                        <!-- Tab panes -->
+                        <div class="tab-content dashboard-content">
+                            <div class="tab-pane show active" id="orders">
+                                <h3>ویرایش پروفایل</h3>
+                                <div class="login">
+                                    <div class="login-form-container">
+                                        <div class="account-login-form">
+                                            <form asp-action="UpdateAddress" asp-controller="User">
+                                                <p>سفارش شما به این آدرس ارسال میشود</p>
+                                                <div class="account-input-box">
+                                                    <input value="@userAddresses.Id" hidden="hidden" name="id"/>
+                                                    <label>نام تحویل گیرنده</label>
+                                                    <input type="text" value="@userAddresses.Name" name="name">
+                                                    <label>کدپستی</label>
+                                                    <input type="text" value="@userAddresses.PostCode" name="postCode">
+                                                    <label>آدرس</label>
+                                                    <textarea class="w-100"   name="Address">@userAddresses.Address</textarea>
+                                                    <label>شماره تماس</label>
+                                                    <input type="text" placeholder=""  name="number" value="@user.PhoneNumber" readonly="readonly">
+                                                    <label>استان</label>
+                                                    <select class="form-select" name="stateId" aria-label="Default select example">
+                                                        @{
+                                                            foreach (var i in states)
+                                                            {
+                                                                if (i.Id == userAddresses.StateId)
+                                                                {
+                                                                    <option value="@i.Id" selected>@i.Title</option>
+
+                                                                }
+                                                                else
+                                                                {
+                                                                    <option value="@i.Id">@i.Title</option>
+
+                                                                }
+                                                            }
+                                                        }
+                                                    </select>
+                                                </div>
+
+                                                <div class="button-box">
+                                                    <button class="btn default-btn" type="submit">ذخیره</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

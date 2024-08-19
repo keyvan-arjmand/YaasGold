@@ -176,7 +176,7 @@
                                                             <td>@i.Status.ToDisplay()</td>
                                                             <td>@i.Amount.ToString("N0") </td>
                                                             <td>
-                                                                <a href="" class="view">مشاهده</a>
+                                                                <a href="@Url.Action("OrderDetail","Home",new{@i.Id})" class="view">مشاهده</a>
                                                             </td>
                                                         </tr> 
                                                     }
@@ -198,7 +198,7 @@
                                 </div>
                                 <div class="tab-pane" id="address">
                                     <h4 class="billing-address">آدرس صورتحساب</h4>
-                                    <a href="#" class="view">ویرایش</a>
+                                    <a href="@Url.Action("AddressDetail","Home",new {@userAddresses.FirstOrDefault().Id})" class="view">ویرایش</a>
                                     <p class="biller-name">@userAddresses.FirstOrDefault().Name</p>
                                     <p>@userAddresses.FirstOrDefault().Address</p>
                                 </div>
@@ -207,20 +207,20 @@
                                     <div class="login">
                                         <div class="login-form-container">
                                             <div class="account-login-form">
-                                                <form action="#">
+                                                <form asp-action="EditeProfile" asp-controller="User">
                                                     <p>برای استفاده از تمامی خدمات سایت اطلاعات حساب خود را تکمیل کنید</p>
                                               
                                                     <div class="account-input-box">
                                                         <label>نام</label>
-                                                        <input type="text" value="@user.Name" name="first-name">
+                                                        <input type="text" value="@user.Name" name="name">
                                                         <label>نام خانوادگی</label>
-                                                        <input type="text" value="@user.Family" name="last-name">
+                                                        <input type="text" value="@user.Family" name="family">
                                                         <label>کد ملی</label>
-                                                        <input type="text" value="@user.NationalCode" name="last-name">
+                                                        <input type="text" value="@user.NationalCode" name="nationalCode">
                                                         <label>ایمیل</label>
-                                                        <input type="text" value="@user.Email" name="email-name">
+                                                        <input type="text" value="@user.Email" name="email">
                                                         <label>شماره تماس</label>
-                                                        <input type="text"  placeholder="" value="@user.PhoneNumber" name="birthday">
+                                                        <input type="text"  placeholder="" value="@user.PhoneNumber" readonly="readonly">
                                                     </div>
                                                 
                                                     <div class="button-box">

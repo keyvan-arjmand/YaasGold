@@ -1,0 +1,151 @@
+﻿@using GoldShop.Application.Common.Utilities
+@using GoldShop.Comman
+@using GoldShop.Domain.Entity.Factor
+@{
+    Layout = "";
+    Factor factor = ViewBag.Factor;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>صورتحساب</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap 4 -->
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/dist/css/adminlte.min.css">
+
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+    <!-- bootstrap rtl -->
+    <link rel="stylesheet" href="/dist/css/bootstrap-rtl.min.css">
+    <!-- template rtl version -->
+    <link rel="stylesheet" href="/dist/css/custom-style.css">
+</head>
+<body >
+<div class="wrapper">
+    <!-- Main content -->
+    <!-- Main content -->
+    <div class="invoice">
+        <!-- title row -->
+        <div class="row">
+            <div class="col-12">
+                <h4>
+                    <i class="fa fa-globe"></i> گالری یاس
+                    <small class="float-left">Date: @DateTime.Now.ToPersianTime()</small>
+                </h4>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- info row -->
+        <div class="row invoice-info">
+            <div class="col-sm-4 invoice-col">
+                از
+                <address>
+                    <strong> گالری یاس</strong><br>
+                    آدرس<br>
+                    تهران شهر قدس خیابان طالاقانی<br>
+                    تلفن : 0213751877216<br>
+                </address>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-4 invoice-col">
+                به
+                <address>
+                    <strong>@factor.UserAddress.Name</strong><br>
+                    آدرس خریدار<br>
+                   @factor.UserAddress.Address<br>
+                    تلفن : @factor.UserAddress.Number<br>
+                </address>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-4 invoice-col">
+                <b>سفارش #@factor.Id</b><br>
+                <br>
+                <b>کد سفارش :</b> @factor.FactorCode<br>
+                <b>تاریخ پرداخت :</b> @factor.InsertDate.ToPersianTime()<br>
+                <b>اکانت :</b> @factor.User.PhoneNumber
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+
+        <!-- Table row -->
+        <div class="row">
+            <div class="col-12 table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>تعداد</th>
+                        <th>محصول</th>
+                        <th>وزن</th>
+                        <th>قیمت کل</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @{
+                        foreach (var i in factor.Products)
+                        {
+                            <tr>
+                                <td>1</td>
+                                <td>@i.ProductColor.Name</td>
+                                <td>@i.Weight</td>
+                                <td>@factor.GoldRate.GetPrice(i.Weight, i.ProductColor.WagesAmount, i.ProductColor.WagesPercentage).ToString("N0") تومان</td>
+                            </tr>
+                        }
+                    }
+
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+
+        <div class="row">
+            <!-- accepted payments column -->
+            <div class="col-6">
+                <p class="lead">روش پرداخت :</p>
+                <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
+                    پرداخت از طریق درگاه بانگ پاسارگارد.
+                </p>
+            </div>
+            <!-- /.col -->
+            <div class="col-6">
+                <div class="table-responsive">
+                    <table class="table">
+                        <tr>
+                            <th style="width:50%">مبلغ کل :</th>
+                            <td>@factor.Amount.ToString("N0") تومان</td>
+                        </tr>
+                        <tr>
+                            <th>تخفیف :</th>
+                            @{
+                                var f = factor.Amount - factor.DiscountAmount;
+                            }
+                            <td>@factor.DiscountAmount.ToString("N0") تومان</td>
+                        </tr>
+                        <tr>
+                            <th>مبلغ قابل پرداخت:</th>
+                            <td>@f.ToString("N0") تومان</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.content -->
+</div>
+<!-- ./wrapper -->
+</body>
+</html>

@@ -2,7 +2,7 @@
 
 namespace GoldShop.Views.Home;
 
-public class Basket : PageModel
+public class AddressDetail : PageModel
 {
     public void OnGet()
     {

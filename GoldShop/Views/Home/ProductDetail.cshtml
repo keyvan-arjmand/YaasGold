@@ -6,56 +6,56 @@
     Product prod = ViewBag.product;
     List<Product> prods = ViewBag.products;
     List<Category> cats = ViewBag.Cats;
-GoldPrice goldPrice = ViewBag.Curency;
+    GoldPrice goldPrice = ViewBag.Curency;
 }
 
 @section GoldPrice
 {
-<div class="d-flex justify-content-between gap-3">
-    <div class="d-flex justify-content-center text-white">
-        قیمت طلا : @goldPrice.YekGram18
+    <div class="d-flex justify-content-between gap-3">
+        <div class="d-flex justify-content-center text-white">
+            قیمت طلا : @goldPrice.YekGram18
+        </div>
     </div>
-</div>
 
 }
 
 @section Currency
 {
-<ul class="nav align-items-center">
-    <li class="language">
-        قیمت دلار : @goldPrice.Dollar
-    </li>
-    <li class="curreny-wrap">
-        قیمت یورو : @goldPrice.Euro
-    </li>
-    <li class="curreny-wrap">
-        قیمت درهم : @goldPrice.Derham
-    </li>
-    <li class="curreny-wrap">
-        قیمت انس طلا : @goldPrice.OunceTala
-    </li>
-    <li class="curreny-wrap">
-        قیمت سکه گرمی : @goldPrice.SekehGerami
-    </li>
-</ul>
+    <ul class="nav align-items-center">
+        <li class="language">
+            قیمت دلار : @goldPrice.Dollar
+        </li>
+        <li class="curreny-wrap">
+            قیمت یورو : @goldPrice.Euro
+        </li>
+        <li class="curreny-wrap">
+            قیمت درهم : @goldPrice.Derham
+        </li>
+        <li class="curreny-wrap">
+            قیمت انس طلا : @goldPrice.OunceTala
+        </li>
+        <li class="curreny-wrap">
+            قیمت سکه گرمی : @goldPrice.SekehGerami
+        </li>
+    </ul>
 }
 
 @section Seke
 {
-<ul class="my-account-container">
-    <li>
-        قیمت سکه ربع : @goldPrice.SekehRob
-    </li>
-    <li>
-        قیمت سکه نیم : @goldPrice.SekehNim
-    </li>
-    <li>
-        قیمت سکه تمام : @goldPrice.SekehTamam
-    </li>
-    <li>
-        قیمت سکه امام : @goldPrice.SekehEmam
-    </li>
-</ul>}
+    <ul class="my-account-container">
+        <li>
+            قیمت سکه ربع : @goldPrice.SekehRob
+        </li>
+        <li>
+            قیمت سکه نیم : @goldPrice.SekehNim
+        </li>
+        <li>
+            قیمت سکه تمام : @goldPrice.SekehTamam
+        </li>
+        <li>
+            قیمت سکه امام : @goldPrice.SekehEmam
+        </li>
+    </ul>}
 
 @section menu
 {
@@ -79,146 +79,308 @@ GoldPrice goldPrice = ViewBag.Curency;
 
 }
 
+<!-- breadcrumb-area start -->
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <!-- breadcrumb-list start -->
+                <ul class="breadcrumb-list">
+                    <li class="breadcrumb-item">
+                        <a href="@Url.Action("Index", "Home")">صفحه اصلی</a>
+                    </li>
+                    <li class="breadcrumb-item active">جزئیات محصول</li>
+                </ul>
+                <!-- breadcrumb-list end -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- breadcrumb-area end -->
+
+
+<!-- main-content-wrap start -->
 <div class="main-content-wrap shop-page section-ptb">
-<div class="container">
-    <div class="row single-product-area product-details-inner">
-        
-        <div class="col-lg-5 col-md-6">
-            <!-- Product Details Left -->
-            <div class="product-large-slider">
-                <div class="pro-large-img img-zoom">
-                    <img src="/Images/Product/@prod.Image" alt="product-details"/>
-                    <a href="/Images/Product/@prod.Image" data-fancybox="images">
-                        <i class="fa fa-search"></i>
-                    </a>
+    <div class="container">
+        <div class="row single-product-area product-details-inner">
+            <div class="col-lg-5 col-md-6">
+                <!-- Product Details Left -->
+                <div class="product-large-slider">
+                    <div class="pro-large-img img-zoom">
+                        <img src="/Images/Product/@prod.Image" alt="product-details"/>
+                        <a href="/Images/Product/@prod.Image" data-fancybox="images">
+                            <i class="fa fa-search"></i>
+                        </a>
+                    </div>
+                    <div class="pro-large-img img-zoom">
+                        <img src="/Images/Product/@prod.ImageBanner" alt="product-details"/>
+                        <a href="/Images/Product/@prod.ImageBanner" data-fancybox="images">
+                            <i class="fa fa-search"></i>
+                        </a>
+                    </div>
+                    <div class="pro-large-img img-zoom">
+                        <img src="/Images/Product/@prod.ImageThumb" alt="product-details"/>
+                        <a href="/Images/Product/@prod.ImageThumb" data-fancybox="images">
+                            <i class="fa fa-search"></i>
+                        </a>
+                    </div>
                 </div>
-                <div class="pro-large-img img-zoom">
-                    <img src="/Images/Product/@prod.ImageBanner" alt="product-details"/>
-                    <a href="/Images/Product/@prod.ImageBanner" data-fancybox="images">
-                        <i class="fa fa-search"></i>
-                    </a>
+                <div class="product-nav ltr">
+                    <div class="pro-nav-thumb">
+                        <img src="/Images/Product/@prod.Image" alt="product-details"/>
+                    </div>
+                    <div class="pro-nav-thumb">
+                        <img src="/Images/Product/@prod.ImageBanner" alt="product-details"/>
+                    </div>
+                    <div class="pro-nav-thumb">
+                        <img src="/Images/Product/@prod.ImageThumb" alt="product-details"/>
+                    </div>
                 </div>
-                <div class="pro-large-img img-zoom">
-                    <img src="/Images/Product/@prod.ImageThumb" alt="product-details"/>
-                    <a href="/Images/Product/@prod.ImageThumb" data-fancybox="images">
-                        <i class="fa fa-search"></i>
-                    </a>
-                </div>
-
-
+                <!--// Product Details Left -->
             </div>
-            <div class="product-nav ltr">
-                <div class="pro-nav-thumb">
-                    <img src="/Images/Product/@prod.Image" alt="product-details"/>
-                </div>
-                <div class="pro-nav-thumb">
-                    <img src="/Images/Product/@prod.ImageBanner" alt="product-details"/>
-                </div>
-                <div class="pro-nav-thumb">
-                    <img src="/Images/Product/@prod.ImageThumb" alt="product-details"/>
+
+            <div class="col-lg-7 col-md-6">
+                <div class="product-details-view-content">
+                    <div class="product-info">
+                        <h3>@prod.Name</h3>
+                        <div class="product-rating d-flex">
+                            <ul class="d-flex">
+                                <li>
+                                    <a href="#">
+                                        <i class="icon-star"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="icon-star"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="icon-star"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="icon-star"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="icon-star"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="price-box d-block" id="W1">
+                            <span class="new-price">@goldPrice.PricePerGram.GetPrice(prod.Weight, prod.WagesAmount, prod.WagesPercentage).ToString("N0") تومان</span>
+                        </div>
+                        <div class="price-box d-none" id="W2">
+                            <span class="new-price">@goldPrice.PricePerGram.GetPrice(prod.Weight2, prod.WagesAmount, prod.WagesPercentage).ToString("N0") تومان</span>
+                        </div>
+                        <div class="price-box  d-none" id="W3">
+                            <span class="new-price">@goldPrice.PricePerGram.GetPrice(prod.Weight3, prod.WagesAmount, prod.WagesPercentage).ToString("N0") تومان</span>
+                        </div>
+                        <div class="price-box  d-none" id="W4">
+                            <span class="new-price">@goldPrice.PricePerGram.GetPrice(prod.Weight4, prod.WagesAmount, prod.WagesPercentage).ToString("N0") تومان</span>
+                        </div>
+                        <div class="price-box  d-none" id="W5">
+                            <span class="new-price">@goldPrice.PricePerGram.GetPrice(prod.Weight5, prod.WagesAmount, prod.WagesPercentage).ToString("N0") تومان</span>
+                        </div>
+                        <input value="@prod.Id" id="Id" hidden="hidden"/>
+                        <div class="select-opstion-box mb-20">
+                            <h6 class="title mb-10">انتخاب وزن</h6>
+                            @{
+                                var w = new List<double>();
+                                if (prod.Weight > 0)
+                                {
+                                    w.Add(prod.Weight);
+                                }
+
+                                if (prod.Weight2 > 0)
+                                {
+                                    w.Add(prod.Weight2);
+                                }
+
+                                if (prod.Weight3 > 0)
+                                {
+                                    w.Add(prod.Weight3);
+                                }
+
+                                if (prod.Weight4 > 0)
+                                {
+                                    w.Add(prod.Weight4);
+                                }
+
+                                if (prod.Weight5 > 0)
+                                {
+                                    w.Add(prod.Weight5);
+                                }
+                            }
+                            <select id="Weight" class="color-select">
+                                @{
+                                    int index = 1;
+                                    foreach (var i in w)
+                                    {
+                                        if (index == 1)
+                                        {
+                                            <option value="@index" selected="selected" class="attached enabled">@i</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@index" class="attached enabled">@i</option>
+                                        }
+
+                                        index++;
+                                    }
+                                }
+                            </select>
+                        </div>
+                        @{
+                            if (!string.IsNullOrWhiteSpace(prod.Size))
+                            {
+                                <div class="select-opstion-box mb-20">
+                                    <h6 class="title mb-10">انتخاب سایز بندی</h6>
+                                    @{
+                                        var ps = prod.Size.Split(",").ToList();
+                                    }
+                                    <select id="Size" class="color-select">
+                                        @{
+                                            int index1 = 0;
+                                            foreach (var i in ps)
+                                            {
+                                                if (index1 == 0)
+                                                {
+                                                    <option value="@i" selected="selected" class="attached enabled">@i</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@i" class="attached enabled">@i</option>
+                                                }
+
+                                                index1++;
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            }
+                        }
+                        <div class="single-add-to-cart">
+                            <form action="#" class="cart-quantity d-flex">
+                                <button class="add-to-cart" type="submit" onclick="addBasket()"> افزودن به سبد</button>
+                            </form>
+                        </div>
+                        <ul class="stock-cont">
+                            <li class="product-stock-status">دسته&zwnj;بندی : <a href="#">@prod.Category.Name</a></li>
+                            <li class="product-stock-status">برند : <a href="#">@prod.Brand</a></li>
+                        </ul>
+
+                    </div>
                 </div>
             </div>
-            <!--// Product Details Left -->
         </div>
 
-        <div class="col-lg-7 col-md-6">
-            <div class="product-details-view-content">
-                <div class="product-info">
-                    <h3>نام محصول</h3>
-                    <div class="product-rating d-flex">
-                        <ul class="d-flex">
-                            <li>
-                                <a href="#">
-                                    <i class="icon-star"></i>
-                                </a>
+        <div class="product-description-area section-pt">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="product-details-tab">
+                        <ul role="tablist" class="nav">
+                            <li class="active" role="presentation">
+                                <a data-bs-toggle="tab" role="tab" href="#description" class="active">توضیحات</a>
                             </li>
-                            <li>
-                                <a href="#">
-                                    <i class="icon-star"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="icon-star"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="icon-star"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="icon-star"></i>
-                                </a>
-                            </li>
+
                         </ul>
                     </div>
-                    <div class="price-box">
-                        <span class="new-price">@prod.GoldPrice.PricePerGram.GetPrice(prod.Weight, prod.WagesAmount, prod.WagesPercentage).ToString("n0") تومان</span>
+                </div>
+                <div class="col-lg-12">
+                    <div class="product_details_tab_content tab-content">
+                        <!-- Start Single Content -->
+                        <div class="product_tab_content tab-pane active" id="description" role="tabpanel">
+                            <div class="product_description_wrap  mt-30">
+                                <div class="product_desc mb-30">
+                                    @prod.Desc
+                                </div>
+
+                            </div>
+                        </div>
+
                     </div>
-                    <p>
-                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنو
-                    </p>
-
-                    <div class="single-add-to-cart">
-                        <form action="#" class="cart-quantity d-flex">
-
-                            <button class="add-to-cart" type="submit" aria-readonly="true"> افزودن به سبد</button>
-                        </form>
-                    </div>
-
-                    <ul class="stock-cont mt-2 pt-2">
-                        <li class="product-sku">وزن: <span>@prod.Weight</span></li>
-                        <li class="product-stock-status">دسته&zwnj;بندی : <a href="#">@prod.Category.Name</a></li>
-                        <li class="product-stock-status">برند : <a href="#">@prod.Brand</a></li>
-                    </ul>
                 </div>
             </div>
         </div>
-    </div>
 
-<div class="related-product-area section-pt ltr">
-<div class="row">
-    <div class="col-lg-12">
-        <div class="section-title">
-            <h3> محصولات مرتبط</h3>
+        <div class="related-product-area section-pt ltr">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title">
+                        <h3> محصولات مرتبط</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-8 product-row-6-active">
+                @{
+                    foreach (var i in prods)
+                    {
+                        <div class="product-col">
+                            <!-- Single Product Start -->
+                            <div class="single-product-wrap mt-10">
+                                <div class="product-image">
+                                    <a href="@Url.Action("ProductDetail", "Home", new { @i.Id })">
+                                        <img style="          max-height: 189px;
+                        width: 100%;
+                        object-fit: cover;" src="/Images/Product/@i.Image" alt="">
+                                    </a>
+                                </div>
+
+                                <div class="product-content">
+                                    <div class="price-box">
+                                        <span class="new-price">@goldPrice.PricePerGram.GetPrice(i.Weight, i.WagesAmount, i.WagesPercentage).ToString("N0") تومان</span>
+                                    </div>
+                                    <h6 class="product-name">
+                                        <a href="@Url.Action("ProductDetail", "Home", new { @i.Id })">@i.Name</a>
+                                    </h6>
+
+                                    <div class="product-button-action">
+                                        <a href="@Url.Action("ProductDetail", "Home", new { @i.Id })" class="add-to-cart">مشاهده</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Single Product End -->
+                        </div>
+                    }
+                }
+            </div>
         </div>
     </div>
 </div>
-<div class="row row-8 product-row-6-active">
-@{
-    foreach (var i in prods)
-    {
-        <div class="product-col">
-            <!-- Single Product Start -->
-            <div class="single-product-wrap mt-10">
-                <div class="product-image">
-                    <a href="@Url.Action("ProductDetail", "Home", new { id = i.Id })">
-                        <img src="/Images/Product/@i.Image" class="image-size" alt="">
-                    </a>
-                    <span class="onsale">فروش ویژه</span>
-                </div>
-     
-                <div class="product-content">
-                    <div class="price-box">
-                        <span class="new-price">@i.GoldPrice.PricePerGram.GetPrice(prod.Weight, prod.WagesAmount, i.WagesPercentage).ToString("n0") تومان </span>
-                    </div>
-                    <h6 class="product-name">
-                        <a href="@Url.Action("ProductDetail", "Home", new { id = i.Id })">@i.Name</a>
-                    </h6>
 
-                    <div class="product-button-action">
-                        <a href="#" class="add-to-cart" aria-readonly="true">افزودن به سبد</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Single Product End -->
-        </div>
+@section script
+{
+    <script>
+        $(document).ready(function() {
+            $('#Weight').on('change', function() {
+                // Hide all price-box elements
+                $('.price-box').addClass('d-none').removeClass('d-block');
 
-    }
+                // Show the selected price-box based on the select option value
+                const selectedValue = $(this).val();
+                $('#' +"W"+ selectedValue).removeClass('d-none').addClass('d-block');
+            });
+        });
+        function addBasket()
+        {
+            $.ajax({
+                type: "Post",
+                data: {id:$('#Id').val(),weight:$('#Weight').val(),size:$('#Size').val()},
+                url: "/Basket/AddToBasket/",
+                success: function (data) {
+                alert("ok")
+                    window.location.reload()
+                },
+                error: function (xhr) {
+                    alert("شماره وارد شده معتبر نمیباشد");
+                }
+            });
+        }
+    </script>
 }
-</div>
-</div>
-</div>
-</div>
