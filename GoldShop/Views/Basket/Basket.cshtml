@@ -87,7 +87,7 @@
                 <!-- breadcrumb-list start -->
                 <ul class="breadcrumb-list">
                     <li class="breadcrumb-item">
-                        <a href="index.html">صفحه اصلی</a>
+                        <a href="@Url.Action("Index","Home")">صفحه اصلی</a>
                     </li>
                     <li class="breadcrumb-item active">سبد خرید</li>
                 </ul>
@@ -112,14 +112,14 @@
                                 <th class="plantmore-product-thumbnail">تصویر محصول</th>
                                 <th class="cart-product-name">نام محصول</th>
                                 <th class="plantmore-product-price">قیمت</th>
-                                <th class="plantmore-product-quantity">تعداد</th>
+                                <th class="plantmore-product-quantity">وزن</th>
                                 <th class="plantmore-product-subtotal">جمع کل</th>
                                 <th class="plantmore-product-remove">حذف محصول</th>
                             </tr>
                             </thead>
                             <tbody>
                             @{
-                                if (products.Count > 1)
+                                if (products.Count > 0)
                                 {
                                     foreach (var i in products)
                                     {
@@ -135,14 +135,14 @@
                                             <td class="plantmore-product-price">
                                                 <span class="amount">@i.GoldPrice.PricePerGram.GetPrice(i.Weight, i.WagesAmount, i.WagesPercentage).ToString("N0") تومان</span>
                                             </td>
-                                            <td class="plantmore-product-quantity">
-                                                <input value="1" type="number">
+                                            <td class="">
+                                                @i.Weight
                                             </td>
                                             <td class="product-subtotal">
                                                 <span class="amount">@i.GoldPrice.PricePerGram.GetPrice(i.Weight, i.WagesAmount, i.WagesPercentage).ToString("N0") تومان</span>
                                             </td>
                                             <td class="plantmore-product-remove">
-                                                <a href="#">
+                                                <a href="@Url.Action("RemoveInBasket","Basket",new {i.Id})">
                                                     <i class="icon-x"></i>
                                                 </a>
                                             </td>
@@ -151,6 +151,22 @@
                                 }
                                 else
                                 {
+                                    <tr>
+                                        <td class="plantmore-product-thumbnail">
+                                         
+                                        </td>
+                                        <td class="plantmore-product-name">
+                                        </td>
+                                        <td class="plantmore-product-price">
+                                            <span class="amount">سبد خالی</span>
+                                        </td>
+                                        <td class="plantmore-product-quantity">
+                                        </td>
+                                    
+                                        <td class="plantmore-product-remove">
+                                         
+                                        </td>
+                                    </tr>
                                 }
                             }
 
@@ -158,30 +174,26 @@
                         </table>
                     </div>
                     <div class="row">
-                        <div class="col-md-8">
-                            <div class="coupon-all">
-
-                                <div class="coupon2">
-                                    <a class="continue-btn" name="update_cart" type="submit">ویرایش سبد</a>
-                                    <a href="shop.html" class="continue-btn">ادامه خرید</a>
-                                </div>
-
-                                <div class="coupon">
-                                    <h3>تخفیف</h3>
-                                    <p>کد تخفیف خود راوارد کنید.</p>
-                                    <input id="coupon_code" class="input-text" name="coupon_code" value="" placeholder="کد تخفیف ..." type="text">
-                                    <input class="button" name="apply_coupon" value="اعمال کد تخفیف" type="submit">
-                                </div>
-                            </div>
-                        </div>
                         <div class="col-md-4 ml-auto">
                             <div class="cart-page-total">
                                 <h2>مجموع سبد</h2>
-                                <ul>
-                                    @* <li>زیرمجموع <span>49000 تومان</span></li> *@
-                                    <li>جمع کل <span>@products.Sum(x => x.GoldPrice.PricePerGram.GetPrice(x.Weight, x.WagesAmount, x.WagesPercentage)).ToString("N0") تومان </span></li>
-                                </ul>
-                                <a href="#" class="proceed-checkout-btn">ادامه فرایند پرداخت</a>
+                                @{
+                                 if (products.Count > 0)
+                                 {
+                                     <ul>
+                                         <li>جمع کل <span>@products.Sum(x => x.GoldPrice.PricePerGram.GetPrice(x.Weight, x.WagesAmount, x.WagesPercentage)).ToString("N0") تومان </span></li>
+                                     </ul>
+                                     <a href="@Url.Action("CheckOut","Basket")" class="proceed-checkout-btn">ادامه فرایند پرداخت</a>
+                                 }
+                                 else
+                                 {
+                                     <ul>
+                                         <li>جمع کل <span>0</span></li>
+                                     </ul>
+                                     <a href="@Url.Action("Index","Home")" class="proceed-checkout-btn">ادامه فرایند پرداخت</a>
+
+                                 }
+                                }
                             </div>
                         </div>
                     </div>

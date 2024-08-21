@@ -33,6 +33,9 @@
 
     <!-- Main Style CSS (Please use minify version for better website load performance) -->
     <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <!-- Notiflix CSS (CDN) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notiflix@3.2.5/dist/notiflix-3.2.5.min.css">
     <!--<link rel="stylesheet" href="assets/css/style.min.css">-->
 
 
@@ -459,6 +462,10 @@
         window.location.href= "/Home/Search?search="+$("#SearchM").val()+"&id="+$("#catId").val();
     }
 </script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- Notiflix JS (CDN) -->
+<script src="https://cdn.jsdelivr.net/npm/notiflix@3.2.5/dist/notiflix-aio-3.2.5.min.js"></script>
+
 @await RenderSectionAsync("script", false)
 </body>
 </html>

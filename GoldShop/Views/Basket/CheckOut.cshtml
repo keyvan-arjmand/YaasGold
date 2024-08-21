@@ -1,0 +1,371 @@
+﻿@using GoldShop.Comman
+@using GoldShop.Domain.Entity.Product
+@using GoldShop.Domain.Entity.User
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    Layout = "_Layout";
+    List<Category> cats = ViewBag.Cats;
+    List<CheckOutDto> products = ViewBag.BasketProd;
+    GoldPrice goldPrice = ViewBag.Curency;
+    DiscountCode discountCode = ViewBag.Discount;
+    List<State> states = ViewBag.State;
+    List<PostMethod> postMethods = ViewBag.PostMethod;
+}
+
+@section GoldPrice
+{
+    <div class="d-flex justify-content-between gap-3">
+        <div class="d-flex justify-content-center text-white">
+            قیمت طلا : @goldPrice.YekGram18
+        </div>
+    </div>
+
+}
+
+@section Currency
+{
+    <ul class="nav align-items-center">
+        <li class="language">
+            قیمت دلار : @goldPrice.Dollar
+        </li>
+        <li class="curreny-wrap">
+            قیمت یورو : @goldPrice.Euro
+        </li>
+        <li class="curreny-wrap">
+            قیمت درهم : @goldPrice.Derham
+        </li>
+        <li class="curreny-wrap">
+            قیمت انس طلا : @goldPrice.OunceTala
+        </li>
+        <li class="curreny-wrap">
+            قیمت سکه گرمی : @goldPrice.SekehGerami
+        </li>
+    </ul>
+}
+
+@section Seke
+{
+    <ul class="my-account-container">
+        <li>
+            قیمت سکه ربع : @goldPrice.SekehRob
+        </li>
+        <li>
+            قیمت سکه نیم : @goldPrice.SekehNim
+        </li>
+        <li>
+            قیمت سکه تمام : @goldPrice.SekehTamam
+        </li>
+        <li>
+            قیمت سکه امام : @goldPrice.SekehEmam
+        </li>
+    </ul>}
+
+@section menu
+{
+    @foreach (var i in cats)
+    {
+        <li>
+            <a href="@Url.Action("Category", "Home", new { id = i.Id })">@i.Name</a>
+        </li>
+    }
+
+}
+
+@section menu2
+{
+    @foreach (var i in cats)
+    {
+        <li>
+            <a href="@Url.Action("Category", "Home", new { id = i.Id })">@i.Name</a>
+        </li>
+    }
+
+}
+
+
+<!-- breadcrumb-area start -->
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <!-- breadcrumb-list start -->
+                <ul class="breadcrumb-list">
+                    <li class="breadcrumb-item">
+                        <a href="@Url.Action("Index", "Home")">صفحه اصلی</a>
+                    </li>
+                    <li class="breadcrumb-item active">پرداخت</li>
+                </ul>
+                <!-- breadcrumb-list end -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- breadcrumb-area end -->
+
+
+<!-- main-content-wrap start -->
+<div class="main-content-wrap section-ptb checkout-page">
+    <div class="container">
+        @if (discountCode.Id == 0)
+        {
+            <div class="row">
+                <div class="col">
+                    <div class="coupon-area">
+                        <div class="coupon-accordion">
+                            <h3>کد تخفیف دارید? <span class="coupon" id="showcoupon">کد تخفیف خود را وارد کنید</span></h3>
+                            <div class="coupon-content" id="checkout-coupon">
+                                <div class="coupon-info">
+                                    <form asp-action="DiscountCheck" asp-controller="Basket" method="post">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <input type="text" id="DiscountCode" name="discountCode" placeholder="کد تخفیف ...">
+                                            </div>
+                                            <div class="col-md-3">
+                                                <button type="button" onclick="discountCheck()" class="btn ">اعمال کد تخفیف</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- coupon-accordion end -->
+                    </div>
+                </div>
+            </div>
+        }
+
+        <!-- checkout-details-wrapper start -->
+        <div class="checkout-details-wrapper">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <!-- billing-details-wrap start -->
+                    <div class="billing-details-wrap">
+                        <form action="#">
+                            <h3 class="shoping-checkboxt-title">جزئیات صورتحساب</h3>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <p class="single-form-row">
+                                        <label>نام و نام خانوادگی تحویل گیرنده<span class="required">*</span></label>
+                                        <input type="text" name="First name">
+                                    </p>
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <div class="single-form-row">
+                                        <label>استان <span class="required">*</span></label>
+                                        <div class="nice-select wide">
+                                            <select class="form-control">
+                                                @{
+                                                    int index = 0;
+                                                    foreach (var i in states)
+                                                    {
+                                                        if (index == 0)
+                                                        {
+                                                            <option value="@i.Id" selected="selected">@i.Title</option>
+                                                        }
+                                                        else
+                                                        {
+                                                            <option value="@i.Id">@i.Title</option>
+                                                        }
+
+                                                        index++;
+                                                    }
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <p class="single-form-row">
+                                        <label>آدرس <span class="required">*</span></label>
+                                        <input type="text" name="address">
+                                    </p>
+                                </div>
+                                <div class="col-lg-12">
+                                    <p class="single-form-row">
+                                        <label>شماره تماس</label>
+                                        <input type="text" name="tel">
+                                    </p>
+                                </div>
+                                <div class="col-lg-12">
+                                    <p class="single-form-row">
+                                        <label>کد پستی <span class="required">*</span></label>
+                                        <input type="text" name="address">
+                                    </p>
+                                </div>
+                                <div class="col-lg-12">
+                                    <p class="single-form-row m-0">
+                                        <label>توضیحات سفارش</label>
+                                        <textarea placeholder="" class="checkout-mess" rows="2" cols="5"></textarea>
+                                    </p>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- billing-details-wrap end -->
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <!-- your-order-wrapper start -->
+                    <div class="your-order-wrapper">
+                        <h3 class="shoping-checkboxt-title">سفارش شما</h3>
+                        <!-- your-order-wrap start-->
+                        <div class="your-order-wrap">
+                            <!-- your-order-table start -->
+                            <div class="your-order-table table-responsive">
+                                <table>
+                                    <thead>
+                                    <tr>
+                                        <th class="product-name">محصول</th>
+                                        <th class="product-total">جمع کل</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @{
+                                        foreach (var i in products)
+                                        {
+                                            <tr class="cart_item">
+                                                <td class="product-name">
+                                                    @i.Name
+                                                </td>
+                                                <td class="product-total">
+                                                    <span class="amount">@i.GoldPrice.PricePerGram.GetPrice(i.Weight, i.WagesAmount, i.WagesPercentage).ToString("N0") تومان</span>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+
+                                    <tr class="shipping">
+                                        <td>
+                                            <ul class="text-start">
+                                                <li class="bold mb-3">نوع پرداخت</li>
+                                                @{
+                                                    foreach (var i in postMethods)
+                                                    {
+                                                        if (i.IsFee)
+                                                        {
+                                                            <label>
+                                                                <input type="radio" value="@i.Id">
+                                                                <span class="amount">@i.Title - پس کرایه </span>
+                                                            </label>
+                                                        }
+                                                        else
+                                                        {
+                                                            var amount = i.Price == 0 ? "رایگان" : i.Price.ToString("n0");
+                                                            <label>
+                                                                <input type="radio" value="@i.Id">
+                                                                <span class="amount">@i.Title : @amount </span>
+                                                            </label>
+                                                        }
+                                                    }
+                                                }
+                                                <li>
+
+                                                </li>
+                                                <li></li>
+                                            </ul>
+                                        </td>
+                                        <th></th>
+                                    </tr>
+                                    @{
+                                        if (discountCode.Id > 0)
+                                        {
+                                            <tr class="order-total">
+                                                <th>تخفیف </th>
+                                                <td>
+                                                    <strong>
+                                                        <span class="amount">@discountCode.Amount.ToString("N0") تومان</span>
+                                                    </strong>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+
+                                    <tr class="order-total">
+                                        <th>جمع کل </th>
+                                        @{
+                                            var prods = products.Sum(x => x.GoldPrice.PricePerGram.GetPrice(x.Weight, x.WagesAmount, x.WagesPercentage)) - discountCode.Amount;
+                                        }
+                                        <td>
+                                            <strong>
+                                                <span class="amount">@prods.ToString("N0") تومان</span>
+                                            </strong>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- your-order-table end -->
+
+                            <!-- your-order-wrap end -->
+                            <div class="payment-method">
+                                <div class="payment-accordion">
+                                    <!-- ACCORDION START -->
+                                    <h5>روش ارسال</h5>
+                                    <div class="payment-content">
+                                        <p>ضمانت ارسال شامل کالا های بالای 3,000,000 تومان در روش ارسال پست ویژه میباشد</p>
+                                    </div>
+                              
+                                </div>
+                                <div class="order-button-payment">
+                                    <input type="submit" value="ثبت سفارش"/>
+                                </div>
+                            </div>
+                            <!-- your-order-wrapper start -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- checkout-details-wrapper end -->
+    </div>
+</div>
+<!-- main-content-wrap end -->
+
+@section script
+{
+    <script>
+        function discountCheck()
+        {
+            $.ajax({
+                type: "Post",
+                data: {code:$('#DiscountCode').val()},
+                url: "/Basket/DiscountCheck/",
+                beforeSend: function() {
+                    Notiflix.Loading.circle('در حال پردازش ...');
+                },
+                success: function (data) {
+                    Notiflix.Notify.success('عملیات با موفقیت انجام شد');
+                    showAlertSuccess();
+                    window.location.href= `@Url.Action("CheckOut", "Basket")`;
+                },
+                error: function (xhr) {
+                    Notiflix.Notify.error('کد تخفیف نا معتبر');
+                    showAlertError();
+                },
+                complete: function() {
+                    Notiflix.Loading.remove();
+                }
+            });
+        }
+        function submitDiscountForm() {
+            document.getElementById('discountForm').submit();
+        }
+        function showAlertSuccess() {
+            Swal.fire({
+                title: 'موفق',
+                text: 'کد تخفیف اعمال شد',
+                icon: 'success',
+                confirmButtonText: 'بستن'
+            });
+        }
+        function showAlertError() {
+            Swal.fire({
+                title: 'خطا',
+                text: 'کد تخفیف نا معتبر',
+                icon: 'error',
+                confirmButtonText: 'بستن'
+            });
+        }
+    </script>
+}
