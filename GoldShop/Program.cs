@@ -38,6 +38,7 @@ builder.Services.AddCors(options =>
             .AllowAnyHeader()
             .AllowCredentials());
 });
+
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.AccessDeniedPath = "/Account/AccessDenied";

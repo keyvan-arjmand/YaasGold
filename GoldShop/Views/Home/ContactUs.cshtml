@@ -3,13 +3,14 @@
     Layout = "_Layout";
     List<Category> cats = ViewBag.Cats;
     GoldPrice goldPrice = ViewBag.Curency;
+    int basketCount = ViewBag.BasketCount;
 }
 
 @section GoldPrice
 {
     <div class="d-flex justify-content-between gap-3">
         <div class="d-flex justify-content-center text-white">
-            قیمت طلا : @goldPrice.YekGram18
+            قیمت طلا : @goldPrice.YekGram18.ToString("N0")
         </div>
     </div>
 
@@ -17,39 +18,48 @@
 
 @section Currency
 {
-    <ul class="nav align-items-center">
+    <ul class="my-account-container">
         <li class="language">
-            قیمت دلار : @goldPrice.Dollar
+            قیمت دلار : @goldPrice.Dollar.ToString("N0")
         </li>
         <li class="curreny-wrap">
-            قیمت یورو : @goldPrice.Euro
+            قیمت یورو : @goldPrice.Euro.ToString("N0")
         </li>
         <li class="curreny-wrap">
-            قیمت درهم : @goldPrice.Derham
+            قیمت درهم : @goldPrice.Derham.ToString("N0")
         </li>
         <li class="curreny-wrap">
-            قیمت انس طلا : @goldPrice.OunceTala
+            قیمت انس طلا : @goldPrice.OunceTala.ToString("N0")
         </li>
-        <li class="curreny-wrap">
-            قیمت سکه گرمی : @goldPrice.SekehGerami
-        </li>
+    
     </ul>
 }
-
+@section Basket
+{
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="shopping-cart-wrap">
+            <a href="@Url.Action("Basket", "Basket")">
+                <i class="icon-shopping-bag2 float-left"></i>
+                <span class="cart-total">@basketCount</span>
+            </a>
+        </div>
+    }
+}
 @section Seke
 {
     <ul class="my-account-container">
         <li>
-            قیمت سکه ربع : @goldPrice.SekehRob
+            قیمت سکه ربع : @goldPrice.SekehRob.ToString("N0")
         </li>
         <li>
-            قیمت سکه نیم : @goldPrice.SekehNim
+            قیمت سکه نیم : @goldPrice.SekehNim.ToString("N0")
         </li>
         <li>
-            قیمت سکه تمام : @goldPrice.SekehTamam
+            قیمت سکه تمام : @goldPrice.SekehTamam.ToString("N0")
         </li>
         <li>
-            قیمت سکه امام : @goldPrice.SekehEmam
+            قیمت سکه امام : @goldPrice.SekehEmam.ToString("N0")
         </li>
     </ul>}
 

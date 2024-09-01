@@ -100,6 +100,9 @@ namespace GoldShop.Domain.Migrations
                     b.Property<long?>("ProductId")
                         .HasColumnType("bigint");
 
+                    b.Property<string>("Size")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<double>("Weight")
                         .HasColumnType("float");
 

@@ -6,13 +6,13 @@ namespace GoldShop.Application.Common.Utilities;
 
 public static partial class Helpers
 {
-    [GeneratedRegex("^\\d+$")]
-    private static partial Regex MyRegex();
-
-    public static bool IsPhone(this string value)
-    {
-        return MyRegex().IsMatch(value);
-    }
+    // [GeneratedRegex("^\\d+$")]
+    // public static partial Regex MyRegex();
+    //
+    // public static bool IsPhone(this string value)
+    // {
+    //     return MyRegex().IsMatch(value);
+    // }
     public static string GetConfirmCode()
     {
         var code = string.Empty;

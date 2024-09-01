@@ -40,6 +40,7 @@ public class BasketController : Controller
 
     public async Task<IActionResult> Basket()
     {
+        ViewBag.PostMethod = await _work.GenericRepository<PostMethod>().TableNoTracking.ToListAsync();
         ViewBag.Cats = await _work.GenericRepository<Category>().TableNoTracking.ToListAsync();
         var basketProducts = new List<CheckOutDto>();
         if (HttpContext.Session.GetString("basket") != null)
@@ -68,6 +69,17 @@ public class BasketController : Controller
 
         ViewBag.BasketProd = basketProducts;
         ViewBag.Curency = await _work.GenericRepository<GoldPrice>().TableNoTracking.FirstOrDefaultAsync();
+        if (HttpContext.Session.GetString("basket") != null)
+        {
+            var basketList = JsonConvert.DeserializeObject<List<BasketDto>>(HttpContext.Session.GetString("basket"))
+                .ToList();
+            ViewBag.BasketCount = basketList.Count;
+        }
+        else
+        {
+            ViewBag.BasketCount = 0;
+        }
+
 
         return View();
     }
@@ -75,7 +87,7 @@ public class BasketController : Controller
     public async Task<IActionResult> DiscountCheck(string code)
     {
         var result = await _work.GenericRepository<DiscountCode>().TableNoTracking
-            .FirstOrDefaultAsync(x => x.Code == code && x.IsActive && x.Count > 0);
+            .FirstOrDefaultAsync(x => x.Code == code && x.IsActive);
         if (result is { Count: > 0 })
         {
             HttpContext.Session.SetString("discountCode", JsonConvert.SerializeObject(result));
@@ -87,8 +99,24 @@ public class BasketController : Controller
         }
     }
 
-    public async Task<IActionResult> CheckOut()
+    public async Task<IActionResult> CheckOut(int postMethod)
     {
+        if (postMethod <= 0)
+        {
+            if (HttpContext.Session.GetString("postMethod") != null)
+            {
+                int postId = JsonConvert.DeserializeObject<int>(HttpContext.Session.GetString("postMethod"));
+                ViewBag.PostMethodPy = await _work.GenericRepository<PostMethod>().TableNoTracking
+                    .FirstOrDefaultAsync(x => x.Id == postId);
+            }
+        }
+        else
+        {
+            ViewBag.PostMethodPy = await _work.GenericRepository<PostMethod>().TableNoTracking
+                .FirstOrDefaultAsync(x => x.Id == postMethod);
+            HttpContext.Session.SetString("postMethod", JsonConvert.SerializeObject(postMethod));
+        }
+
         ViewBag.PostMethod = await _work.GenericRepository<PostMethod>().TableNoTracking.ToListAsync();
         ViewBag.State = await _work.GenericRepository<State>().TableNoTracking.ToListAsync();
         var discount = new DiscountCode();
@@ -126,6 +154,17 @@ public class BasketController : Controller
 
         ViewBag.BasketProd = basketProducts;
         ViewBag.Curency = await _work.GenericRepository<GoldPrice>().TableNoTracking.FirstOrDefaultAsync();
+        if (HttpContext.Session.GetString("basket") != null)
+        {
+            var basketList = JsonConvert.DeserializeObject<List<BasketDto>>(HttpContext.Session.GetString("basket"))
+                .ToList();
+            ViewBag.BasketCount = basketList.Count;
+        }
+        else
+        {
+            ViewBag.BasketCount = 0;
+        }
+
 
         return View();
     }

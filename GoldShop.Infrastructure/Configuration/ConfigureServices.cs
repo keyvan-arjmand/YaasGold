@@ -17,6 +17,8 @@ public static class ConfigureServices
         // services.AddScoped<ICityRepository, CityRepository>();
         services.AddScoped<IFileService, FileService>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<IPaymentService, PaymentService>();
+
         return services;
     }
 }

@@ -1,16 +1,42 @@
 {
   "version": 2,
-  "dgSpecHash": "8N5NLbGY1YmLGnyYdlksbnjN9FL1HfV7U6y9uA3mp3lgYOkSF/v9b+UQEs1AlZ+uMdYpDoMRSftDMc/47qjdAg==",
+  "dgSpecHash": "lGTYxtfq3eh1gLdkOzT26L1MLDlGcGW3H0P+y4klCrfnxHnU9XkrFrkxn4wsrXyqenlTz8bF/VS9Ei7uOJtjzg==",
   "success": true,
   "projectFilePath": "C:\\Users\\User\\RiderProjects\\GoldShop\\GoldShop.Domain\\GoldShop.Domain.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\User\\.nuget\\packages\\antlr\\3.5.0.2\\antlr.3.5.0.2.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\microsoft.aspnet.friendlyurls\\1.0.2\\microsoft.aspnet.friendlyurls.1.0.2.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\microsoft.aspnet.friendlyurls.core\\1.0.2\\microsoft.aspnet.friendlyurls.core.1.0.2.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\microsoft.aspnet.mvc\\5.3.0\\microsoft.aspnet.mvc.5.3.0.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\microsoft.aspnet.razor\\3.3.0\\microsoft.aspnet.razor.3.3.0.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\microsoft.aspnet.scriptmanager.msajax\\5.0.0\\microsoft.aspnet.scriptmanager.msajax.5.0.0.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\microsoft.aspnet.webpages\\3.3.0\\microsoft.aspnet.webpages.3.3.0.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\microsoft.aspnetcore.authentication.abstractions\\2.2.0\\microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\microsoft.aspnetcore.authentication.core\\2.2.0\\microsoft.aspnetcore.authentication.core.2.2.0.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\microsoft.aspnetcore.authorization\\2.2.0\\microsoft.aspnetcore.authorization.2.2.0.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\microsoft.aspnetcore.authorization.policy\\2.2.0\\microsoft.aspnetcore.authorization.policy.2.2.0.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\7.0.15\\microsoft.aspnetcore.cryptography.internal.7.0.15.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\7.0.15\\microsoft.aspnetcore.cryptography.keyderivation.7.0.15.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\microsoft.aspnetcore.hosting.abstractions\\2.2.0\\microsoft.aspnetcore.hosting.abstractions.2.2.0.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\microsoft.aspnetcore.hosting.server.abstractions\\2.2.0\\microsoft.aspnetcore.hosting.server.abstractions.2.2.0.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\microsoft.aspnetcore.http\\2.2.0\\microsoft.aspnetcore.http.2.2.0.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\microsoft.aspnetcore.http.abstractions\\2.2.0\\microsoft.aspnetcore.http.abstractions.2.2.0.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\microsoft.aspnetcore.http.extensions\\2.2.0\\microsoft.aspnetcore.http.extensions.2.2.0.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\microsoft.aspnetcore.http.features\\2.2.0\\microsoft.aspnetcore.http.features.2.2.0.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\microsoft.aspnetcore.identity.entityframeworkcore\\7.0.15\\microsoft.aspnetcore.identity.entityframeworkcore.7.0.15.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\microsoft.aspnetcore.mvc.abstractions\\2.2.0\\microsoft.aspnetcore.mvc.abstractions.2.2.0.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\microsoft.aspnetcore.mvc.core\\2.2.5\\microsoft.aspnetcore.mvc.core.2.2.5.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\microsoft.aspnetcore.razor\\2.2.0\\microsoft.aspnetcore.razor.2.2.0.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\microsoft.aspnetcore.responsecaching.abstractions\\2.2.0\\microsoft.aspnetcore.responsecaching.abstractions.2.2.0.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\microsoft.aspnetcore.routing\\2.2.0\\microsoft.aspnetcore.routing.2.2.0.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\microsoft.aspnetcore.routing.abstractions\\2.2.0\\microsoft.aspnetcore.routing.abstractions.2.2.0.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\microsoft.aspnetcore.webutilities\\2.2.0\\microsoft.aspnetcore.webutilities.2.2.0.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\microsoft.codedom.providers.dotnetcompilerplatform\\4.1.0\\microsoft.codedom.providers.dotnetcompilerplatform.4.1.0.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\microsoft.data.sqlclient\\5.1.1\\microsoft.data.sqlclient.5.1.1.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\5.1.0\\microsoft.data.sqlclient.sni.runtime.5.1.0.nupkg.sha512",
@@ -27,10 +53,13 @@
     "C:\\Users\\User\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\7.0.0\\microsoft.extensions.dependencyinjection.7.0.0.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\7.0.0\\microsoft.extensions.dependencyinjection.abstractions.7.0.0.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\microsoft.extensions.dependencymodel\\7.0.0\\microsoft.extensions.dependencymodel.7.0.0.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\microsoft.extensions.fileproviders.abstractions\\2.2.0\\microsoft.extensions.fileproviders.abstractions.2.2.0.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\microsoft.extensions.hosting.abstractions\\2.2.0\\microsoft.extensions.hosting.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\microsoft.extensions.identity.core\\7.0.15\\microsoft.extensions.identity.core.7.0.15.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\microsoft.extensions.identity.stores\\7.0.15\\microsoft.extensions.identity.stores.7.0.15.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\microsoft.extensions.logging\\7.0.0\\microsoft.extensions.logging.7.0.0.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\7.0.0\\microsoft.extensions.logging.abstractions.7.0.0.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\microsoft.extensions.objectpool\\2.2.0\\microsoft.extensions.objectpool.2.2.0.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\microsoft.extensions.options\\7.0.1\\microsoft.extensions.options.7.0.1.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\microsoft.extensions.primitives\\7.0.0\\microsoft.extensions.primitives.7.0.0.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\microsoft.identity.client\\4.47.2\\microsoft.identity.client.4.47.2.nupkg.sha512",
@@ -41,11 +70,17 @@
     "C:\\Users\\User\\.nuget\\packages\\microsoft.identitymodel.protocols\\6.24.0\\microsoft.identitymodel.protocols.6.24.0.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\microsoft.identitymodel.protocols.openidconnect\\6.24.0\\microsoft.identitymodel.protocols.openidconnect.6.24.0.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\microsoft.identitymodel.tokens\\6.24.0\\microsoft.identitymodel.tokens.6.24.0.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\microsoft.net.compilers\\4.2.0\\microsoft.net.compilers.4.2.0.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\microsoft.net.http.headers\\2.2.0\\microsoft.net.http.headers.2.2.0.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\microsoft.sqlserver.server\\1.0.0\\microsoft.sqlserver.server.1.0.0.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\microsoft.web.infrastructure\\2.0.0\\microsoft.web.infrastructure.2.0.0.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\modernizr\\2.8.3\\modernizr.2.8.3.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\newtonsoft.json\\5.0.4\\newtonsoft.json.5.0.4.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\system.buffers\\4.5.0\\system.buffers.4.5.0.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\system.codedom\\4.4.0\\system.codedom.4.4.0.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\system.configuration.configurationmanager\\6.0.1\\system.configuration.configurationmanager.6.0.1.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\system.diagnostics.diagnosticsource\\6.0.0\\system.diagnostics.diagnosticsource.6.0.0.nupkg.sha512",
@@ -68,7 +103,120 @@
     "C:\\Users\\User\\.nuget\\packages\\system.text.encodings.web\\7.0.0\\system.text.encodings.web.7.0.0.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\system.text.json\\7.0.0\\system.text.json.7.0.0.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\system.threading.tasks.extensions.4.5.4.nupkg.sha512",
-    "C:\\Users\\User\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512"
+    "C:\\Users\\User\\.nuget\\packages\\system.web.helpers.crypto\\3.2.3\\system.web.helpers.crypto.3.2.3.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\webgrease\\1.6.0\\webgrease.1.6.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Antlr 3.5.0.2' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net7.0'. This package may not be fully compatible with your project.",
+      "libraryId": "Antlr",
+      "targetGraphs": [
+        "net7.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Microsoft.AspNet.FriendlyUrls.Core 1.0.2' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net7.0'. This package may not be fully compatible with your project.",
+      "libraryId": "Microsoft.AspNet.FriendlyUrls.Core",
+      "targetGraphs": [
+        "net7.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Microsoft.AspNet.Mvc 5.3.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net7.0'. This package may not be fully compatible with your project.",
+      "libraryId": "Microsoft.AspNet.Mvc",
+      "targetGraphs": [
+        "net7.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Microsoft.AspNet.Razor 3.3.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net7.0'. This package may not be fully compatible with your project.",
+      "libraryId": "Microsoft.AspNet.Razor",
+      "targetGraphs": [
+        "net7.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Microsoft.AspNet.ScriptManager.MSAjax 5.0.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net7.0'. This package may not be fully compatible with your project.",
+      "libraryId": "Microsoft.AspNet.ScriptManager.MSAjax",
+      "targetGraphs": [
+        "net7.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Microsoft.AspNet.WebPages 3.3.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net7.0'. This package may not be fully compatible with your project.",
+      "libraryId": "Microsoft.AspNet.WebPages",
+      "targetGraphs": [
+        "net7.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Microsoft.CodeDom.Providers.DotNetCompilerPlatform 4.1.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net7.0'. This package may not be fully compatible with your project.",
+      "libraryId": "Microsoft.CodeDom.Providers.DotNetCompilerPlatform",
+      "targetGraphs": [
+        "net7.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Microsoft.Web.Infrastructure 2.0.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net7.0'. This package may not be fully compatible with your project.",
+      "libraryId": "Microsoft.Web.Infrastructure",
+      "targetGraphs": [
+        "net7.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Newtonsoft.Json 5.0.4' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net7.0'. This package may not be fully compatible with your project.",
+      "libraryId": "Newtonsoft.Json",
+      "targetGraphs": [
+        "net7.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'System.Web.Helpers.Crypto 3.2.3' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net7.0'. This package may not be fully compatible with your project.",
+      "libraryId": "System.Web.Helpers.Crypto",
+      "targetGraphs": [
+        "net7.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'WebGrease 1.6.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net7.0'. This package may not be fully compatible with your project.",
+      "libraryId": "WebGrease",
+      "targetGraphs": [
+        "net7.0"
+      ]
+    }
+  ]
 }

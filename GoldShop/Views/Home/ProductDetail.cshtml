@@ -1,19 +1,19 @@
 ﻿@using GoldShop.Domain.Entity.Product
 @using GoldShop.Comman
-@using Microsoft.AspNetCore.Mvc.Formatters.Xml
 @{
     Layout = "_Layout";
     Product prod = ViewBag.product;
     List<Product> prods = ViewBag.products;
     List<Category> cats = ViewBag.Cats;
     GoldPrice goldPrice = ViewBag.Curency;
+    int basketCount = ViewBag.BasketCount;
 }
 
 @section GoldPrice
 {
     <div class="d-flex justify-content-between gap-3">
         <div class="d-flex justify-content-center text-white">
-            قیمت طلا : @goldPrice.YekGram18
+            قیمت طلا : @goldPrice.YekGram18.ToString("N0")
         </div>
     </div>
 
@@ -21,39 +21,48 @@
 
 @section Currency
 {
-    <ul class="nav align-items-center">
+    <ul class="my-account-container">
         <li class="language">
-            قیمت دلار : @goldPrice.Dollar
+            قیمت دلار : @goldPrice.Dollar.ToString("N0")
         </li>
         <li class="curreny-wrap">
-            قیمت یورو : @goldPrice.Euro
+            قیمت یورو : @goldPrice.Euro.ToString("N0")
         </li>
         <li class="curreny-wrap">
-            قیمت درهم : @goldPrice.Derham
+            قیمت درهم : @goldPrice.Derham.ToString("N0")
         </li>
         <li class="curreny-wrap">
-            قیمت انس طلا : @goldPrice.OunceTala
+            قیمت انس طلا : @goldPrice.OunceTala.ToString("N0")
         </li>
-        <li class="curreny-wrap">
-            قیمت سکه گرمی : @goldPrice.SekehGerami
-        </li>
+    
     </ul>
 }
-
+@section Basket
+{
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="shopping-cart-wrap">
+            <a href="@Url.Action("Basket", "Basket")">
+                <i class="icon-shopping-bag2 float-left"></i>
+                <span class="cart-total">@basketCount</span>
+            </a>
+        </div>
+    }
+}
 @section Seke
 {
     <ul class="my-account-container">
         <li>
-            قیمت سکه ربع : @goldPrice.SekehRob
+            قیمت سکه ربع : @goldPrice.SekehRob.ToString("N0")
         </li>
         <li>
-            قیمت سکه نیم : @goldPrice.SekehNim
+            قیمت سکه نیم : @goldPrice.SekehNim.ToString("N0")
         </li>
         <li>
-            قیمت سکه تمام : @goldPrice.SekehTamam
+            قیمت سکه تمام : @goldPrice.SekehTamam.ToString("N0")
         </li>
         <li>
-            قیمت سکه امام : @goldPrice.SekehEmam
+            قیمت سکه امام : @goldPrice.SekehEmam.ToString("N0")
         </li>
     </ul>}
 
@@ -78,6 +87,7 @@
     }
 
 }
+
 
 <!-- breadcrumb-area start -->
 <div class="breadcrumb-area">
@@ -266,9 +276,9 @@
                             }
                         }
                         <div class="single-add-to-cart">
-                            <form action="#" class="cart-quantity d-flex">
+                            <div  class=" d-flex">
                                 <button class="add-to-cart" type="submit" onclick="addBasket()"> افزودن به سبد</button>
-                            </form>
+                            </div>
                         </div>
                         <ul class="stock-cont">
                             <li class="product-stock-status">دسته&zwnj;بندی : <a href="#">@prod.Category.Name</a></li>
@@ -373,13 +383,37 @@
                 type: "Post",
                 data: {id:$('#Id').val(),weight:$('#Weight').val(),size:$('#Size').val()},
                 url: "/Basket/AddToBasket/",
+                 beforeSend: function() {
+                    Notiflix.Loading.circle('در حال پردازش ...');
+                },
                 success: function (data) {
-                alert("ok")
+                    Notiflix.Notify.success('به سبد اضافه شد');
+                    showAlertSuccess();
                     window.location.reload()
                 },
                 error: function (xhr) {
-                    alert("شماره وارد شده معتبر نمیباشد");
+                    Notiflix.Notify.failure('خطا در پردازش');
+                    showAlertError();
+                },
+                complete: function() {
+                    Notiflix.Loading.remove();
                 }
+            });
+        }
+        function showAlertSuccess() {
+            Swal.fire({
+                title: 'موفق',
+                text: 'به سبد اضافه شد',
+                icon: 'success',
+                confirmButtonText: 'بستن'
+            });
+        }
+        function showAlertError() {
+            Swal.fire({
+                title: 'خطا',
+                text: 'خطا در پردازش',
+                icon: 'error',
+                confirmButtonText: 'بستن'
             });
         }
     </script>

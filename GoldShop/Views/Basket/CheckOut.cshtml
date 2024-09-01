@@ -1,6 +1,7 @@
 ﻿@using GoldShop.Comman
 @using GoldShop.Domain.Entity.Product
 @using GoldShop.Domain.Entity.User
+@using GoldShop.Models
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 
 @{
@@ -9,15 +10,17 @@
     List<CheckOutDto> products = ViewBag.BasketProd;
     GoldPrice goldPrice = ViewBag.Curency;
     DiscountCode discountCode = ViewBag.Discount;
+    PostMethod postMethod = ViewBag.PostMethodPy;
     List<State> states = ViewBag.State;
     List<PostMethod> postMethods = ViewBag.PostMethod;
+    int basketCount = ViewBag.BasketCount;
 }
 
 @section GoldPrice
 {
     <div class="d-flex justify-content-between gap-3">
         <div class="d-flex justify-content-center text-white">
-            قیمت طلا : @goldPrice.YekGram18
+            قیمت طلا : @goldPrice.YekGram18.ToString("N0")
         </div>
     </div>
 
@@ -25,39 +28,48 @@
 
 @section Currency
 {
-    <ul class="nav align-items-center">
+    <ul class="my-account-container">
         <li class="language">
-            قیمت دلار : @goldPrice.Dollar
+            قیمت دلار : @goldPrice.Dollar.ToString("N0")
         </li>
         <li class="curreny-wrap">
-            قیمت یورو : @goldPrice.Euro
+            قیمت یورو : @goldPrice.Euro.ToString("N0")
         </li>
         <li class="curreny-wrap">
-            قیمت درهم : @goldPrice.Derham
+            قیمت درهم : @goldPrice.Derham.ToString("N0")
         </li>
         <li class="curreny-wrap">
-            قیمت انس طلا : @goldPrice.OunceTala
+            قیمت انس طلا : @goldPrice.OunceTala.ToString("N0")
         </li>
-        <li class="curreny-wrap">
-            قیمت سکه گرمی : @goldPrice.SekehGerami
-        </li>
+    
     </ul>
 }
-
+@section Basket
+{
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="shopping-cart-wrap">
+            <a href="@Url.Action("Basket", "Basket")">
+                <i class="icon-shopping-bag2 float-left"></i>
+                <span class="cart-total">@basketCount</span>
+            </a>
+        </div>
+    }
+}
 @section Seke
 {
     <ul class="my-account-container">
         <li>
-            قیمت سکه ربع : @goldPrice.SekehRob
+            قیمت سکه ربع : @goldPrice.SekehRob.ToString("N0")
         </li>
         <li>
-            قیمت سکه نیم : @goldPrice.SekehNim
+            قیمت سکه نیم : @goldPrice.SekehNim.ToString("N0")
         </li>
         <li>
-            قیمت سکه تمام : @goldPrice.SekehTamam
+            قیمت سکه تمام : @goldPrice.SekehTamam.ToString("N0")
         </li>
         <li>
-            قیمت سکه امام : @goldPrice.SekehEmam
+            قیمت سکه امام : @goldPrice.SekehEmam.ToString("N0")
         </li>
     </ul>}
 
@@ -229,44 +241,47 @@
                                                     @i.Name
                                                 </td>
                                                 <td class="product-total">
-                                                    <span class="amount">@i.GoldPrice.PricePerGram.GetPrice(i.Weight, i.WagesAmount, i.WagesPercentage).ToString("N0") تومان</span>
+                                                    <strong>
+                                                        <span class="amount">@i.GoldPrice.PricePerGram.GetPrice(i.Weight, i.WagesAmount, i.WagesPercentage).ToString("N0") تومان</span>
+                                                    </strong>
                                                 </td>
                                             </tr>
                                         }
                                     }
 
-                                    <tr class="shipping">
-                                        <td>
-                                            <ul class="text-start">
-                                                <li class="bold mb-3">نوع پرداخت</li>
-                                                @{
-                                                    foreach (var i in postMethods)
-                                                    {
-                                                        if (i.IsFee)
-                                                        {
-                                                            <label>
-                                                                <input type="radio" value="@i.Id">
-                                                                <span class="amount">@i.Title - پس کرایه </span>
-                                                            </label>
-                                                        }
-                                                        else
-                                                        {
-                                                            var amount = i.Price == 0 ? "رایگان" : i.Price.ToString("n0");
-                                                            <label>
-                                                                <input type="radio" value="@i.Id">
-                                                                <span class="amount">@i.Title : @amount </span>
-                                                            </label>
-                                                        }
-                                                    }
-                                                }
-                                                <li>
 
-                                                </li>
-                                                <li></li>
-                                            </ul>
+                                    <tr class="cart_item">
+                                        <td class="product-name">
+                                            هزینه ارسال
                                         </td>
-                                        <th></th>
+                                        @if (postMethod.IsFee)
+                                        {
+                                            <label>
+                                                <span class="amount"></span>
+                                            </label>
+                                            <td class="product-total">
+                                                <strong>
+                                                    <span class="amount"> پس کرایه </span>
+                                                </strong>
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            var amount = postMethod.Price == 0 ? "رایگان" : postMethod.Price.ToString("n0");
+
+                                            <label>
+                                                <span class="amount"> </span>
+                                            </label>
+                                            <td class="product-total">
+                                                <strong>
+                                                    <span class="amount">@amount تومان</span>
+                                                </strong>
+                                            
+                                            </td>
+                                        }
+
                                     </tr>
+
                                     @{
                                         if (discountCode.Id > 0)
                                         {
@@ -285,10 +300,14 @@
                                         <th>جمع کل </th>
                                         @{
                                             var prods = products.Sum(x => x.GoldPrice.PricePerGram.GetPrice(x.Weight, x.WagesAmount, x.WagesPercentage)) - discountCode.Amount;
+                                            if (postMethod.Price > 0)
+                                            {
+                                                prods += postMethod.Price;
+                                            }
                                         }
                                         <td>
                                             <strong>
-                                                <span class="amount">@prods.ToString("N0") تومان</span>
+                                                <span class="amount">@prods.ToString("N0")تومان</span>
                                             </strong>
                                         </td>
                                     </tr>
@@ -301,11 +320,11 @@
                             <div class="payment-method">
                                 <div class="payment-accordion">
                                     <!-- ACCORDION START -->
-                                    <h5>روش ارسال</h5>
+                                    <h5>ضمانت ارسال </h5>
                                     <div class="payment-content">
-                                        <p>ضمانت ارسال شامل کالا های بالای 3,000,000 تومان در روش ارسال پست ویژه میباشد</p>
+                                        <p>ضمانت ارسال کالا های بالای 3,000,000 تومان شامل روش ارسال پست ویژه میباشد</p>
                                     </div>
-                              
+
                                 </div>
                                 <div class="order-button-payment">
                                     <input type="submit" value="ثبت سفارش"/>
@@ -325,11 +344,31 @@
 @section script
 {
     <script>
+    function convertPersianDigitsToEnglish(str) {
+        const persianToEnglishMap = {
+            '۰': '0',
+            '۱': '1',
+            '۲': '2',
+            '۳': '3',
+            '۴': '4',
+            '۵': '5',
+            '۶': '6',
+            '۷': '7',
+            '۸': '8',
+            '۹': '9'
+        };
+
+        return str.replace(/[۰۱۲۳۴۵۶۷۸۹]/g, function(match) {
+            return persianToEnglishMap[match];
+        });
+    }
+</script>
+    <script>
         function discountCheck()
         {
             $.ajax({
                 type: "Post",
-                data: {code:$('#DiscountCode').val()},
+                data: {code:convertPersianDigitsToEnglish($('#DiscountCode').val())},
                 url: "/Basket/DiscountCheck/",
                 beforeSend: function() {
                     Notiflix.Loading.circle('در حال پردازش ...');
@@ -340,7 +379,7 @@
                     window.location.href= `@Url.Action("CheckOut", "Basket")`;
                 },
                 error: function (xhr) {
-                    Notiflix.Notify.error('کد تخفیف نا معتبر');
+                    Notiflix.Notify.failure('کد تخفیف نا معتبر');
                     showAlertError();
                 },
                 complete: function() {

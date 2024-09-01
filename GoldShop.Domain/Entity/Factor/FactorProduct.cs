@@ -10,5 +10,6 @@ public class FactorProduct:BaseEntity
     public long? ProductId { get; set; }
     [ForeignKey("ProductId")] public Product.Product? ProductColor { get; set; }
     public double Weight { get; set; }
+    public string? Size { get; set; }
     public int Count { get; set; }
 }

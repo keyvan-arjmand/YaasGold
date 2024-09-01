@@ -5,63 +5,73 @@
     List<Category> cats = ViewBag.Cats;
 GoldPrice goldPrice = ViewBag.Curency;
 List<State> states = ViewBag.State;
+int basketCount = ViewBag.BasketCount;
 }
 
 @section GoldPrice
 {
-<div class="d-flex justify-content-between gap-3">
-    <div class="d-flex justify-content-center text-white">
-        قیمت طلا : @goldPrice.YekGram18
+    <div class="d-flex justify-content-between gap-3">
+        <div class="d-flex justify-content-center text-white">
+            قیمت طلا : @goldPrice.YekGram18.ToString("N0")
+        </div>
     </div>
-</div>
 
 }
 
 @section Currency
 {
-<ul class="nav align-items-center">
-    <li class="language">
-        قیمت دلار : @goldPrice.Dollar
-    </li>
-    <li class="curreny-wrap">
-        قیمت یورو : @goldPrice.Euro
-    </li>
-    <li class="curreny-wrap">
-        قیمت درهم : @goldPrice.Derham
-    </li>
-    <li class="curreny-wrap">
-        قیمت انس طلا : @goldPrice.OunceTala
-    </li>
-    <li class="curreny-wrap">
-        قیمت سکه گرمی : @goldPrice.SekehGerami
-    </li>
-</ul>
+    <ul class="my-account-container">
+        <li class="language">
+            قیمت دلار : @goldPrice.Dollar.ToString("N0")
+        </li>
+        <li class="curreny-wrap">
+            قیمت یورو : @goldPrice.Euro.ToString("N0")
+        </li>
+        <li class="curreny-wrap">
+            قیمت درهم : @goldPrice.Derham.ToString("N0")
+        </li>
+        <li class="curreny-wrap">
+            قیمت انس طلا : @goldPrice.OunceTala.ToString("N0")
+        </li>
+    
+    </ul>
 }
-
+@section Basket
+{
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="shopping-cart-wrap">
+            <a href="@Url.Action("Basket", "Home")">
+                <i class="icon-shopping-bag2 float-left"></i>
+                <span class="cart-total">@basketCount</span>
+            </a>
+        </div>
+    }
+}
 @section Seke
 {
-<ul class="my-account-container">
-    <li>
-        قیمت سکه ربع : @goldPrice.SekehRob
-    </li>
-    <li>
-        قیمت سکه نیم : @goldPrice.SekehNim
-    </li>
-    <li>
-        قیمت سکه تمام : @goldPrice.SekehTamam
-    </li>
-    <li>
-        قیمت سکه امام : @goldPrice.SekehEmam
-    </li>
-</ul>}
+    <ul class="my-account-container">
+        <li>
+            قیمت سکه ربع : @goldPrice.SekehRob.ToString("N0")
+        </li>
+        <li>
+            قیمت سکه نیم : @goldPrice.SekehNim.ToString("N0")
+        </li>
+        <li>
+            قیمت سکه تمام : @goldPrice.SekehTamam.ToString("N0")
+        </li>
+        <li>
+            قیمت سکه امام : @goldPrice.SekehEmam.ToString("N0")
+        </li>
+    </ul>}
 
 @section menu
-{ 
+{
     @foreach (var i in cats)
     {
-    <li>
-        <a href="@Url.Action("Category", "Home", new { id = i.Id })">@i.Name</a>
-    </li>
+        <li>
+            <a href="@Url.Action("Category", "Home", new { id = i.Id })">@i.Name</a>
+        </li>
     }
 
 }
@@ -74,7 +84,9 @@ List<State> states = ViewBag.State;
             <a href="@Url.Action("Category", "Home", new { id = i.Id })">@i.Name</a>
         </li>
     }
+
 }
+
 <div class="main-content-wrap section-ptb lagin-and-register-page">
     <div class="container">
         <div class="row">

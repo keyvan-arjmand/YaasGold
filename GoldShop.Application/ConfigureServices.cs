@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using GoldShop.Application.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 

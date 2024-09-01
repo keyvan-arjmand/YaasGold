@@ -13,6 +13,13 @@
     <SourceRoot Include="C:\Users\User\.nuget\packages\" />
   </ItemGroup>
   <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <Import Project="$(NuGetPackageRoot)microsoft.net.compilers\4.2.0\build\Microsoft.Net.Compilers.props" Condition="Exists('$(NuGetPackageRoot)microsoft.net.compilers\4.2.0\build\Microsoft.Net.Compilers.props')" />
     <Import Project="$(NuGetPackageRoot)microsoft.entityframeworkcore\7.0.15\buildTransitive\net6.0\Microsoft.EntityFrameworkCore.props" Condition="Exists('$(NuGetPackageRoot)microsoft.entityframeworkcore\7.0.15\buildTransitive\net6.0\Microsoft.EntityFrameworkCore.props')" />
   </ImportGroup>
+  <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <PkgWebGrease Condition=" '$(PkgWebGrease)' == '' ">C:\Users\User\.nuget\packages\webgrease\1.6.0</PkgWebGrease>
+    <PkgModernizr Condition=" '$(PkgModernizr)' == '' ">C:\Users\User\.nuget\packages\modernizr\2.8.3</PkgModernizr>
+    <PkgMicrosoft_Net_Compilers Condition=" '$(PkgMicrosoft_Net_Compilers)' == '' ">C:\Users\User\.nuget\packages\microsoft.net.compilers\4.2.0</PkgMicrosoft_Net_Compilers>
+    <PkgMicrosoft_CodeDom_Providers_DotNetCompilerPlatform Condition=" '$(PkgMicrosoft_CodeDom_Providers_DotNetCompilerPlatform)' == '' ">C:\Users\User\.nuget\packages\microsoft.codedom.providers.dotnetcompilerplatform\4.1.0</PkgMicrosoft_CodeDom_Providers_DotNetCompilerPlatform>
+  </PropertyGroup>
 </Project>

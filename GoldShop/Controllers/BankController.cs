@@ -1,11 +1,21 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using GoldShop.Application.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace GoldShop.Controllers;
 
 public class BankController : Controller
 {
-    public ActionResult SinaBack()
+    private readonly IPaymentService _paymentService;
+
+    public BankController(IPaymentService paymentService)
+    {
+        _paymentService = paymentService;
+    }
+
+    public ActionResult CallBack()
     {
         return View();
     }
+
+
 }

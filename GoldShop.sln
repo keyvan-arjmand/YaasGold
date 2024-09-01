@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoldShop.Domain", "GoldShop
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoldShop.Infrastructure", "GoldShop.Infrastructure\GoldShop.Infrastructure.csproj", "{F7C1B45F-80BC-45B8-9EB5-DC8F6BFECB42}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YaasBank", "YaasBank\YaasBank.csproj", "{83B594BF-1068-4643-99AD-BC01F9CE6B12}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{F7C1B45F-80BC-45B8-9EB5-DC8F6BFECB42}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F7C1B45F-80BC-45B8-9EB5-DC8F6BFECB42}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F7C1B45F-80BC-45B8-9EB5-DC8F6BFECB42}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83B594BF-1068-4643-99AD-BC01F9CE6B12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83B594BF-1068-4643-99AD-BC01F9CE6B12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83B594BF-1068-4643-99AD-BC01F9CE6B12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83B594BF-1068-4643-99AD-BC01F9CE6B12}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

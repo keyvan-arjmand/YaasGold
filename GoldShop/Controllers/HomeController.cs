@@ -60,13 +60,36 @@ public class HomeController : Controller
             .Include(x => x.GoldPrice)
             .OrderBy(x => x.InsertDate)
             .Take(15).ToListAsync();
+
         ViewBag.Curency = await _work.GenericRepository<GoldPrice>().TableNoTracking.FirstOrDefaultAsync();
+        if (HttpContext.Session.GetString("basket") != null)
+        {
+            var basketList = JsonConvert.DeserializeObject<List<BasketDto>>(HttpContext.Session.GetString("basket"))
+                .ToList();
+            ViewBag.BasketCount = basketList.Count;
+        }
+        else
+        {
+            ViewBag.BasketCount = 0;
+        }
+
         return View();
     }
 
     public async Task<ActionResult> ContactUs()
     {
         ViewBag.Curency = await _work.GenericRepository<GoldPrice>().TableNoTracking.FirstOrDefaultAsync();
+        if (HttpContext.Session.GetString("basket") != null)
+        {
+            var basketList = JsonConvert.DeserializeObject<List<BasketDto>>(HttpContext.Session.GetString("basket"))
+                .ToList();
+            ViewBag.BasketCount = basketList.Count;
+        }
+        else
+        {
+            ViewBag.BasketCount = 0;
+        }
+
 
         ViewBag.Cats = await _work.GenericRepository<Category>().TableNoTracking.ToListAsync();
         return View();
@@ -85,6 +108,17 @@ public class HomeController : Controller
             .ToListAsync();
 
         ViewBag.Curency = await _work.GenericRepository<GoldPrice>().TableNoTracking.FirstOrDefaultAsync();
+        if (HttpContext.Session.GetString("basket") != null)
+        {
+            var basketList = JsonConvert.DeserializeObject<List<BasketDto>>(HttpContext.Session.GetString("basket"))
+                .ToList();
+            ViewBag.BasketCount = basketList.Count;
+        }
+        else
+        {
+            ViewBag.BasketCount = 0;
+        }
+
 
         return View();
     }
@@ -104,6 +138,17 @@ public class HomeController : Controller
             .Take(10)
             .ToListAsync();
         ViewBag.Curency = await _work.GenericRepository<GoldPrice>().TableNoTracking.FirstOrDefaultAsync();
+        if (HttpContext.Session.GetString("basket") != null)
+        {
+            var basketList = JsonConvert.DeserializeObject<List<BasketDto>>(HttpContext.Session.GetString("basket"))
+                .ToList();
+            ViewBag.BasketCount = basketList.Count;
+        }
+        else
+        {
+            ViewBag.BasketCount = 0;
+        }
+
 
         return View();
     }
@@ -149,6 +194,17 @@ public class HomeController : Controller
         }
 
         ViewBag.Curency = await _work.GenericRepository<GoldPrice>().TableNoTracking.FirstOrDefaultAsync();
+        if (HttpContext.Session.GetString("basket") != null)
+        {
+            var basketList = JsonConvert.DeserializeObject<List<BasketDto>>(HttpContext.Session.GetString("basket"))
+                .ToList();
+            ViewBag.BasketCount = basketList.Count;
+        }
+        else
+        {
+            ViewBag.BasketCount = 0;
+        }
+
 
         return View("Category");
     }
@@ -300,6 +356,17 @@ public class HomeController : Controller
 
 
         ViewBag.Curency = await _work.GenericRepository<GoldPrice>().TableNoTracking.FirstOrDefaultAsync();
+        if (HttpContext.Session.GetString("basket") != null)
+        {
+            var basketList = JsonConvert.DeserializeObject<List<BasketDto>>(HttpContext.Session.GetString("basket"))
+                .ToList();
+            ViewBag.BasketCount = basketList.Count;
+        }
+        else
+        {
+            ViewBag.BasketCount = 0;
+        }
+
 
         return View("Category");
     }
@@ -308,6 +375,17 @@ public class HomeController : Controller
     {
         ViewBag.Cats = await _work.GenericRepository<Category>().TableNoTracking.ToListAsync();
         ViewBag.Curency = await _work.GenericRepository<GoldPrice>().TableNoTracking.FirstOrDefaultAsync();
+        if (HttpContext.Session.GetString("basket") != null)
+        {
+            var basketList = JsonConvert.DeserializeObject<List<BasketDto>>(HttpContext.Session.GetString("basket"))
+                .ToList();
+            ViewBag.BasketCount = basketList.Count;
+        }
+        else
+        {
+            ViewBag.BasketCount = 0;
+        }
+
 
         return View();
     }
@@ -315,6 +393,17 @@ public class HomeController : Controller
     public async Task<ActionResult> Login()
     {
         ViewBag.Curency = await _work.GenericRepository<GoldPrice>().TableNoTracking.FirstOrDefaultAsync();
+        if (HttpContext.Session.GetString("basket") != null)
+        {
+            var basketList = JsonConvert.DeserializeObject<List<BasketDto>>(HttpContext.Session.GetString("basket"))
+                .ToList();
+            ViewBag.BasketCount = basketList.Count;
+        }
+        else
+        {
+            ViewBag.BasketCount = 0;
+        }
+
         ViewBag.State = await _work.GenericRepository<State>().TableNoTracking.ToListAsync();
         ViewBag.Cats = await _work.GenericRepository<Category>().TableNoTracking.ToListAsync();
         return View();
@@ -323,6 +412,17 @@ public class HomeController : Controller
     public async Task<ActionResult> Privacy()
     {
         ViewBag.Curency = await _work.GenericRepository<GoldPrice>().TableNoTracking.FirstOrDefaultAsync();
+        if (HttpContext.Session.GetString("basket") != null)
+        {
+            var basketList = JsonConvert.DeserializeObject<List<BasketDto>>(HttpContext.Session.GetString("basket"))
+                .ToList();
+            ViewBag.BasketCount = basketList.Count;
+        }
+        else
+        {
+            ViewBag.BasketCount = 0;
+        }
+
 
         return View();
     }
@@ -331,6 +431,17 @@ public class HomeController : Controller
     public async Task<ActionResult> Error()
     {
         ViewBag.Curency = await _work.GenericRepository<GoldPrice>().TableNoTracking.FirstOrDefaultAsync();
+        if (HttpContext.Session.GetString("basket") != null)
+        {
+            var basketList = JsonConvert.DeserializeObject<List<BasketDto>>(HttpContext.Session.GetString("basket"))
+                .ToList();
+            ViewBag.BasketCount = basketList.Count;
+        }
+        else
+        {
+            ViewBag.BasketCount = 0;
+        }
+
 
         ViewBag.Cats = await _work.GenericRepository<Category>().TableNoTracking.ToListAsync();
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
@@ -406,6 +517,17 @@ public class HomeController : Controller
     public async Task<ActionResult> ConfirmCode(string phoneNumber)
     {
         ViewBag.Curency = await _work.GenericRepository<GoldPrice>().TableNoTracking.FirstOrDefaultAsync();
+        if (HttpContext.Session.GetString("basket") != null)
+        {
+            var basketList = JsonConvert.DeserializeObject<List<BasketDto>>(HttpContext.Session.GetString("basket"))
+                .ToList();
+            ViewBag.BasketCount = basketList.Count;
+        }
+        else
+        {
+            ViewBag.BasketCount = 0;
+        }
+
 
         ViewBag.Cats = await _work.GenericRepository<Category>().TableNoTracking.ToListAsync();
         ViewBag.Phone = phoneNumber;
@@ -437,8 +559,6 @@ public class HomeController : Controller
     }
 
 
-
-
     public async Task<IActionResult> UserLogin(string number, string password)
     {
         var user = await _userManager.FindByNameAsync(number);
@@ -460,12 +580,24 @@ public class HomeController : Controller
         {
             ViewBag.Cats = await _work.GenericRepository<Category>().TableNoTracking.ToListAsync();
             ViewBag.Curency = await _work.GenericRepository<GoldPrice>().TableNoTracking.FirstOrDefaultAsync();
+            if (HttpContext.Session.GetString("basket") != null)
+            {
+                var basketList = JsonConvert.DeserializeObject<List<BasketDto>>(HttpContext.Session.GetString("basket"))
+                    .ToList();
+                ViewBag.BasketCount = basketList.Count;
+            }
+            else
+            {
+                ViewBag.BasketCount = 0;
+            }
+
             var user = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == User.Identity.Name);
             ViewBag.Factor =
                 await _work.GenericRepository<Factor>().TableNoTracking
-                    .Include(x=>x.UserAddress)
-                    .Include(x=>x.User)
-                    .Include(x=>x.Products).ThenInclude(x=>x.ProductColor)
+                    .Include(x => x.UserAddress)
+                    .Include(x=>x.PostMethod)
+                    .Include(x => x.User)
+                    .Include(x => x.Products).ThenInclude(x => x.ProductColor)
                     .FirstOrDefaultAsync(x => x.Id == id);
             ViewBag.User = user;
             return View();
@@ -482,6 +614,17 @@ public class HomeController : Controller
         {
             ViewBag.Cats = await _work.GenericRepository<Category>().TableNoTracking.ToListAsync();
             ViewBag.Curency = await _work.GenericRepository<GoldPrice>().TableNoTracking.FirstOrDefaultAsync();
+            if (HttpContext.Session.GetString("basket") != null)
+            {
+                var basketList = JsonConvert.DeserializeObject<List<BasketDto>>(HttpContext.Session.GetString("basket"))
+                    .ToList();
+                ViewBag.BasketCount = basketList.Count;
+            }
+            else
+            {
+                ViewBag.BasketCount = 0;
+            }
+
             var user = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == User.Identity.Name);
             ViewBag.Factor = await _work.GenericRepository<Factor>().TableNoTracking.Where(x => x.UserId == user.Id)
                 .ToListAsync();
@@ -496,12 +639,24 @@ public class HomeController : Controller
             return RedirectToAction("Index");
         }
     }
+
     public async Task<IActionResult> AddressDetail(int id)
     {
         if (User.Identity.IsAuthenticated)
         {
             ViewBag.Cats = await _work.GenericRepository<Category>().TableNoTracking.ToListAsync();
             ViewBag.Curency = await _work.GenericRepository<GoldPrice>().TableNoTracking.FirstOrDefaultAsync();
+            if (HttpContext.Session.GetString("basket") != null)
+            {
+                var basketList = JsonConvert.DeserializeObject<List<BasketDto>>(HttpContext.Session.GetString("basket"))
+                    .ToList();
+                ViewBag.BasketCount = basketList.Count;
+            }
+            else
+            {
+                ViewBag.BasketCount = 0;
+            }
+
             var user = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == User.Identity.Name);
 
             ViewBag.UserAddress = await _work.GenericRepository<UserAddress>().TableNoTracking
@@ -515,14 +670,24 @@ public class HomeController : Controller
             return RedirectToAction("Index");
         }
     }
+
     public async Task<ActionResult> LoginPhone()
     {
         ViewBag.Cats = await _work.GenericRepository<Category>().TableNoTracking.ToListAsync();
 
         ViewBag.Curency = await _work.GenericRepository<GoldPrice>().TableNoTracking.FirstOrDefaultAsync();
+        if (HttpContext.Session.GetString("basket") != null)
+        {
+            var basketList = JsonConvert.DeserializeObject<List<BasketDto>>(HttpContext.Session.GetString("basket"))
+                .ToList();
+            ViewBag.BasketCount = basketList.Count;
+        }
+        else
+        {
+            ViewBag.BasketCount = 0;
+        }
+
 
         return View();
     }
-
-   
 }

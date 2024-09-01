@@ -58,7 +58,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6">
-                    <div class="header-top-settings">
+                    <div class="top-info-wrap text-end">
                         @await RenderSectionAsync("Currency")
                     </div>
                 </div>
@@ -76,7 +76,7 @@
         <div class="row align-items-center">
             <div class="col-lg-3 col-md-4 col-5">
                 <div class="logo-area">
-                    <a href="index.html" class="d-flex justify-content-center align-items-center gap-2">
+                    <a href="@Url.Action("Index","Home")" class="d-flex justify-content-center align-items-center gap-2">
                         <img src="/Images/Icons/jewelry.png" alt="logo" width="90">
                         <h5 class="text-white">گالری یاس</h5>
                     </a>
@@ -201,7 +201,7 @@
                         @if (!User.Identity.IsAuthenticated)
                         {
                             <a href="@Url.Action("Login", "Home")">
-                                <i class="icon-user"></i>
+                               <span>ورود / ثبت نام</span>
                             </a>
                         }
                         else
@@ -212,66 +212,7 @@
                         }
                     </div>
 
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <div class="shopping-cart-wrap">
-                            <a href="@Url.Action("Basket", "Home")">
-                                <i class="icon-shopping-bag2 float-left"></i>
-                                <span class="cart-total">2</span>
-                            </a>
-                            <ul class="mini-cart">
-                                <li class="cart-item">
-                                    <div class="cart-image">
-                                        <a href="single-product.html">
-                                            <img alt="" src="assets/images/product/product-01.jpg">
-                                        </a>
-                                    </div>
-                                    <div class="cart-title">
-                                        <a href="single-product.html">
-                                            <h4>محصول 1</h4>
-                                        </a>
-                                        <div class="quanti-price-wrap">
-                                            <span class="quantity">1 ×</span>
-                                            <div class="price-box">
-                                                <span class="new-price">130000 تومان</span>
-                                            </div>
-                                        </div>
-                                        <a class="remove_from_cart" href="#">
-                                            <i class="icon-x"></i>
-                                        </a>
-                                    </div>
-                                </li>
-                                <li class="cart-item">
-                                    <div class="cart-image">
-                                        <a href="single-product.html">
-                                            <img alt="" src="assets/images/product/product-02.jpg">
-                                        </a>
-                                    </div>
-                                    <div class="cart-title">
-                                        <a href="single-product.html">
-                                            <h4>محصول 2</h4>
-                                        </a>
-                                        <div class="quanti-price-wrap">
-                                            <span class="quantity">1 ×</span>
-                                            <div class="price-box">
-                                                <span class="new-price">150000 تومان</span>
-                                            </div>
-                                        </div>
-                                        <a class="remove_from_cart" href="#">
-                                            <i class="icon-trash icons"></i>
-                                        </a>
-                                    </div>
-                                </li>
-                                <li class="subtotal-box">
-                                    <div class="subtotal-title">
-                                        <h3>جمع کل :</h3><span>260000 تومان</span>
-                                    </div>
-                                </li>
-
-                            </ul>
-                        </div>
-                    }
-
+                    @await RenderSectionAsync("Basket")
 
                     <div class="mobile-menu-btn d-block d-lg-none">
                         <div class="off-canvas-btn">
@@ -365,9 +306,9 @@
                         <h6 class="title-widget">اطلاعات تماس</h6>
                         <div class="contact-call-wrap">
                             <img src="assets/images/icon/img-headphone.png" alt="">
-                            <div class="footer-call">
-                                <p>تلفن تماس :</p>
-                                <a href="tel:0213751877216">0213751877216</a>
+                            <div class="footer-call d-flex justify-content-between gap-3">
+                                <p> تماس :</p>
+                                <a class="text-white" href="tel:0213751877216">0213751877216</a>
                             </div>
                         </div>
                         <div class="footer-addres">
@@ -414,7 +355,6 @@
                 </div>
                 <div class="col-lg-4 col-md-6 d-flex flex-wrap justify-content-between gap-3">
                     <div class="widget-footer mt-40">
-                        <h6 class="title-widget">ارسال به تمام نقاط</h6>
                         <h6 class="title-widget">ارسال به تمام نقاط</h6>
                         <p>درگاه پرداخت امن</p>
                     </div>

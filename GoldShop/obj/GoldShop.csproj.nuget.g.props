@@ -13,12 +13,17 @@
     <SourceRoot Include="C:\Users\User\.nuget\packages\" />
   </ItemGroup>
   <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <Import Project="$(NuGetPackageRoot)microsoft.net.compilers\4.2.0\build\Microsoft.Net.Compilers.props" Condition="Exists('$(NuGetPackageRoot)microsoft.net.compilers\4.2.0\build\Microsoft.Net.Compilers.props')" />
     <Import Project="$(NuGetPackageRoot)microsoft.entityframeworkcore\7.0.15\buildTransitive\net6.0\Microsoft.EntityFrameworkCore.props" Condition="Exists('$(NuGetPackageRoot)microsoft.entityframeworkcore\7.0.15\buildTransitive\net6.0\Microsoft.EntityFrameworkCore.props')" />
-    <Import Project="$(NuGetPackageRoot)microsoft.entityframeworkcore.design\7.0.15\build\net6.0\Microsoft.EntityFrameworkCore.Design.props" Condition="Exists('$(NuGetPackageRoot)microsoft.entityframeworkcore.design\7.0.15\build\net6.0\Microsoft.EntityFrameworkCore.Design.props')" />
+    <Import Project="$(NuGetPackageRoot)microsoft.entityframeworkcore.design\3.1.32\build\netcoreapp2.0\Microsoft.EntityFrameworkCore.Design.props" Condition="Exists('$(NuGetPackageRoot)microsoft.entityframeworkcore.design\3.1.32\build\netcoreapp2.0\Microsoft.EntityFrameworkCore.Design.props')" />
   </ImportGroup>
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <PkgMicrosoft_CodeAnalysis_Analyzers Condition=" '$(PkgMicrosoft_CodeAnalysis_Analyzers)' == '' ">C:\Users\User\.nuget\packages\microsoft.codeanalysis.analyzers\3.3.2</PkgMicrosoft_CodeAnalysis_Analyzers>
-    <PkgMicrosoft_EntityFrameworkCore_Tools Condition=" '$(PkgMicrosoft_EntityFrameworkCore_Tools)' == '' ">C:\Users\User\.nuget\packages\microsoft.entityframeworkcore.tools\7.0.15</PkgMicrosoft_EntityFrameworkCore_Tools>
+    <PkgWebGrease Condition=" '$(PkgWebGrease)' == '' ">C:\Users\User\.nuget\packages\webgrease\1.6.0</PkgWebGrease>
+    <PkgMicrosoft_CodeAnalysis_Analyzers Condition=" '$(PkgMicrosoft_CodeAnalysis_Analyzers)' == '' ">C:\Users\User\.nuget\packages\microsoft.codeanalysis.analyzers\3.0.0</PkgMicrosoft_CodeAnalysis_Analyzers>
+    <PkgModernizr Condition=" '$(PkgModernizr)' == '' ">C:\Users\User\.nuget\packages\modernizr\2.8.3</PkgModernizr>
+    <PkgMicrosoft_Net_Compilers Condition=" '$(PkgMicrosoft_Net_Compilers)' == '' ">C:\Users\User\.nuget\packages\microsoft.net.compilers\4.2.0</PkgMicrosoft_Net_Compilers>
+    <PkgMicrosoft_EntityFrameworkCore_Tools Condition=" '$(PkgMicrosoft_EntityFrameworkCore_Tools)' == '' ">C:\Users\User\.nuget\packages\microsoft.entityframeworkcore.tools\3.1.32</PkgMicrosoft_EntityFrameworkCore_Tools>
+    <PkgMicrosoft_CodeDom_Providers_DotNetCompilerPlatform Condition=" '$(PkgMicrosoft_CodeDom_Providers_DotNetCompilerPlatform)' == '' ">C:\Users\User\.nuget\packages\microsoft.codedom.providers.dotnetcompilerplatform\4.1.0</PkgMicrosoft_CodeDom_Providers_DotNetCompilerPlatform>
     <PkgHangfire_SqlServer Condition=" '$(PkgHangfire_SqlServer)' == '' ">C:\Users\User\.nuget\packages\hangfire.sqlserver\1.8.14</PkgHangfire_SqlServer>
   </PropertyGroup>
 </Project>

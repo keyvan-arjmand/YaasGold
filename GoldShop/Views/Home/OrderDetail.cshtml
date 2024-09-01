@@ -62,7 +62,7 @@
                 <address>
                     <strong>@factor.UserAddress.Name</strong><br>
                     آدرس خریدار<br>
-                   @factor.UserAddress.Address<br>
+                    @factor.UserAddress.Address<br>
                     تلفن : @factor.UserAddress.Number<br>
                 </address>
             </div>
@@ -87,6 +87,7 @@
                         <th>تعداد</th>
                         <th>محصول</th>
                         <th>وزن</th>
+                        <th>سایز</th>
                         <th>قیمت کل</th>
                     </tr>
                     </thead>
@@ -98,6 +99,18 @@
                                 <td>1</td>
                                 <td>@i.ProductColor.Name</td>
                                 <td>@i.Weight</td>
+                                @if (!string.IsNullOrEmpty(@i.Size))
+                                {
+                                    <td>
+                                        @i.Size
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        #
+                                    </td>
+                                }
                                 <td>@factor.GoldRate.GetPrice(i.Weight, i.ProductColor.WagesAmount, i.ProductColor.WagesPercentage).ToString("N0") تومان</td>
                             </tr>
                         }
@@ -127,6 +140,10 @@
                             <td>@factor.Amount.ToString("N0") تومان</td>
                         </tr>
                         <tr>
+                            <th>ارسال : @factor.PostMethod.Title </th>
+                            <td>@factor.PostMethod.Price.ToString("N0") تومان</td>
+                        </tr>
+                        <tr>
                             <th>تخفیف :</th>
                             @{
                                 var f = factor.Amount - factor.DiscountAmount;
@@ -137,6 +154,7 @@
                             <th>مبلغ قابل پرداخت:</th>
                             <td>@f.ToString("N0") تومان</td>
                         </tr>
+
                     </table>
                 </div>
             </div>

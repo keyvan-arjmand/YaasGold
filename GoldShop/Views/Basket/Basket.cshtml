@@ -1,5 +1,7 @@
 ﻿@using GoldShop.Comman
 @using GoldShop.Domain.Entity.Product
+@using GoldShop.Domain.Entity.User
+@using GoldShop.Models
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 
 @{
@@ -7,13 +9,15 @@
     List<Category> cats = ViewBag.Cats;
     List<CheckOutDto> products = ViewBag.BasketProd;
     GoldPrice goldPrice = ViewBag.Curency;
+    List<PostMethod> postMethods = ViewBag.PostMethod;
+    int basketCount = ViewBag.BasketCount;
 }
 
 @section GoldPrice
 {
     <div class="d-flex justify-content-between gap-3">
         <div class="d-flex justify-content-center text-white">
-            قیمت طلا : @goldPrice.YekGram18
+            قیمت طلا : @goldPrice.YekGram18.ToString("N0")
         </div>
     </div>
 
@@ -21,39 +25,48 @@
 
 @section Currency
 {
-    <ul class="nav align-items-center">
+    <ul class="my-account-container">
         <li class="language">
-            قیمت دلار : @goldPrice.Dollar
+            قیمت دلار : @goldPrice.Dollar.ToString("N0")
         </li>
         <li class="curreny-wrap">
-            قیمت یورو : @goldPrice.Euro
+            قیمت یورو : @goldPrice.Euro.ToString("N0")
         </li>
         <li class="curreny-wrap">
-            قیمت درهم : @goldPrice.Derham
+            قیمت درهم : @goldPrice.Derham.ToString("N0")
         </li>
         <li class="curreny-wrap">
-            قیمت انس طلا : @goldPrice.OunceTala
+            قیمت انس طلا : @goldPrice.OunceTala.ToString("N0")
         </li>
-        <li class="curreny-wrap">
-            قیمت سکه گرمی : @goldPrice.SekehGerami
-        </li>
+    
     </ul>
 }
-
+@section Basket
+{
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="shopping-cart-wrap">
+            <a href="@Url.Action("Basket", "Basket")">
+                <i class="icon-shopping-bag2 float-left"></i>
+                <span class="cart-total">@basketCount</span>
+            </a>
+        </div>
+    }
+}
 @section Seke
 {
     <ul class="my-account-container">
         <li>
-            قیمت سکه ربع : @goldPrice.SekehRob
+            قیمت سکه ربع : @goldPrice.SekehRob.ToString("N0")
         </li>
         <li>
-            قیمت سکه نیم : @goldPrice.SekehNim
+            قیمت سکه نیم : @goldPrice.SekehNim.ToString("N0")
         </li>
         <li>
-            قیمت سکه تمام : @goldPrice.SekehTamam
+            قیمت سکه تمام : @goldPrice.SekehTamam.ToString("N0")
         </li>
         <li>
-            قیمت سکه امام : @goldPrice.SekehEmam
+            قیمت سکه امام : @goldPrice.SekehEmam.ToString("N0")
         </li>
     </ul>}
 
@@ -87,7 +100,7 @@
                 <!-- breadcrumb-list start -->
                 <ul class="breadcrumb-list">
                     <li class="breadcrumb-item">
-                        <a href="@Url.Action("Index","Home")">صفحه اصلی</a>
+                        <a href="@Url.Action("Index", "Home")">صفحه اصلی</a>
                     </li>
                     <li class="breadcrumb-item active">سبد خرید</li>
                 </ul>
@@ -104,7 +117,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <form action="#" class="cart-table">
+                <div class="cart-table">
                     <div class="table-content table-responsive">
                         <table class="table">
                             <thead>
@@ -135,14 +148,19 @@
                                             <td class="plantmore-product-price">
                                                 <span class="amount">@i.GoldPrice.PricePerGram.GetPrice(i.Weight, i.WagesAmount, i.WagesPercentage).ToString("N0") تومان</span>
                                             </td>
-                                            <td class="">
-                                                @i.Weight
+                                            <td >
+                                                <span>@i.Weight</span>
+                                                <br/>
+                                                @if (!string.IsNullOrEmpty(i.Size))
+                                                {
+                                                <span>سایز:@i.Size</span>
+                                                }
                                             </td>
                                             <td class="product-subtotal">
                                                 <span class="amount">@i.GoldPrice.PricePerGram.GetPrice(i.Weight, i.WagesAmount, i.WagesPercentage).ToString("N0") تومان</span>
                                             </td>
                                             <td class="plantmore-product-remove">
-                                                <a href="@Url.Action("RemoveInBasket","Basket",new {i.Id})">
+                                                <a href="@Url.Action("RemoveInBasket", "Basket", new { i.Id })">
                                                     <i class="icon-x"></i>
                                                 </a>
                                             </td>
@@ -153,7 +171,7 @@
                                 {
                                     <tr>
                                         <td class="plantmore-product-thumbnail">
-                                         
+
                                         </td>
                                         <td class="plantmore-product-name">
                                         </td>
@@ -162,9 +180,9 @@
                                         </td>
                                         <td class="plantmore-product-quantity">
                                         </td>
-                                    
+
                                         <td class="plantmore-product-remove">
-                                         
+
                                         </td>
                                     </tr>
                                 }
@@ -173,31 +191,77 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="row">
-                        <div class="col-md-4 ml-auto">
-                            <div class="cart-page-total">
-                                <h2>مجموع سبد</h2>
-                                @{
-                                 if (products.Count > 0)
-                                 {
-                                     <ul>
-                                         <li>جمع کل <span>@products.Sum(x => x.GoldPrice.PricePerGram.GetPrice(x.Weight, x.WagesAmount, x.WagesPercentage)).ToString("N0") تومان </span></li>
-                                     </ul>
-                                     <a href="@Url.Action("CheckOut","Basket")" class="proceed-checkout-btn">ادامه فرایند پرداخت</a>
-                                 }
-                                 else
-                                 {
-                                     <ul>
-                                         <li>جمع کل <span>0</span></li>
-                                     </ul>
-                                     <a href="@Url.Action("Index","Home")" class="proceed-checkout-btn">ادامه فرایند پرداخت</a>
 
-                                 }
-                                }
+                    <form asp-action="CheckOut" asp-controller="Basket"  method="post">
+                        <div  class="row">
+                            <div class="col-12 col-md-6 col-lg-6">
+                               
+                                <tr class="shipping ">
+                                    <td>
+                                        <ul class="text-start mt-5 ">
+                                            <li class="bold mb-3">
+                                                روش ارسال
+                                                <div class="payment-content p-2">
+                                                    <p>ضمانت ارسال کالا های بالای 3,000,000 تومان شامل روش ارسال پست ویژه میباشد</p>
+                                                </div>
+                                            </li>
+                                            @{
+                                                foreach (var i in postMethods)
+                                                {
+                                                    if (i.IsFee)
+                                                    {
+                                                        <li>
+                                                            <label>
+                                                                <input type="radio" name="postMethod" required="required" value="@i.Id">
+                                                                <span class="amount">@i.Title - پس کرایه </span>
+                                                            </label>
+                                                        </li>
+                                                    }
+                                                    else
+                                                    {
+                                                        var amount = i.Price == 0 ? "رایگان" : i.Price.ToString("n0");
+                                                        <li>
+
+                                                            <label>
+                                                                <input type="radio" name="postMethod" value="@i.Id" required="required">
+                                                                <span class="amount">@i.Title : @amount </span>
+                                                            </label>
+                                                        </li>
+                                                    }
+                                                }
+                                            }
+
+
+                                        </ul>
+                                    </td>
+                                </tr>
                             </div>
+
+                            <div class="col-12 col-md-6 col-lg-6  ml-auto">
+                                <div class="cart-page-total">
+                                    <h2>مجموع سبد</h2>
+                                    @{
+                                    if (products.Count > 0)
+                                    {
+                                    <ul>
+                                        <li>جمع کل <span>@products.Sum(x => x.GoldPrice.PricePerGram.GetPrice(x.Weight, x.WagesAmount, x.WagesPercentage)).ToString("N0") تومان </span></li>
+                                    </ul>
+                                    <button type="submit" class="proceed-checkout-btn">ادامه فرایند پرداخت</button>
+                                    }
+                                    else
+                                    {
+                                    <ul>
+                                        <li>سبد شما خالی است<span></span></li>
+                                    </ul>
+                                    }
+                                    }
+                                </div>
+                            </div>
+
                         </div>
-                    </div>
-                </form>
+                     
+                    </form>
+                </div>
             </div>
         </div>
     </div>
