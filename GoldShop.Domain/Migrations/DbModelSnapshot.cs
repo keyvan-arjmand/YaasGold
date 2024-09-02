@@ -17,7 +17,7 @@ namespace GoldShop.Domain.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.15")
+                .HasAnnotation("ProductVersion", "7.0.20")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -33,8 +33,14 @@ namespace GoldShop.Domain.Migrations
                     b.Property<double>("Amount")
                         .HasColumnType("float");
 
+                    b.Property<int>("BankStatus")
+                        .HasColumnType("int");
+
                     b.Property<string>("Desc")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DescBank")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("DiscountAmount")
@@ -51,6 +57,10 @@ namespace GoldShop.Domain.Migrations
                     b.Property<double>("GoldRate")
                         .HasColumnType("float");
 
+                    b.Property<string>("HashCardNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("InsertDate")
                         .HasColumnType("datetime2");
 
@@ -60,14 +70,30 @@ namespace GoldShop.Domain.Migrations
                     b.Property<long?>("PostMethodId")
                         .HasColumnType("bigint");
 
-                    b.Property<int>("Status")
+                    b.Property<long?>("RRN")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("Statuss")
                         .HasColumnType("int");
+
+                    b.Property<int?>("TerminalNo")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Token")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TspToken")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long?>("UserAddressId")
                         .HasColumnType("bigint");
 
                     b.Property<long?>("UserId")
                         .HasColumnType("bigint");
+
+                    b.Property<string>("status")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -77,7 +103,7 @@ namespace GoldShop.Domain.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Factors");
+                    b.ToTable("Factors", (string)null);
                 });
 
             modelBuilder.Entity("GoldShop.Domain.Entity.Factor.FactorProduct", b =>
@@ -112,7 +138,7 @@ namespace GoldShop.Domain.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("FactorProducts");
+                    b.ToTable("FactorProducts", (string)null);
                 });
 
             modelBuilder.Entity("GoldShop.Domain.Entity.Page.ContactUs", b =>
@@ -151,7 +177,7 @@ namespace GoldShop.Domain.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ContactUs");
+                    b.ToTable("ContactUs", (string)null);
                 });
 
             modelBuilder.Entity("GoldShop.Domain.Entity.Product.Category", b =>
@@ -171,7 +197,7 @@ namespace GoldShop.Domain.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("GoldShop.Domain.Entity.Product.DiscountCode", b =>
@@ -200,7 +226,7 @@ namespace GoldShop.Domain.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DiscountCodes");
+                    b.ToTable("DiscountCodes", (string)null);
                 });
 
             modelBuilder.Entity("GoldShop.Domain.Entity.Product.GoldPrice", b =>
@@ -284,7 +310,7 @@ namespace GoldShop.Domain.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("GoldPrice");
+                    b.ToTable("GoldPrice", (string)null);
                 });
 
             modelBuilder.Entity("GoldShop.Domain.Entity.Product.Product", b =>
@@ -368,7 +394,7 @@ namespace GoldShop.Domain.Migrations
 
                     b.HasIndex("GoldPriceId");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("GoldShop.Domain.Entity.User.City", b =>
@@ -393,7 +419,7 @@ namespace GoldShop.Domain.Migrations
 
                     b.HasIndex("StateId");
 
-                    b.ToTable("Cities");
+                    b.ToTable("Cities", (string)null);
                 });
 
             modelBuilder.Entity("GoldShop.Domain.Entity.User.PostMethod", b =>
@@ -419,7 +445,7 @@ namespace GoldShop.Domain.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PostMethods");
+                    b.ToTable("PostMethods", (string)null);
                 });
 
             modelBuilder.Entity("GoldShop.Domain.Entity.User.Role", b =>
@@ -469,7 +495,7 @@ namespace GoldShop.Domain.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("States");
+                    b.ToTable("States", (string)null);
                 });
 
             modelBuilder.Entity("GoldShop.Domain.Entity.User.User", b =>
@@ -616,7 +642,7 @@ namespace GoldShop.Domain.Migrations
 
                     b.HasIndex("StateId");
 
-                    b.ToTable("UserAddresses");
+                    b.ToTable("UserAddresses", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<long>", b =>

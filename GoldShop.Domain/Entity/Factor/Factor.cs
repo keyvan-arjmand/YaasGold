@@ -5,10 +5,10 @@ using GoldShop.Domain.Enums;
 
 namespace GoldShop.Domain.Entity.Factor;
 
-public class Factor:BaseEntity
+public class Factor : BaseEntity
 {
     public long? UserAddressId { get; set; }
-    [ForeignKey("UserAddressId")] public UserAddress? UserAddress { get; set; } 
+    [ForeignKey("UserAddressId")] public UserAddress? UserAddress { get; set; }
     public long? UserId { get; set; }
     [ForeignKey("UserId")] public User.User? User { get; set; }
     public long? PostMethodId { get; set; }
@@ -16,10 +16,18 @@ public class Factor:BaseEntity
     public string Desc { get; set; } = string.Empty;
     public string FactorCode { get; set; } = string.Empty;
     public string DiscountCode { get; set; } = string.Empty;
-    public double DiscountAmount { get; set; }//discount code
-    public double Amount { get; set; }//pure price
-    public double GoldRate { get; set; }//pure price
+    public double DiscountAmount { get; set; } //discount code
+    public double Amount { get; set; } //pure price
+    public double GoldRate { get; set; } //pure price
     public DateTime InsertDate { get; set; }
-    public Status Status { get; set; }
+    public Status Statuss { get; set; }
+    public BankStatus BankStatus { get; set; }
     public ICollection<FactorProduct> Products { get; set; } = default!;
+    public string? Token { get; set; }
+    public int? TerminalNo { get; set; }
+    public long? RRN { get; set; }
+    public string? status { get; set; }
+    public string HashCardNumber { get; set; }
+    public string TspToken { get; set; }
+    public string? DescBank { get; set; }
 }

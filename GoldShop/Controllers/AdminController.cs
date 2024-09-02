@@ -58,14 +58,14 @@ public class AdminController : Controller
             #region ViewBag
 
             ViewBag.orderCount =
-                _work.GenericRepository<Factor>().TableNoTracking.Count(x => x.Status == Status.Pending);
+                _work.GenericRepository<Factor>().TableNoTracking.Count(x => x.Statuss == Status.Pending);
             ViewBag.orderCountToday = _work.GenericRepository<Factor>().TableNoTracking
                 .Count(x => x.InsertDate == DateTime.Today);
             ViewBag.newUsers = _userManager.Users.Count(x => x.InsertDate >= DateTime.Today.AddDays(-15));
             ViewBag.allUsers = _userManager.Users.Count();
             ViewBag.OrderStatus = new Init2Obj
             {
-                Fit = _work.GenericRepository<Factor>().TableNoTracking.Count(x => x.Status == Status.Accepted),
+                Fit = _work.GenericRepository<Factor>().TableNoTracking.Count(x => x.Statuss == Status.Accepted),
                 All = _work.GenericRepository<Factor>().TableNoTracking.Count()
             };
             ViewBag.ProductInventory = new Init2Obj
@@ -361,7 +361,7 @@ public class AdminController : Controller
         if (User.Identity.IsAuthenticated)
         {
             var factor = await _work.GenericRepository<Factor>().Table.FirstOrDefaultAsync(x => x.Id == id);
-            factor.Status = (Status)status;
+            factor.Statuss = (Status)status;
             await _work.GenericRepository<Factor>().UpdateAsync(factor, CancellationToken.None);
             return RedirectToAction("FactorDetail", "Admin", new { factor.Id });
         }

@@ -23,6 +23,25 @@ public static partial class Helpers
 
         return code;
     }
+   
+    public static string CodeGenerator(long id , string month)
+    {
+        var code = string.Empty;
+        for (var i = 0; i < 5; i++)
+        {
+            if (i == 0)
+            {
+                var dis = id.ToString() + "UM" + month;
+                code +=dis+ new Random().Next(0, 9).ToString();
+            }
+            else
+            {
+                code += new Random().Next(0, 9).ToString();
+            }
+        }
+
+        return code;
+    }
     public static string ToPersianTime(this DateTime calendar)
     {
         try

@@ -269,28 +269,28 @@ Factor factor = ViewBag.Factor;
                                                 <select id="ProductSt3atus" name="status" class="form-control select2"
                                                         aria-label="Default select example" required="required">
                                                     @{
-                                                    if (factor.Status == Status.Accepted)
+                                                    if (factor.Statuss == Status.Accepted)
                                                     {
                                                     <option value="0" selected="selected">ارسال شده</option>
                                                     <option value="1">رد شده</option>
                                                     <option value="2">در حال پردازش</option>
                                                     <option value="3">مرجوعی</option>
                                                     }
-                                                    if (factor.Status == Status.Rejected)
+                                                    if (factor.Statuss == Status.Rejected)
                                                     {
                                                     <option value="0" >ارسال شده</option>
                                                     <option value="1" selected="selected">رد شده</option>
                                                     <option value="2">در حال پردازش</option>
                                                     <option value="3">مرجوعی</option>
                                                     }
-                                                    if (factor.Status == Status.Pending)
+                                                    if (factor.Statuss == Status.Pending)
                                                     {
                                                     <option value="0" >ارسال شده</option>
                                                     <option value="1">رد شده</option>
                                                     <option value="2" selected="selected">در حال پردازش</option>
                                                     <option value="3">مرجوعی</option>
                                                     }
-                                                    if (factor.Status == Status.Rejected)
+                                                    if (factor.Statuss == Status.Rejected)
                                                     {
                                                     <option value="0">ارسال شده</option>
                                                     <option value="1">رد شده</option>

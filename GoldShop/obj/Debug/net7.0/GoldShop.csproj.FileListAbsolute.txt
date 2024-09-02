@@ -536,4 +536,3 @@ C:\Users\User\RiderProjects\GoldShop\GoldShop\bin\Debug\net7.0\Microsoft.CodeDom
 C:\Users\User\RiderProjects\GoldShop\GoldShop\bin\Debug\net7.0\Microsoft.Web.Infrastructure.dll
 C:\Users\User\RiderProjects\GoldShop\GoldShop\bin\Debug\net7.0\System.Web.Helpers.Crypto.dll
 C:\Users\User\RiderProjects\GoldShop\GoldShop\bin\Debug\net7.0\WebGrease.dll
-C:\Users\User\RiderProjects\GoldShop\GoldShop\bin\Debug\net7.0\Connected Services\SaleReference\ConnectedService.json

@@ -74,7 +74,7 @@
                             <span class="text-muted text-right">سفارش در انتظار</span>
                             
                             <span class="font-weight-bold text-left">
-                                <i class="ion ion-android-arrow-down text-danger"></i> @factors.Count(x => x.Status==Status.Pending)
+                                <i class="ion ion-android-arrow-down text-danger"></i> @factors.Count(x => x.Statuss==Status.Pending)
                             </span>
                         </p>
                     </div>
@@ -130,7 +130,7 @@
                                     <td>@i.GoldRate.ToString("N0")</td>
                                     <td>@i.InsertDate.ToPersianTime()</td>
                                     <td>
-                                        <span class="badge badge-info">@i.Status.ToDisplay()</span>
+                                        <span class="badge badge-info">@i.Statuss.ToDisplay()</span>
                                     </td>
                                     <td>
                                         <a href="@Url.Action("FactorDetail","Admin",new {@i.Id})" class="badge badge-secondary text-decoration-none">ویرایش</a>

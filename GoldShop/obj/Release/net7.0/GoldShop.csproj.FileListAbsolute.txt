@@ -451,7 +451,6 @@ C:\Users\User\RiderProjects\GoldShop\GoldShop\bin\Release\net7.0\Quartz.dll
 C:\Users\User\RiderProjects\GoldShop\GoldShop\bin\Release\net7.0\Quartz.AspNetCore.dll
 C:\Users\User\RiderProjects\GoldShop\GoldShop\bin\Release\net7.0\Quartz.Extensions.DependencyInjection.dll
 C:\Users\User\RiderProjects\GoldShop\GoldShop\bin\Release\net7.0\Quartz.Extensions.Hosting.dll
-C:\Users\User\RiderProjects\GoldShop\GoldShop\bin\Release\net7.0\Connected Services\SaleReference\ConnectedService.json
 C:\Users\User\RiderProjects\GoldShop\GoldShop\bin\Release\net7.0\roslyn\csc.exe
 C:\Users\User\RiderProjects\GoldShop\GoldShop\bin\Release\net7.0\roslyn\csc.exe.config
 C:\Users\User\RiderProjects\GoldShop\GoldShop\bin\Release\net7.0\roslyn\csc.rsp
