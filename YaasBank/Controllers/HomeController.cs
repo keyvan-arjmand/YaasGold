@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Newtonsoft.Json;
@@ -120,7 +123,7 @@ namespace YaasBank.Controllers
         }
 
         [HttpPost]
-        public ActionResult PaymentCallback(PaymentCallbackModel model)
+        public async Task PaymentCallback(PaymentCallbackModel model)
         {
             if (model != null)
             {
@@ -149,44 +152,55 @@ namespace YaasBank.Controllers
                         //درصورتی که موفق باشد، باید خدمات یا کالا به کاربر پرداخت کننده ارائه شود
                         if (confirmResponse.Status == Helper.ParsianPaymentGateway.Successful)
                         {
-                            // var db = new parsianEntities();
-                            // tbfacotr = (from r in db.tbFactors where r.id == model.OrderId select r).SingleOrDefault();
-                            // tbfacotr.price = tbfacotr.price;
-                            // tbfacotr.hashCartNumber = model.HashCardNumber;
-                            // tbfacotr.rrn = model.RRN;
-                            // tbfacotr.status = model.status;
-                            // tbfacotr.terminalNum = model.TerminalNo;
-                            // tbfacotr.token = model.Token;
-                            // tbfacotr.describtion = "پرداخت موفق بانکی";
-                            // tbfacotr.success = true;
-                            // db.SaveChanges();
+                            // Convert the payment request to JSON
+                            string jsonString = JsonConvert.SerializeObject(model);
+                            var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
+
+                            // Create HttpClient and send the POST request
+                            using (var client = new HttpClient())
+                            {
+                                var response = await client.PostAsync("https://yourapiendpoint.com/api/payment",
+                                    content);
+
+                                // Check the response status code
+                                if (response.IsSuccessStatusCode)
+                                {
+                                    Console.WriteLine("Request was successful.");
+                                    var responseContent = await response.Content.ReadAsStringAsync();
+                                    Console.WriteLine(responseContent);
+                                }
+                                else
+                                {
+                                    Console.WriteLine($"Request failed with status code: {response.StatusCode}");
+                                }
+                            }
+                  
                         }
                     }
                 }
 
                 if (model.status == Helper.ParsianPaymentGateway.CancelPay)
                 {
-                    // using (var db = new parsianEntities())
-                    // {
-                    //     tbfacotr = (from r in db.tbFactors where r.id == model.OrderId select r).SingleOrDefault();
-                    //     tbfacotr.describtion = "انصراف از پرداخت بانکی";
-                    //     tbfacotr.price = tbfacotr.price;
-                    //     tbfacotr.success = false;
-                    //     db.tbFactors.Add(tbfacotr);
-                    //     var tempFactor = new tbFactor { id = (int)(model.OrderId) };
-                    //     db.tbFactors.Attach(tempFactor);
-                    //     db.tbFactors.Remove(tempFactor);
-                    //     db.SaveChanges();
-                    //     ViewBag.msg = "انصراف از پرداخت بانکی";
-                    // }
+                    string jsonString = JsonConvert.SerializeObject(model);
+                    var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
+                    using (var client = new HttpClient())
+                    {
+                        var response = await client.PostAsync("https://yourapiendpoint.com/api/payment",
+                            content);
+                        // Check the response status code
+                        if (response.IsSuccessStatusCode)
+                        {
+                            Console.WriteLine("Request was successful.");
+                            var responseContent = await response.Content.ReadAsStringAsync();
+                            Console.WriteLine(responseContent);
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Request failed with status code: {response.StatusCode}");
+                        }
+                    }
                 }
 
-
-                return View("PaymentCallback", tbfacotr);
-            }
-            else
-            {
-                return new EmptyResult();
             }
         }
 

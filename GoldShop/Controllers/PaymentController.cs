@@ -91,7 +91,8 @@ public class PaymentController : Controller
         [Display(Name = "TSP Token")] public string TspToken { get; set; }
     }
 
-    public async Task<IActionResult> UpdateFactor(PaymentCallbackModel request)
+    [HttpPost]
+    public async Task<IActionResult> UpdateFactor(string HashCardNumber,long RRN,short status,int TerminalNo ,BankStatus BankStatus)
     {
         var factor = await _work.GenericRepository<Factor>().TableNoTracking
             .FirstOrDefaultAsync(x => x.Id == request.OrderId);
