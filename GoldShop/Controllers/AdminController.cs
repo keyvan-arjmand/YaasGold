@@ -58,14 +58,14 @@ public class AdminController : Controller
             #region ViewBag
 
             ViewBag.orderCount =
-                _work.GenericRepository<Factor>().TableNoTracking.Count(x => x.Statuss == Status.Pending);
+                _work.GenericRepository<Factor>().TableNoTracking.Count(x => x.StatusEdit == Status.Pending);
             ViewBag.orderCountToday = _work.GenericRepository<Factor>().TableNoTracking
                 .Count(x => x.InsertDate == DateTime.Today);
             ViewBag.newUsers = _userManager.Users.Count(x => x.InsertDate >= DateTime.Today.AddDays(-15));
             ViewBag.allUsers = _userManager.Users.Count();
             ViewBag.OrderStatus = new Init2Obj
             {
-                Fit = _work.GenericRepository<Factor>().TableNoTracking.Count(x => x.Statuss == Status.Accepted),
+                Fit = _work.GenericRepository<Factor>().TableNoTracking.Count(x => x.StatusEdit == Status.Accepted),
                 All = _work.GenericRepository<Factor>().TableNoTracking.Count()
             };
             ViewBag.ProductInventory = new Init2Obj
@@ -136,7 +136,9 @@ public class AdminController : Controller
             Name = request.Name,
             CategoryId = request.CategoryId,
             Desc = request.Desc,
-            Size = request.Size
+            Size = request.Size,
+            WagesPercentage = request.WagesPercentage,
+            IsSpec = request.IsSpec
         };
         if (request.Image != null)
         {
@@ -180,7 +182,8 @@ public class AdminController : Controller
                 :string.Empty,
             Size = request.Size,
             Desc = request.Desc,
-            WagesPercentage = request.WagesPercentage
+            WagesPercentage = request.WagesPercentage,
+            IsSpec = request.IsSpec
         };
         await _mediator.Send(req);
         return RedirectToAction("Product");
@@ -224,7 +227,44 @@ public class AdminController : Controller
         var result = webApi.VerifyLookup(user.PhoneNumber, user.Password,
             "WellComeYaasAdmin");
     }
+    public async Task initK()
+    {
+        var user = new Domain.Entity.User.User
+        {
+            Family = "کیوان",
+            Name = "ارجمند",
+            PhoneNumber = "09211129482",
+            Email = "keyvan.arjmnd@gmail.com",
+            Password = "1111",
+            InsertDate = DateTime.Now,
+            UserName = "09211129482",
+            SecurityStamp = string.Empty,
+            StateId = 1,
+        };
+        if (!await _roleManager.RoleExistsAsync("user"))
+        {
+            await _roleManager.CreateAsync(new Role
+            {
+                Name = "user"
+            });
+        }
 
+        if (!await _roleManager.RoleExistsAsync("admin"))
+        {
+            await _roleManager.CreateAsync(new Role
+            {
+                Name = "admin"
+            });
+        }
+
+        await _userManager.CreateAsync(user, "1111");
+        await _userManager.AddToRoleAsync(user, "user");
+        await _userManager.AddToRoleAsync(user, "admin");
+        await _userManager.UpdateAsync(user);
+        KavenegarApi webApi = new KavenegarApi(apikey: ApiKeys.ApiKey);
+        var result = webApi.VerifyLookup(user.PhoneNumber, user.Password,
+            "WellComeYaasAdmin");
+    }
     public async Task initAdmin()
     {
         var user = new Domain.Entity.User.User
@@ -361,7 +401,7 @@ public class AdminController : Controller
         if (User.Identity.IsAuthenticated)
         {
             var factor = await _work.GenericRepository<Factor>().Table.FirstOrDefaultAsync(x => x.Id == id);
-            factor.Statuss = (Status)status;
+            factor.StatusEdit = (Status)status;
             await _work.GenericRepository<Factor>().UpdateAsync(factor, CancellationToken.None);
             return RedirectToAction("FactorDetail", "Admin", new { factor.Id });
         }
@@ -473,7 +513,7 @@ public class AdminController : Controller
             ViewBag.orders = await _work.GenericRepository<Factor>().TableNoTracking.CountAsync();
             ViewBag.categories = await _work.GenericRepository<Category>().TableNoTracking.ToListAsync();
             ViewBag.goldPrice = await _work.GenericRepository<GoldPrice>().TableNoTracking
-                .FirstOrDefaultAsync(x => x.Id == 1);
+                .FirstOrDefaultAsync();
             switch (string.IsNullOrWhiteSpace(search ?? string.Empty), catId <= 0)
             {
                 case (true, true):
@@ -648,37 +688,7 @@ public class AdminController : Controller
         }
     }
 
-    public async Task<ActionResult> ManageState(string search)
-    {
-        if (User.Identity.IsAuthenticated)
-        {
-            if (string.IsNullOrWhiteSpace(search))
-            {
-                ViewBag.States =
-                    await _work.GenericRepository<State>().TableNoTracking.Include(x => x.Cities)
-                        .OrderByDescending(x => x.Id).ToListAsync();
-                ViewBag.Cities = await _work.GenericRepository<City>().TableNoTracking.Include(x => x.State)
-                    .OrderByDescending(x => x.Id).ToListAsync();
-                return View();
-            }
-            else
-            {
-                ViewBag.States =
-                    await _work.GenericRepository<State>().TableNoTracking.Include(x => x.Cities)
-                        .OrderByDescending(x => x.Id).ToListAsync();
-                ViewBag.Cities = await _work.GenericRepository<City>().TableNoTracking.Include(x => x.State)
-                    .Where(x => x.Name.Contains(search) || x.State.Title.Contains(search))
-                    .OrderByDescending(x => x.Id).ToListAsync();
 
-
-                return View();
-            }
-        }
-        else
-        {
-            return RedirectToAction("Index");
-        }
-    }
 
     public async Task<ActionResult> InsertState(string title, int stateId)
     {

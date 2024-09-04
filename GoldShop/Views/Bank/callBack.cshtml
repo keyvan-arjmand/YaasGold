@@ -1,19 +1,48 @@
 ﻿@page
+@using GoldShop.Comman
+@using GoldShop.Controllers
 @model GoldShop.Views.Bank.SamanBack
 
 @{
-Layout = null;
+    Layout = null;
+    PaymentController.PaymentCallbackModel mess = ViewBag.Mess;
 }
 
 <!DOCTYPE html>
 
-<html>
+<html lang="fa">
 <head>
-    <title>خرید موفق</title>
+    @{
+        if (mess.Status == Helper.ParsianPaymentGateway.Successful)
+        {
+            <title>خرید موفق</title>
+        }
+
+        if (mess.Status == Helper.ParsianPaymentGateway.CancelPay)
+        {
+            <title>خرید ناموفق</title>
+        }
+    }
 </head>
 <body>
-<div>
-    خرید با موفقیت انجام شد
-</div>
+@{
+    if (mess.status == Helper.ParsianPaymentGateway.Successful && (mess.Token ?? 0L) > 0L)
+    {
+        if (mess.Status == Helper.ParsianPaymentGateway.Successful)
+        {
+            <div>
+                خرید با موفقیت انجام شد
+            </div>
+        }
+    }
+
+    if (mess.Status == Helper.ParsianPaymentGateway.CancelPay)
+    {
+        <div>
+            خرید ناموفق
+        </div>
+    }
+}
+
 </body>
 </html>

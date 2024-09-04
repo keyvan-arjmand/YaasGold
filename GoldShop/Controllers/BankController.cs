@@ -12,8 +12,9 @@ public class BankController : Controller
         _paymentService = paymentService;
     }
 
-    public ActionResult CallBack()
+    public ActionResult CallBack(PaymentController.PaymentCallbackModel request)
     {
+        ViewBag.Mess = request;
         return View();
     }
 

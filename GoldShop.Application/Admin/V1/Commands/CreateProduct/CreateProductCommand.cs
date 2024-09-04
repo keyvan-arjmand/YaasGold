@@ -17,4 +17,6 @@ public class CreateProductCommand : IRequest
     public double WagesPercentage { get; set; } //اجرت 
     public long Inventory { get; set; }
     public long CategoryId { get; set; }
+    public bool IsSpec { get; set; }
+
 }

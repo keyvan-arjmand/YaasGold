@@ -145,12 +145,24 @@
       "PackagePath": "staticwebassets\\Images\\Product\\a28cfec2-5e46-4370-a3d7-557a65539651.jpg"
     },
     {
+      "Id": "C:\\Users\\User\\RiderProjects\\GoldShop\\GoldShop\\wwwroot\\Images\\Product\\box.png",
+      "PackagePath": "staticwebassets\\Images\\Product\\box.png"
+    },
+    {
+      "Id": "C:\\Users\\User\\RiderProjects\\GoldShop\\GoldShop\\wwwroot\\Images\\Product\\bracelet.png",
+      "PackagePath": "staticwebassets\\Images\\Product\\bracelet.png"
+    },
+    {
       "Id": "C:\\Users\\User\\RiderProjects\\GoldShop\\GoldShop\\wwwroot\\Images\\Product\\chain.png",
       "PackagePath": "staticwebassets\\Images\\Product\\chain.png"
     },
     {
       "Id": "C:\\Users\\User\\RiderProjects\\GoldShop\\GoldShop\\wwwroot\\Images\\Product\\earrings.png",
       "PackagePath": "staticwebassets\\Images\\Product\\earrings.png"
+    },
+    {
+      "Id": "C:\\Users\\User\\RiderProjects\\GoldShop\\GoldShop\\wwwroot\\Images\\Product\\jewel.png",
+      "PackagePath": "staticwebassets\\Images\\Product\\jewel.png"
     },
     {
       "Id": "C:\\Users\\User\\RiderProjects\\GoldShop\\GoldShop\\wwwroot\\Images\\Product\\main_image.jpg",

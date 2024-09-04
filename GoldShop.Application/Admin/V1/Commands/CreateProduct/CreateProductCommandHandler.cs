@@ -19,7 +19,7 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand>
     public async Task Handle(CreateProductCommand request, CancellationToken cancellationToken)
     {
         var gold = await _work.GenericRepository<GoldPrice>().TableNoTracking
-            .FirstOrDefaultAsync(x => x.Id == 1, cancellationToken: cancellationToken);
+            .FirstOrDefaultAsync(cancellationToken: cancellationToken);
         if (gold == null) throw new NotFoundException("gold price not found");
         var cat = await _work.GenericRepository<Category>().TableNoTracking
             .FirstOrDefaultAsync(x => x.Id == request.CategoryId, cancellationToken: cancellationToken);
@@ -41,6 +41,7 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand>
             Size = request.Size,
             Desc = request.Desc,
             WagesPercentage = request.WagesPercentage,
+            IsSpecial = request.IsSpec
         };
         for (int i = 1; i <= weight.Count; i++)
         {
@@ -48,23 +49,28 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand>
             {
                 prod.Weight = weight[0];
             }
+
             if (i == 2)
             {
                 prod.Weight2 = weight[1];
             }
+
             if (i == 3)
             {
                 prod.Weight3 = weight[2];
             }
+
             if (i == 4)
             {
                 prod.Weight4 = weight[3];
             }
+
             if (i == 5)
             {
                 prod.Weight5 = weight[4];
             }
         }
+
         await _work.GenericRepository<Product>().AddAsync(prod, cancellationToken);
     }
 }

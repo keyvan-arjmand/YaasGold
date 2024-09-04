@@ -16,4 +16,5 @@ public class CreateProductDto
     public double WagesPercentage { get; set; } 
     public long Inventory { get; set; }
     public long CategoryId { get; set; }
+    public bool IsSpec { get; set; }
 }

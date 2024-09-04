@@ -20,4 +20,5 @@ public class UpdateProductDto
     public double WagesPercentage { get; set; } 
     public long Inventory { get; set; }
     public int CategoryId { get; set; }
+    public bool IsSpec { get; set; }
 }

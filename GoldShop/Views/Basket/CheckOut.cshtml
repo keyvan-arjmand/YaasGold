@@ -159,7 +159,7 @@
                                 <div class="col-lg-6">
                                     <p class="single-form-row">
                                         <label>نام و نام خانوادگی تحویل گیرنده<span class="required">*</span></label>
-                                        <input type="text" name="First name">
+                                        <input type="text" name="First name" id="Name">
                                     </p>
                                 </div>
 
@@ -167,7 +167,7 @@
                                     <div class="single-form-row">
                                         <label>استان <span class="required">*</span></label>
                                         <div class="nice-select wide">
-                                            <select class="form-control">
+                                            <select class="form-control" id="StateId">
                                                 @{
                                                     int index = 0;
                                                     foreach (var i in states)
@@ -191,25 +191,25 @@
                                 <div class="col-lg-12">
                                     <p class="single-form-row">
                                         <label>آدرس <span class="required">*</span></label>
-                                        <input type="text" name="address">
+                                        <input type="text" name="address" id="Address">
                                     </p>
                                 </div>
                                 <div class="col-lg-12">
                                     <p class="single-form-row">
                                         <label>شماره تماس</label>
-                                        <input type="text" name="tel">
+                                        <input type="text" name="tel" id="Number">
                                     </p>
                                 </div>
                                 <div class="col-lg-12">
                                     <p class="single-form-row">
                                         <label>کد پستی <span class="required">*</span></label>
-                                        <input type="text" name="address">
+                                        <input type="text" name="address" id="PostCode">
                                     </p>
                                 </div>
                                 <div class="col-lg-12">
                                     <p class="single-form-row m-0">
                                         <label>توضیحات سفارش</label>
-                                        <textarea placeholder="" class="checkout-mess" rows="2" cols="5"></textarea>
+                                        <textarea placeholder="" class="checkout-mess" rows="2" cols="5" id="Desc"></textarea>
                                     </p>
                                 </div>
                             </div>
@@ -366,6 +366,36 @@
     <script>
         function discountCheck()
         {
+            $.ajax({
+                type: "Post",
+                data: {code:convertPersianDigitsToEnglish($('#DiscountCode').val())},
+                url: "/Basket/DiscountCheck/",
+                beforeSend: function() {
+                    Notiflix.Loading.circle('در حال پردازش ...');
+                },
+                success: function (data) {
+                    Notiflix.Notify.success('عملیات با موفقیت انجام شد');
+                    showAlertSuccess();
+                    window.location.href= `@Url.Action("CheckOut", "Basket")`;
+                },
+                error: function (xhr) {
+                    Notiflix.Notify.failure('کد تخفیف نا معتبر');
+                    showAlertError();
+                },
+                complete: function() {
+                    Notiflix.Loading.remove();
+                }
+            });
+        }
+        function insertFactor()
+        {
+            var product = new FormData();
+            product.append("Number",$("#Number").val());
+            product.append("Desc",$("#Desc").val());
+            product.append("StateId",$("#StateId").val());
+            product.append("Address",$("#Address").val());
+            product.append("PostCode",$("#PostCode").val());
+            product.append("Name",$("#Name").val());
             $.ajax({
                 type: "Post",
                 data: {code:convertPersianDigitsToEnglish($('#DiscountCode').val())},

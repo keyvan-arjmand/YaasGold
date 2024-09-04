@@ -159,20 +159,8 @@ namespace YaasBank.Controllers
                             // Create HttpClient and send the POST request
                             using (var client = new HttpClient())
                             {
-                                var response = await client.PostAsync("https://yourapiendpoint.com/api/payment",
+                                var response = await client.PostAsync($"https://yaasgold.ir/Payment/UpdateFactor/",
                                     content);
-
-                                // Check the response status code
-                                if (response.IsSuccessStatusCode)
-                                {
-                                    Console.WriteLine("Request was successful.");
-                                    var responseContent = await response.Content.ReadAsStringAsync();
-                                    Console.WriteLine(responseContent);
-                                }
-                                else
-                                {
-                                    Console.WriteLine($"Request failed with status code: {response.StatusCode}");
-                                }
                             }
                   
                         }
@@ -185,19 +173,8 @@ namespace YaasBank.Controllers
                     var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
                     using (var client = new HttpClient())
                     {
-                        var response = await client.PostAsync("https://yourapiendpoint.com/api/payment",
+                        var response = await client.PostAsync("https://yaasgold.ir/Payment/UpdateFactor",
                             content);
-                        // Check the response status code
-                        if (response.IsSuccessStatusCode)
-                        {
-                            Console.WriteLine("Request was successful.");
-                            var responseContent = await response.Content.ReadAsStringAsync();
-                            Console.WriteLine(responseContent);
-                        }
-                        else
-                        {
-                            Console.WriteLine($"Request failed with status code: {response.StatusCode}");
-                        }
                     }
                 }
 

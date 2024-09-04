@@ -8,7 +8,6 @@
     List<Category> cats = ViewBag.Cats;
     GoldPrice goldPrice = ViewBag.Curency;
     GoldShop.Domain.Entity.User.User user = ViewBag.User;
-    List<UserAddress> userAddresses = ViewBag.UserAddress;
     List<Factor> factors = ViewBag.Factor;
     int basketCount = ViewBag.BasketCount;
 }
@@ -182,7 +181,7 @@
                                                         <tr>
                                                             <td>@i.Id</td>
                                                             <td>@i.InsertDate.ToPersianTime()</td>
-                                                            <td>@i.Statuss.ToDisplay()</td>
+                                                            <td>@i.StatusEdit.ToDisplay()</td>
                                                             <td>@i.Amount.ToString("N0") </td>
                                                             <td>
                                                                 <a href="@Url.Action("OrderDetail","Home",new{@i.Id})" class="view">مشاهده</a>
@@ -205,12 +204,7 @@
                                         </table>
                                     </div>
                                 </div>
-                                <div class="tab-pane" id="address">
-                                    <h4 class="billing-address">آدرس صورتحساب</h4>
-                                    <a href="@Url.Action("AddressDetail","Home",new {@userAddresses.FirstOrDefault().Id})" class="view">ویرایش</a>
-                                    <p class="biller-name">@userAddresses.FirstOrDefault().Name</p>
-                                    <p>@userAddresses.FirstOrDefault().Address</p>
-                                </div>
+                              
                                 <div class="tab-pane fade" id="account-details">
                                     <h3>ویرایش پروفایل</h3>
                                     <div class="login">

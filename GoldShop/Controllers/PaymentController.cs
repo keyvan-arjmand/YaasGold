@@ -4,10 +4,15 @@ using GoldShop.Application.Dtos.Bank;
 using GoldShop.Application.Interfaces;
 using GoldShop.Comman;
 using GoldShop.Domain.Entity.Factor;
+using GoldShop.Domain.Entity.Product;
+using GoldShop.Domain.Entity.User;
 using GoldShop.Domain.Enums;
+using GoldShop.Models;
 using GoldShop.Views.Bank;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace GoldShop.Controllers;
 
@@ -15,34 +20,94 @@ public class PaymentController : Controller
 {
     private readonly IUnitOfWork _work;
     private readonly HttpClient _httpClient;
+    private readonly UserManager<User> _userManager;
 
-    public PaymentController(IUnitOfWork work, HttpClient httpClient)
+    public PaymentController(IUnitOfWork work, HttpClient httpClient, UserManager<User> userManager)
     {
         _work = work;
         _httpClient = httpClient;
+        _userManager = userManager;
     }
 
     public async Task<string> InsertFactor(FactorModel request)
     {
+        var gold = await _work.GenericRepository<GoldPrice>().TableNoTracking.FirstOrDefaultAsync();
+        var basketProducts = new List<CheckOutDto>();
+        var postMethod = new PostMethod();
+        var discountCode = new DiscountCode();
+        if (HttpContext.Session.GetString("basket") != null)
+        {
+            var basketList = JsonConvert.DeserializeObject<List<BasketDto>>(HttpContext.Session.GetString("basket"))
+                .ToList();
+            foreach (var i in basketList)
+            {
+                var prod = await _work.GenericRepository<Product>().TableNoTracking.Include(x => x.Category)
+                    .Include(x => x.GoldPrice).FirstOrDefaultAsync(x => x.Id == i.Id);
+                basketProducts.Add(new CheckOutDto
+                {
+                    Size = i.Size,
+                    GoldPrice = prod.GoldPrice,
+                    Brand = prod.Brand,
+                    Desc = prod.Desc,
+                    Image = prod.Image,
+                    Id = prod.Id,
+                    WagesAmount = prod.WagesAmount,
+                    Weight = i.Weight,
+                    Name = prod.Name,
+                    WagesPercentage = prod.WagesPercentage
+                });
+            }
+        }
+
+        if (HttpContext.Session.GetString("postMethod") != null)
+        {
+            int postId = JsonConvert.DeserializeObject<int>(HttpContext.Session.GetString("postMethod"));
+            postMethod = await _work.GenericRepository<PostMethod>().TableNoTracking
+                .FirstOrDefaultAsync(x => x.Id == postId);
+        }
+
+        if (HttpContext.Session.GetString("discountCode") != null)
+        {
+            discountCode = JsonConvert.DeserializeObject<DiscountCode>(HttpContext.Session.GetString("discountCode"));
+        }
+
+        var prods = basketProducts.Sum(x =>
+            x.GoldPrice.PricePerGram.GetPrice(x.Weight, x.WagesAmount, x.WagesPercentage)) - discountCode.Amount;
+        if (postMethod.Price > 0)
+        {
+            prods += postMethod.Price;
+        }
+
+        var user = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == User.Identity.Name);
+        var address = new UserAddress
+        {
+            Address = request.Address,
+            Name = request.Name,
+            UserId = user.Id,
+            Number = request.Number,
+            PostCode = request.PostCode,
+            StateId = request.StateId
+        };
+        await _work.GenericRepository<UserAddress>().AddAsync(address, CancellationToken.None);
         var factor = new Factor
         {
-            Statuss = Status.Pending,
-            GoldRate = request.GoldRate,
-            Amount = request.Amount,
+            StatusEdit = Status.Pending,
+            GoldRate = gold.YekGram18,
+            Amount = prods,
             Desc = request.Desc,
-            FactorCode = Helpers.CodeGenerator(request.UserId, DateTime.Now.Month.ToString()),
-            UserId = request.UserId,
-            DiscountAmount = request.DiscountAmount,
-            DiscountCode = request.DiscountCode,
+            FactorCode = Helpers.CodeGenerator(user.Id, DateTime.Now.Month.ToString()),
+            UserId = user.Id,
+            DiscountAmount = discountCode.Amount,
+            DiscountCode = discountCode.Code,
             InsertDate = DateTime.Now,
-            PostMethodId = request.PostMethodId,
-            UserAddressId = request.UserAddressId,
+            PostMethodId = postMethod.Id,
+            UserAddressId = address.Id,
             DescBank = "در انتظار پرداخت",
             BankStatus = BankStatus.Pending,
         };
         await _work.GenericRepository<Factor>().AddAsync(factor, CancellationToken.None);
 
-        foreach (var i in request.Products)
+        foreach (var i in basketProducts)
         {
             await _work.GenericRepository<FactorProduct>().AddAsync(new FactorProduct
             {
@@ -50,12 +115,13 @@ public class PaymentController : Controller
                 Size = i.Size,
                 Weight = i.Weight,
                 FactorId = factor.Id,
-                ProductId = i.ProductId,
+                ProductId = i.Id,
             }, CancellationToken.None);
         }
 
         //htttp yass bank and get Bank Url ***
-        string requestUrl = $"https://yaasgold.ir/Home/SalePayment?idFactor={factor.Id}&Amount={factor.Amount}";
+        string requestUrl =
+            $"https://bank.yaasgold.ir/Home/SalePayment?idFactor={factor.Id}&Amount={factor.Amount}";
         HttpResponseMessage response = await _httpClient.GetAsync(requestUrl);
         if (response.IsSuccessStatusCode)
         {
@@ -70,6 +136,7 @@ public class PaymentController : Controller
 
         return string.Empty;
     }
+
 
     public class PaymentCallbackModel
     {
@@ -92,19 +159,18 @@ public class PaymentController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> UpdateFactor(string HashCardNumber,long RRN,short status,int TerminalNo ,BankStatus BankStatus)
+    public async Task<IActionResult> UpdateFactor(PaymentCallbackModel request)
     {
         var factor = await _work.GenericRepository<Factor>().TableNoTracking
             .FirstOrDefaultAsync(x => x.Id == request.OrderId);
 
         if (request.status == Helper.ParsianPaymentGateway.Successful && (request.Token ?? 0L) > 0L)
         {
-            //درصورتی که موفق باشد، باید خدمات یا کالا به کاربر پرداخت کننده ارائه شود
             if (request.Status == Helper.ParsianPaymentGateway.Successful)
             {
                 factor.HashCardNumber = request.HashCardNumber;
                 factor.RRN = request.RRN;
-                factor.status = request.status.ToString();
+                factor.StatusDescription = request.status.ToString();
                 factor.TerminalNo = request.TerminalNo;
                 factor.Token = request.Token.ToString();
                 factor.BankStatus = BankStatus.Successful;
@@ -116,7 +182,7 @@ public class PaymentController : Controller
         {
             factor.HashCardNumber = request.HashCardNumber;
             factor.RRN = request.RRN;
-            factor.status = request.status.ToString();
+            factor.StatusDescription = request.status.ToString();
             factor.TerminalNo = request.TerminalNo;
             factor.Token = request.Token.ToString();
             factor.BankStatus = BankStatus.Cancel;
@@ -124,6 +190,6 @@ public class PaymentController : Controller
         }
 
         await _work.GenericRepository<Factor>().UpdateAsync(factor, CancellationToken.None);
-        return View();
+        return RedirectToAction("CallBack", "Bank", request);
     }
 }

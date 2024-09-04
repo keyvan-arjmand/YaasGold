@@ -35,6 +35,7 @@ public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand>
         product.Image = string.IsNullOrEmpty(request.Image)
             ? product.Image
             : request.Image;
+        product.IsSpecial = request.IsSpec;
         for (int i = 1; i <= weight.Count; i++)
         {
             if (i == 1)
