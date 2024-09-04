@@ -2,7 +2,7 @@
 
 public static class Helper
 {
-    public static double GetPrice(this double goldPrice, double weight, double fixedWages, double percentageWages)
+    public static long GetPrice(this long goldPrice, double weight, double fixedWages, double percentageWages)
     {
         // محاسبه قیمت طلای خام
         var gold = weight * goldPrice;
@@ -23,8 +23,9 @@ public static class Helper
         var tax = (gold + totalWages + profit) * 9 / 100;
 
         // محاسبه قیمت نهایی
-        return gold + totalWages + profit + tax;
+        return (long)Convert.ToDouble(gold + totalWages + profit + tax);
     }
+
     public sealed class ParsianPaymentGateway
     {
         public const short Successful = 0;

@@ -1,4 +1,5 @@
-﻿using GoldShop.Application.Common.Utilities;
+﻿using System.Text;
+using GoldShop.Application.Common.Utilities;
 using GoldShop.Application.Dtos.Bank;
 using GoldShop.Application.Interfaces;
 using GoldShop.Comman;
@@ -191,7 +192,7 @@ public class BasketController : Controller
         HttpContext.Session.SetString("basket", JsonConvert.SerializeObject(basketlist));
         return RedirectToAction("Index", "Home");
     }
-    
+
     [HttpPost]
     public async Task<string> InsertFactor(FactorModel request)
     {
@@ -283,23 +284,42 @@ public class BasketController : Controller
             }, CancellationToken.None);
         }
 
-        HttpClient client = new HttpClient();
-        //htttp yass bank and get Bank Url ***
-        string requestUrl =
-            $"https://bank.yaasgold.ir/Home/SalePayment?idFactor={factor.Id}&Amount={factor.Amount}";
-        HttpResponseMessage response = await client.GetAsync(requestUrl);
+        HttpClientHandler handler = new HttpClientHandler();
+        handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; };
+
+        HttpClient client = new HttpClient(handler);
+
+//http yass bank and get Bank Url ***
+        string requestUrl = "https://bank.yaasgold.ir/Home/SalePayment";
+        var contentObject = new
+        {
+            idFactor = factor.Id,
+            price = 10000
+                //factor.Amount *10
+        };
+
+// سریالیزه کردن شیء به JSON
+        string jsonContent = Newtonsoft.Json.JsonConvert.SerializeObject(contentObject);
+
+// ساختن محتوای درخواست به عنوان StringContent
+        HttpContent content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+// ارسال درخواست POST
+        HttpResponseMessage response = await client.PostAsync(requestUrl, content);
+
         if (response.IsSuccessStatusCode)
         {
-            // Read the response content as a string
+            // خواندن پاسخ به عنوان رشته
             string jsonResponse = await response.Content.ReadAsStringAsync();
 
-            // Deserialize the JSON response into a BankTokenStatus object
+            // سریالیزه کردن پاسخ JSON به شیء BankTokenStatus
             BankTokenStatus? bankTokenStatus =
                 Newtonsoft.Json.JsonConvert.DeserializeObject<BankTokenStatus>(jsonResponse);
+            factor.Token = bankTokenStatus.Token;
+            await _work.GenericRepository<Factor>().UpdateAsync(factor, CancellationToken.None);
             return bankTokenStatus.Token;
         }
 
         return string.Empty;
     }
-
 }

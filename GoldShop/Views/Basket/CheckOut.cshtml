@@ -389,6 +389,9 @@
                 }
             });
         }
+        $(document).on('paymentSuccess', function(e, url) {
+            window.open(url);
+        });
         function insertFactor() {
             var product = new FormData();
             product.append("Number", $("#Number").val());
@@ -401,20 +404,20 @@
             $.ajax({
                 type: "POST",
                 data: product,
-                url: "Basket/InsertFactor/",
+                url: "/Basket/InsertFactor/",
                 processData: false,  // مهم: جلوگیری از پردازش خودکار داده‌ها
                 contentType: false,  // مهم: جلوگیری از تنظیم خودکار Content-Type
                 beforeSend: function() {
                     Notiflix.Loading.circle('در حال پردازش ...');
                 },
                 success: function(data) {
-                    Notiflix.Notify.success('عملیات با موفقیت انجام شد');
+                    Notiflix.Notify.success('در حال انقال به درگاه بانکی ... ');
                     showAlertSuccess();
                     console.log(data);
-                    window.open(data);
+                    $(document).trigger('paymentSuccess', [data]);
                 },
                 error: function(xhr) {
-                    Notiflix.Notify.failure('کد تخفیف نا معتبر');
+                    Notiflix.Notify.failure('خطا در ثبت فاکتور');
                     showAlertError();
                 },
                 complete: function() {
@@ -422,14 +425,21 @@
                 }
             });
         }
-
+        function showAlertSuccess() {
+            Swal.fire({
+                title: 'موفق',
+                text: 'در حال انقال به درگ',
+                icon: 'success',
+                confirmButtonText: 'بستن'
+            });
+        }
         function submitDiscountForm() {
             document.getElementById('discountForm').submit();
         }
         function showAlertSuccess() {
             Swal.fire({
                 title: 'موفق',
-                text: 'کد تخفیف اعمال شد',
+                text: 'عملیات موفق',
                 icon: 'success',
                 confirmButtonText: 'بستن'
             });
@@ -437,7 +447,7 @@
         function showAlertError() {
             Swal.fire({
                 title: 'خطا',
-                text: 'کد تخفیف نا معتبر',
+                text: 'عملیات ناموفق',
                 icon: 'error',
                 confirmButtonText: 'بستن'
             });

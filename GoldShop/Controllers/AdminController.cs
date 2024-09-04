@@ -476,7 +476,7 @@ public class AdminController : Controller
         }
     }
 
-    public async Task<ActionResult> SetManualGoldPrice(double price)
+    public async Task<ActionResult> SetManualGoldPrice(long price)
     {
         var gold = await _work.GenericRepository<GoldPrice>().TableNoTracking.FirstAsync(x => x.Id == 1);
         gold.PricePerGram = price;
@@ -707,7 +707,7 @@ public class AdminController : Controller
         }
     }
 
-    public async Task<ActionResult> UpdatePostMethod(int id, string title, double price, bool isActive)
+    public async Task<ActionResult> UpdatePostMethod(int id, string title, long price, bool isActive)
     {
         if (User.Identity.IsAuthenticated && id > 0)
         {
@@ -725,7 +725,7 @@ public class AdminController : Controller
         }
     }
 
-    public async Task<ActionResult> InsertPostMethod(string title, double price, bool isActive)
+    public async Task<ActionResult> InsertPostMethod(string title, long price, bool isActive)
     {
         if (User.Identity.IsAuthenticated)
         {
@@ -831,7 +831,7 @@ public class AdminController : Controller
         return responseBody;
     }
 
-    public async Task<ActionResult> UpdateDiscount(int id, string code, double amount, int count)
+    public async Task<ActionResult> UpdateDiscount(int id, string code, long amount, int count)
     {
         if (User.Identity.IsAuthenticated)
         {
@@ -848,7 +848,7 @@ public class AdminController : Controller
         }
     }
 
-    public async Task<ActionResult> InsertDiscount(string code, double amount, int count)
+    public async Task<ActionResult> InsertDiscount(string code, long amount, int count)
     {
         if (User.Identity.IsAuthenticated)
         {

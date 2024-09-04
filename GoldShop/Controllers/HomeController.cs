@@ -73,7 +73,7 @@ public class HomeController : Controller
             ViewBag.BasketCount = 0;
         }
 
-        return View();
+        return View("Index");
     }
 
     public async Task<ActionResult> ContactUs()
@@ -92,7 +92,7 @@ public class HomeController : Controller
 
 
         ViewBag.Cats = await _work.GenericRepository<Category>().TableNoTracking.ToListAsync();
-        return View();
+        return View("ContactUs");
     }
 
     public async Task<ActionResult> Category(int id, int page = 1)
@@ -120,7 +120,7 @@ public class HomeController : Controller
         }
 
 
-        return View();
+        return View("Category");
     }
 
     public async Task<ActionResult> ProductDetail(long id)

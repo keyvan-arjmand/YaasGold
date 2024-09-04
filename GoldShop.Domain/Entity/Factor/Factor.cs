@@ -15,9 +15,9 @@ public class Factor : BaseEntity
     public string Desc { get; set; } = string.Empty;
     public string FactorCode { get; set; } = string.Empty;
     public string DiscountCode { get; set; } = string.Empty;
-    public double DiscountAmount { get; set; } //discount code
-    public double Amount { get; set; } //pure price
-    public double GoldRate { get; set; } //pure price
+    public long DiscountAmount { get; set; } //discount code
+    public long Amount { get; set; } //pure price
+    public long GoldRate { get; set; } //pure price
     public DateTime InsertDate { get; set; }
     public Status StatusEdit { get; set; }
     public BankStatus BankStatus { get; set; }
@@ -26,7 +26,7 @@ public class Factor : BaseEntity
     public int? TerminalNo { get; set; }
     public long? RRN { get; set; }
     public string? StatusDescription { get; set; }  // نام این ستون تغییر داده شده است
-    public string HashCardNumber { get; set; }
-    public string TspToken { get; set; }
+    public string? HashCardNumber { get; set; }
+    public string? TspToken { get; set; }
     public string? DescBank { get; set; }
 }
