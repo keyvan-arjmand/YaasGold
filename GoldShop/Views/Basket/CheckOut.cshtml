@@ -41,9 +41,10 @@
         <li class="curreny-wrap">
             قیمت انس طلا : @goldPrice.OunceTala.ToString("N0")
         </li>
-    
+
     </ul>
 }
+
 @section Basket
 {
     @if (User.Identity.IsAuthenticated)
@@ -56,6 +57,7 @@
         </div>
     }
 }
+
 @section Seke
 {
     <ul class="my-account-container">
@@ -276,7 +278,7 @@
                                                 <strong>
                                                     <span class="amount">@amount تومان</span>
                                                 </strong>
-                                            
+
                                             </td>
                                         }
 
@@ -327,7 +329,7 @@
 
                                 </div>
                                 <div class="order-button-payment">
-                                    <input type="submit" value="ثبت سفارش"/>
+                                    <input type="button" value="ثبت سفارش" onclick="insertFactor()"/>
                                 </div>
                             </div>
                             <!-- your-order-wrapper start -->
@@ -374,7 +376,7 @@
                     Notiflix.Loading.circle('در حال پردازش ...');
                 },
                 success: function (data) {
-                    Notiflix.Notify.success('عملیات با موفقیت انجام شد');
+                    Notiflix.Notify.success('کد تخفیف اعمال شد');
                     showAlertSuccess();
                     window.location.href= `@Url.Action("CheckOut", "Basket")`;
                 },
@@ -387,28 +389,31 @@
                 }
             });
         }
-        function insertFactor()
-        {
+        function insertFactor() {
             var product = new FormData();
-            product.append("Number",$("#Number").val());
-            product.append("Desc",$("#Desc").val());
-            product.append("StateId",$("#StateId").val());
-            product.append("Address",$("#Address").val());
-            product.append("PostCode",$("#PostCode").val());
-            product.append("Name",$("#Name").val());
+            product.append("Number", $("#Number").val());
+            product.append("Desc", $("#Desc").val());
+            product.append("StateId", $("#StateId").val());
+            product.append("Address", $("#Address").val());
+            product.append("PostCode", $("#PostCode").val());
+            product.append("Name", $("#Name").val());
+
             $.ajax({
-                type: "Post",
-                data: {code:convertPersianDigitsToEnglish($('#DiscountCode').val())},
-                url: "/Basket/DiscountCheck/",
+                type: "POST",
+                data: product,
+                url: "Basket/InsertFactor/",
+                processData: false,  // مهم: جلوگیری از پردازش خودکار داده‌ها
+                contentType: false,  // مهم: جلوگیری از تنظیم خودکار Content-Type
                 beforeSend: function() {
                     Notiflix.Loading.circle('در حال پردازش ...');
                 },
-                success: function (data) {
+                success: function(data) {
                     Notiflix.Notify.success('عملیات با موفقیت انجام شد');
                     showAlertSuccess();
-                    window.location.href= `@Url.Action("CheckOut", "Basket")`;
+                    console.log(data);
+                    window.open(data);
                 },
-                error: function (xhr) {
+                error: function(xhr) {
                     Notiflix.Notify.failure('کد تخفیف نا معتبر');
                     showAlertError();
                 },
@@ -417,6 +422,7 @@
                 }
             });
         }
+
         function submitDiscountForm() {
             document.getElementById('discountForm').submit();
         }
