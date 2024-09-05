@@ -73,7 +73,7 @@ public class HomeController : Controller
             ViewBag.BasketCount = 0;
         }
 
-        return View("Index");
+        return View();
     }
 
     public async Task<ActionResult> ContactUs()
