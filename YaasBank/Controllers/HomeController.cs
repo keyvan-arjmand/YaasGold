@@ -17,6 +17,7 @@ namespace YaasBank.Controllers
 {
     public class HomeController : Controller
     {
+        
         public ActionResult Index()
         {
             return View();
@@ -123,7 +124,7 @@ namespace YaasBank.Controllers
         }
 
         [HttpPost]
-        public async Task PaymentCallback(PaymentCallbackModel model)
+        public async Task<ActionResult> PaymentCallback(PaymentCallbackModel model)
         {
             if (model != null)
             {
@@ -179,6 +180,9 @@ namespace YaasBank.Controllers
                 }
 
             }
+
+            ViewBag.Mess = model;
+            return View();
         }
 
         public ActionResult Reverse(int idFacotr)

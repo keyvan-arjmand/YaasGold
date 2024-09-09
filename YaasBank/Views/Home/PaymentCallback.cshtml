@@ -1,0 +1,143 @@
+@using YaasBank.Controllers
+@{
+   HomeController.PaymentCallbackModel mess = ViewBag.Mess;
+}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسویه حساب</title>
+    <!-- font---------------------------------------->
+    <link rel="stylesheet" href="/Factor/assetsCli/css/vendor/font-awesome.min.css">
+    <link rel="stylesheet" href="/factor/assetsCli/css/vendor/materialdesignicons.css">
+    <!-- plugin-------------------------------------->
+    <link rel="stylesheet" href="/Factor/assetsCli/css/vendor/bootstrap.css">
+    <link rel="stylesheet" href="/Factor/assetsCli/css/vendor/owl.carousel.min.css">
+    <link rel="stylesheet" href="/Factor/assetsCli/css/vendor/noUISlider.min.css">
+    <link rel="stylesheet" href="/Factor/assetsCli/css/vendor/nice-select.css">
+    <!-- main-style---------------------------------->
+    <link rel="stylesheet" href="/Factor/assetsCli/css/main.css">
+    <link rel="stylesheet" href="/Factor/assetsCli/css/responsive.css">
+</head>
+
+<body>
+@{
+    if (mess.status == Helper.ParsianPaymentGateway.Successful && (mess.Token ?? 0L) > 0L)
+    {
+      <div class="container-main">
+    <div class="d-block">
+        <section class="blog-checkout d-block order-1">
+            <div class="col-lg">
+                <div class="checkout woocommerce-checkout">
+                    <div class="content-checkout">
+                        <div class="middle-container">
+                            <form action="#" class="form-checkout">
+                                <div class="col2-set" id="customer-details">
+                                    <div class="col-12">
+                                        <div class="billing-fields mt-4">
+                                            <h4 class="text-success">سفارش دریافت شد</h4>
+                                            <p class="thankyou-order-received">
+                                                پرداخت با موفقیت انجام شد. سفارش شما
+                                                با موفقیت ثبت شد و در زمان تعیین شده برای شما ارسال خواهد شد.
+                                                از اینکه گالری یاس را برای خرید انتخاب کردید از شما سپاسگزاریم.
+                                            </p>
+                                            <ul class="order-overview">
+                                                <li class="order-overview-item">
+                                                    کد رهگیری :
+                                                    <span>@mess.RRN</span>
+                                                </li>
+                                                <li class="order-overview-item">
+                                                    روش پرداخت :
+                                                    <span>پرداخت اینترنتی هوشمند</span>
+                                                </li>
+                                                <li class="order-overview-item">
+                                                    قیمت نهایی :
+                                                    <span class="amount">
+                                                        @mess.Amount
+                                                        <span>تومان</span>
+                                                    </span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+    }
+
+    if (mess.status == Helper.ParsianPaymentGateway.CancelPay)
+    {
+        <div class="container-main">
+        <div class="d-block">
+            <section class="blog-checkout d-block order-1">
+                <div class="col-lg">
+                    <div class="checkout woocommerce-checkout">
+                        <div class="content-checkout">
+                            <div class="middle-container">
+                                <form action="#" class="form-checkout">
+                                    <div class="col2-set" id="customer-details">
+                                        <div class="col-12">
+                                            <div class="billing-fields mt-4">
+                                                <h4 class="text-danger">سفارش دریافت نشد</h4>
+                                                <p class="thankyou-order-received">پرداخت با ناموفقیت انجام شد.
+                                                    چنانچه طی این فرایند مبلغی از حساب شما کسر شده است،طی 72 ساعت آینده
+                                                    به حساب شما باز خواهد گشت.
+                                                </p>
+                                                <ul class="order-overview">
+                                                    <li class="order-overview-item">
+                                                        کد سفارش :
+                                                        <span>@mess.RRN</span>
+                                                    </li>
+                                                    
+                                                    <li class="order-overview-item">
+                                                        روش پرداخت :
+                                                        <span>پرداخت اینترنتی هوشمند</span>
+                                                    </li>
+                                                    <li class="order-overview-item">
+                                                        قیمت نهایی :
+                                                        <span class="amount">@mess.Amount
+                                                            <span>تومان</span>
+                                                        </span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    }
+}
+<!-- checkout------------------------------>
+
+</body>
+<!-- file js---------------------------------------------------->
+<script src="/Factor/assetsCli/js/vendor/jquery-3.2.1.min.js"></script>
+<script src="/Factor/assetsCli/js/vendor/bootstrap.js"></script>
+<!-- plugin----------------------------------------------------->
+<script src="/Factor/assetsCli/js/vendor/owl.carousel.min.js"></script>
+<script src="/Factor/assetsCli/js/vendor/jquery.countdown.js"></script>
+<script src="/Factor/assetsCli/js/vendor/ResizeSensor.min.js"></script>
+<script src="/Factor/assetsCli/js/vendor/theia-sticky-sidebar.min.js"></script>
+<script src="/Factor/assetsCli/js/vendor/wNumb.js"></script>
+<script src="/Factor/assetsCli/js/vendor/nouislider.min.js"></script>
+<script src="/Factor/assetsCli/js/vendor/jquery.nice-select.min.js"></script>
+<!-- main js-/Factor/assetsCli/-------------------------------------------->
+<script src="/Factor/assetsCli/js/main.js"></script>
+
+</html>
